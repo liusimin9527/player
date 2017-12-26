@@ -129,19 +129,21 @@
     <div class="main">
       <div class="singer_tag">
         <div class="singer_tag__list">
-          <li class="singer_tag__item singer_tag__item--all singer_tag__item--select">全部</li>
-          <li class="singer_tag__item">华语男</li>
-          <li class="singer_tag__item">华语女</li>
-          <li class="singer_tag__item">华语组合</li>
-          <li class="singer_tag__item">日韩男</li>
-          <li class="singer_tag__item">日韩女</li>
-          <li class="singer_tag__item">日韩组合</li>
-          <li class="singer_tag__item">欧美男</li>
-          <li class="singer_tag__item">欧美女</li>
-          <li class="singer_tag__item">欧美组合</li>
+          <a href="javascript:;" class="singer_tag__item singer_tag__item--all singer_tag__item--select">全部</a>
+          <a href="javascript:;" class="singer_tag__item">华语男</a>
+          <a href="javascript:;" class="singer_tag__item">华语女</a>
+          <a href="javascript:;" class="singer_tag__item">华语组合</a>
+          <a href="javascript:;" class="singer_tag__item">日韩男</a>
+          <a href="javascript:;" class="singer_tag__item">日韩女</a>
+          <a href="javascript:;" class="singer_tag__item">日韩组合</a>
+          <a href="javascript:;" class="singer_tag__item">欧美男</a>
+          <a href="javascript:;" class="singer_tag__item">欧美女</a>
+          <a href="javascript:;" class="singer_tag__item">欧美组合</a>
         </div>
       </div>
+
       <div class="singer_list"></div>
+
       <div class="page">
         <ul class="page_item">
           <li class="page_list page_list--first">首页</li>
@@ -190,7 +192,6 @@
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-              console.log(data);
               createNode(data);   // 将歌手信息显示在页面上
             }
           });

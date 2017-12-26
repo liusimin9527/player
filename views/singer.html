@@ -10,7 +10,7 @@
       margin: 0 auto;
     }
     .singer_info {
-      height: 320px;
+      height: 350px;
       background: #fbfbfb;
     }
     .singer_info_left {
@@ -20,8 +20,32 @@
       width: 250px;
       height: 250px;
       margin-left: 50px;
-      margin-top: 30px;
+      margin-top: 60px;
       border-radius: 100%;
+    }
+    .singer_att {
+      width: 300px;
+      height: 40px;
+      margin-top: 30px;
+    }
+    .fans {
+      display: block;
+      float: left;
+      width: 100px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+    }
+    .attention {
+      display: block;
+      float: left;
+      width: 60px;
+      height: 30px;
+      text-align: center;
+      color: #fff;
+      background: #31c27c;
+      cursor: pointer;
+      line-height: 30px;
     }
     .singer_info_right {
       float: left;
@@ -62,6 +86,11 @@
       display: inline-block;
       width: 130px;
     }
+    .atten-select {
+      background: #fff;
+      color: #333;
+      border: 1px solid #999;
+    }
     </style>
   </head>
   <body>
@@ -85,6 +114,10 @@
           <div class="singer_info_right">
             <h1 class="singer_name"><%= singer.singerName %></h1>
             <p class="singer_desc"><%= singer.description %></p>
+            <div class="singer_att">
+              <span class="attention js_att">关注</span>
+              <span class="fans">粉丝数：<%= singer.attention %></span>
+            </div>
           </div>
         </div>
         <div class="singer_list">
@@ -111,6 +144,18 @@
     <script src="/javascripts/main.js"></script>
     <script type="text/javascript">
       $('.singer_item:even').css("background", "#fbfbfb");
+      $('.js_att').click(function () {
+        $.ajax({
+          url: '/attention?singerName=' + $('.singer_name').html(),
+          type: 'GET',
+          success: function (data) {
+            if (data = 'success') {
+              window.location.reload();
+              $('.js_att').html('已关注').addClass('atten-select');
+            }
+          }
+        });
+      });
     </script>
   </body>
 </html>

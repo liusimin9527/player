@@ -44,7 +44,7 @@ router.get('/singer?', function (req, res) {
 });
 
 router.get('/singerLi', function (req, res) {
-  var SQL = 'select * from singer';
+  var SQL = 'select * from singer order by attention desc';
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, function (err, doc) {
@@ -53,9 +53,9 @@ router.get('/singerLi', function (req, res) {
   });
 });
 
-router.get('/singers', function (req, res) {
+router.get('/singers?', function (req, res) {
   var param = req.query;
-  var SQL = 'select * from singer where countryType = ? and singerGender = ?';
+  var SQL = 'select * from singer where countryType = ? and singerGender = ? order by attention desc';
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [param.countryType, param.singerGender], function (err, doc) {
@@ -63,11 +63,53 @@ router.get('/singers', function (req, res) {
     });
   });
 });
+
+// 关注
+router.get('/attention?', function (req, res) {
+  var param = req.query;
+  console.log(param);
+  var SQL = 'update singer set attention = attention+1 where singerName = ?';
+
+  sql.getConnection(function (err, connection) {
+    connection.query(SQL, [param.singerName], function (err, doc) {
+      if (err) {
+        msg = 'default';
+      } else {
+        msg = 'success';
+      }
+
+      res.send(msg);
+    });
+  });
+});
+
+//
+router.get('/charts?', function (req, res) {
+  var param = req.query;
+
+  if (param.type == '总榜') {
+    SQL = 'select singer.*, music.* from music left join singer on singer.singerId = music.singerId order by clicks desc limit 10';
+    sql.getConnection(function (err, connection) {
+      connection.query(SQL, function (err, doc) {
+        console.log(doc);
+        res.json(doc);
+      });
+    });
+  } else {
+    SQL = 'select singer.*, music.* from music left join singer on singer.singerId = music.singerId where countryType = ? order by clicks desc limit 10';
+    sql.getConnection(function (err, connection) {
+      connection.query(SQL, [param.type], function (err, doc) {
+        res.json(doc);
+      });
+    });
+  }
+});
+
 /* 评论 */
 router.get('/comment?', function (req, res) {
   var param = req.query;
   var users = {};
-  var SQL = 'select users.*, comment.* from comment left join users on users.uid = comment.uid where musicId = ? order by time';
+  var SQL = 'select users.*, comment.* from comment left join users on users.uid = comment.uid where musicId = ? order by time desc';
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [param.musicId], function (err, doc) {
@@ -86,7 +128,7 @@ router.post('/addComment', function (req, res) {
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [obj.user.uid, param.musicId, param.comment, date], function (err, doc) {
       if (err) {
-        msg = 'defalt';
+        msg = 'default';
       } else {
         msg = 'success';
       }
@@ -114,6 +156,7 @@ router.route('/register')
   .post(function (req, res) {
   	var param = req.body,
         SQL = 'select * from users where telephone = ?',
+        imgUrl = 'images/person_300.png',
         msg = '';
 
     sql.getConnection(function (err, connection) {
@@ -122,14 +165,14 @@ router.route('/register')
           msg = '该手机号码已被注册';
       		res.send(msg);
       	} else {
-          SQL = 'insert into users(uid, name, telephone, password) values(?,?,?,?)';
-      		connection.query(SQL, [param.uid, param.name, param.telephone, param.password], function (err, doc) {
+          SQL = 'insert into users(uid, name, telephone, password, imgUrl) values(?,?,?,?,?)';
+      		connection.query(SQL, [param.uid, param.name, param.telephone, param.password, imgUrl], function (err, doc) {
             if (err) {
               msg = '注册失败';
             } else {
               msg = '注册成功';
             }
-
+            console.log(err);
             res.send(msg);
       		});
       	}

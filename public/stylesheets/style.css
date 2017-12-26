@@ -79,7 +79,7 @@ a {
 /* search */
 .search {
   position: absolute;
-  width: 280px;
+  width: 210px;
   height: 30px;
   top: 0;
   right: 240px;
@@ -89,7 +89,7 @@ a {
 }
 .search .search_input {
   float: left;
-  width: 230px;
+  width: 160px;
   height: 22px;
   padding: 4px 8px;
   color: #999;
