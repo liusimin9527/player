@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-left">
+        <a href="/" class="icon_title">音乐台</a>
+      </div>
+      <div class="search">
+        <input type="text" name="" value="" class="search_input" placeholder="请输入关键字">
+        <button type="button" name="button" class="js_search search_btn">
+          <span class="icon_txt">搜索</span>
+        </button>
+      </div>
+      <ul class="header-right">
+        <% if (user) { %>
+          <a href="#"><img src=<%= user.imgUrl %> alt="" class="header_right_img"></a>
+          <li class="header_right_list header_right_name"><%= user.name %></li>
+        <% } else {%>
+          <li class="header_right_list"><a class="header_right_link" href="/register">注册</a></li>
+          <li class="header_right_list"><a class="header_right_link" href="/login">登录</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </body>
+</html>

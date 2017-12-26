@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css">
+      .hot_song {
+        height: 560px;
+      }
+      .hot_song_content {
+        height: 450px;
+        background: url(/images/bg_index_top.jpg);
+      }
+      .hot_song_list {
+        float: left;
+        width: calc(100% / 4);
+        height: 450px;
+      }
+      .hot_song__title {
+        display: block;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        color: #e8e8e8;
+        font-size: 18px;
+      }
+      .hot_song__item {
+        padding: 8px 26px;
+      }
+      .hot_song__link {
+        display: block;
+        height: 18px;
+        font-size: 15px;
+        overflow: hidden;
+        color: #e8e8e8;
+      }
+      .hot_song__link:hover {
+        color: #31c27c;
+      }
+      .hot_song__item .more {
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <% include ./public/header.html %>
+
+    <div class="subnav">
+      <ul class="subnav_item">
+        <li class="subnav_list"><a class="subnav_link subnav_link--current" href="/">首页</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/singerList">歌手</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/chart">排行榜</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/billboard">打榜</a></li>
+      </ul>
+    </div>
+
+    <div class="main">
+      <div class="new_song">  <!-- 新歌推荐 -->
+        <span class="new_song_title">新歌推荐</span>
+        <ul>
+          <!-- <li><img src="/images/T002R300x300M000001UQ0aq41o9xW.jpg" alt=""></li>
+          <li><img src="/images/T002R300x300M00000081L7R3TtMzC.jpg" alt=""></li>
+          <li><img src="/images/T002R300x300M00000081L7R3TtMzC.jpg" alt=""></li>
+          <li><img src="/images/T002R300x300M000001UQ0aq41o9xW.jpg" alt=""></li>
+          <li><img src="/images/T002R300x300M000001UQ0aq41o9xW.jpg" alt=""></li> -->
+        </ul>
+      </div>
+      <div class="hot_song"> <!--热门歌曲-->
+        <span class="hot_song_title">热门歌曲</span>
+        <div class="hot_song_content">
+          <div class="hot_song_list">
+            <span class="hot_song__title">内地</span>
+            <ul class="hot_song__list">
+              <li class="hot_song__item"><a href="/player?musicName=借&singerName=毛不易" title="借 - 毛不易" class="hot_song__link">借 - 毛不易</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=刚刚好&singerName=薛之谦" title="刚刚好 - 薛之谦" class="hot_song__link">刚刚好 - 薛之谦</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=三生三世&singerName=张杰" title="三生三世 - 张杰" class="hot_song__link">三生三世 - 张杰</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=凉凉&singerName=杨宗纬" title="凉凉 - 杨宗纬/张碧晨" class="hot_song__link">凉凉 - 杨宗纬/张碧晨</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=带你去旅行&singerName=校长" title="带你去旅行 - 校长" class="hot_song__link">带你去旅行 - 校长</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=成都&singerName=赵雷" title="成都 - 赵雷" class="hot_song__link">成都 - 赵雷</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=追光者&singerName=岑宁儿" title="追光者 - 岑宁儿" class="hot_song__link">追光者 - 岑宁儿</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=丑八怪&singerName=薛之谦" title="丑八怪 - 薛之谦" class="hot_song__link">丑八怪 - 薛之谦</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=绅士&singerName=薛之谦" title="绅士 - 薛之谦" class="hot_song__link">绅士 - 薛之谦</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=演员&singerName=薛之谦" title="演员 - 薛之谦" class="hot_song__link">演员 - 薛之谦</a></li>
+              <li class="hot_song__item"><a href="#" class="hot_song__link more">更多&lt;&lt;</a></li>
+            </ul>
+          </div>
+          <div class="hot_song_list">
+            <span class="hot_song__title">港台</span>
+            <ul class="hot_song__list">
+              <li class="hot_song__item"><a href="/player?musicName=一千零一夜&singerName=周杰伦" title="一千零一夜 - 周杰伦" class="hot_song__link">一千零一夜 - 周杰伦</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=江南&singerName=林俊杰" title="江南 - 林俊杰" class="hot_song__link">江南 - 林俊杰</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=勇气&singerName=梁静茹" title="勇气 - 梁静茹" class="hot_song__link">勇气 - 梁静茹</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=你算什么男人&singerName=周杰伦" title="你算什么男人 - 周杰伦" class="hot_song__link">你算什么男人 - 周杰伦</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=一个人想着一个人&singerName=曾沛慈" title="一个人想着一个人 - 曾沛慈" class="hot_song__link">一个人想着一个人 - 曾沛慈</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=隐形的翅膀&singerName=张韶涵" title="隐形的翅膀 - 张韶涵" class="hot_song__link">隐形的翅膀 - 张韶涵</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=小幸运&singerName=田馥甄" title="小幸运 - 田馥甄" class="hot_song__link">小幸运 - 田馥甄</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=橘子汽水&singerName=南拳妈妈" title="橘子汽水 - 南拳妈妈" class="hot_song__link">橘子汽水 - 南拳妈妈</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=越长大越孤单&singerName=牛奶咖啡" title="越长大越孤单 - 牛奶咖啡" class="hot_song__link">越长大越孤单 - 牛奶咖啡</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=醉赤壁&singerName=林俊杰" title="醉赤壁 - 林俊杰" class="hot_song__link">醉赤壁 - 林俊杰</a></li>
+              <li class="hot_song__item"><a href="#" class="hot_song__link more">更多&lt;&lt;</a></li>
+            </ul>
+          </div>
+          <div class="hot_song_list">
+            <span class="hot_song__title">日韩</span>
+            <ul.hot_song__list >
+              <li class="hot_song__item"><a href="/player?musicName=If You&singerName=BigBang" title="If You - BigBang" class="hot_song__link">If You - BigBang</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=爱はタカラモノ&singerName=泷/翼" title="爱はタカラモノ - 泷/翼" class="hot_song__link">爱はタカラモノ - 泷/翼</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=バラード&singerName=决明子" title="バラード - 决明子" class="hot_song__link">バラード - 决明子</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=Fall In Love&singerName=青山黛玛" title="Fall In Love - 青山黛玛" class="hot_song__link">Fall In Love - 青山黛玛</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=GEE&singerName=少女时代" title="GEE - 少女时代" class="hot_song__link">GEE - 少女时代</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=Baby Don't Cry&singerName=EXO" title="Baby Don't Cry - EXO" class="hot_song__link">Baby Don't Cry - EXO</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=火花&singerName=高耀太" title="火花 - 高耀太" class="hot_song__link">火花 - 高耀太</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=雪之华&singerName=中岛美嘉" title="雪之华 - 中岛美嘉" class="hot_song__link">雪之华 - 中岛美嘉</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=넌 내게 반했어 (你为我着迷)&singerName=정용화(郑容和)" title="넌 내게 반했어 (你为我着迷) - 정용화(郑容和)" class="hot_song__link">넌 내게 반했어 (你为我着迷) - 정용화(郑容和)</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=雪之华&singerName=中岛美嘉" title="雪之华 - 中岛美嘉" class="hot_song__link">雪之华 - 中岛美嘉</a></li>
+              <li class="hot_song__item"><a href="#" class="hot_song__link more">更多&lt;&lt;</a></li>
+            </ul>
+          </div>
+          <div class="hot_song_list">
+            <span class="hot_song__title">欧美</span>
+            <ul class="hot_song__list">
+              <li class="hot_song__item"><a href="/player?musicName=Baby&singerName=Justin Bieber(贾斯丁比伯)" title="Baby - Justin Bieber" class="hot_song__link"</a>Baby - Justin Bieber</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=We don't talk any more&singerName=CharliePuth" title="We don't talk any more - CharliePuth" class="hot_song__link"</a>We don't talk any more - CharliePuth</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=Shake It Off&singerName=Taylor Swift(泰勒斯威夫特)" title="Shake It Off - Taylor Swift" class="hot_song__link"</a>Shake It Off - Taylor Swift</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=The Spectre&singerName=Alan Walker" title="The Spectre - Alan Walker" class="hot_song__link"</a>The Spectre - Alan Walker</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=Hello&singerName=adele(阿黛尔)" title="Hello - adele(阿黛尔)" class="hot_song__link"</a>Hello - adele</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=Someone like you&singerName=adele(阿黛尔)" title="Someone like you - adele" class="hot_song__link"</a>Someone like you - adele</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=Boyfriend&singerName=Justin Bieber(贾斯丁比伯)" title="Boyfriend - Justin Bieber" class="hot_song__link"</a>Boyfriend - Justin Bieber</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=Love Story&singerName=Taylor Swift(泰勒斯威夫特)" title="Love Story - Taylor Swift" class="hot_song__link"</a>Love Story - Taylor Swift</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=Love Story&singerName=Taylor Swift(泰勒斯威夫特)" title="Love Story - Taylor Swift" class="hot_song__link"</a>Love Story - Taylor Swift</a></li>
+              <li class="hot_song__item"><a href="/player?musicName=Love Story&singerName=Taylor Swift(泰勒斯威夫特)" title="Love Story - Taylor Swift" class="hot_song__link"</a>Love Story - Taylor Swift</a></li>
+              <li class="hot_song__item"><a href="#" class="hot_song__link more">更多&lt;&lt;</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% include ./public/footer.html %>
+
+    <script src="/javascripts/jquery-3.2.1.js"></script>
+    <script src="/javascripts/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css">
+    </style>
+  </head>
+  <body>
+    <% include ./public/header.html %>
+    <% include ./public/footer.html %>
+
+    <script src="/javascripts/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="/javascripts/main.js"></script>
+    <script>
+      $('.chart_list').click(function () {
+        $('.chart_list').removeClass('chart_list--current');
+        $(this).addClass('chart_list--current');
+
+        $.ajax({
+          url: '',
+          type: '',
+          success: function (data) {
+
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,172 @@
+/* common */
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+body, div, p, ul, li, h1, h2, h3 {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+.icon_txt {
+  font: 0/0 a;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 400px;
+}
+
+
+/* header */
+.header {
+  position: relative;
+  height: 90px;
+  line-height: 90px;
+  border-bottom: 1px solid #f2f2f2;
+}
+.header .header-left {
+  float: left;
+  width: 640px;
+  height: 90px;
+  line-height: 90px;
+  font-style: italic;
+}
+.header-left .icon_title {
+  margin-left: 200px;
+  font-size: 34px;
+  font-weight: bold;
+  color: #000;
+}
+.header .header-right {
+  position: absolute;
+  top: 0;
+  right: 50px;
+  height: 90px;
+  line-height: 90px;
+}
+.header-right .header_right_list {
+  float: left;
+  margin: 0 6px;
+  font-size: 16px;
+}
+.header_right_img {
+  width: 50px;
+  height: 50px;
+  margin-top: 18px;
+  margin-right: 10px;
+  float: left;
+}
+.header-right .header_right_link {
+  padding: 8px 14px;
+  background: #31c27c;
+  color: #fff;
+}
+.header-right .header_right_link:hover {
+  background: #2fa46c;
+}
+
+/* search */
+.search {
+  position: absolute;
+  width: 280px;
+  height: 30px;
+  top: 0;
+  right: 240px;
+  margin-top: 30px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+}
+.search .search_input {
+  float: left;
+  width: 230px;
+  height: 22px;
+  padding: 4px 8px;
+  color: #999;
+  border: 0 none;
+  outline: none;
+}
+.search .search_btn {
+  float: right;
+  width: 30px;
+  height: 30px;
+  border: 0 none;
+  outline: none;
+  cursor: pointer;
+  background: url(/images/search.png) no-repeat center center;
+}
+
+/* nav */
+.subnav {
+  height: 65px;
+}
+.subnav .subnav_item {
+  display: table;
+  margin: 0 auto;
+}
+.subnav .subnav_list {
+  float: left;
+  height: 65px;
+  line-height: 65px;
+}
+.subnav .subnav_link {
+  display: block;
+  padding: 0 14px;
+  font-size: 18px;
+  color: #777;
+}
+.subnav .subnav_link:hover,
+.subnav .subnav_link--current {
+  color: #2fa46c;
+}
+
+/* index */
+
+.new_song,
+.hot_song,
+.chart {
+  width: 1200px;
+  height: 560px;
+  margin: 30px auto;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.new_song_title,
+.hot_song_title,
+.chart_title {
+  display: block;
+  height: 60px;
+  line-height: 60px;
+  font-size: 21px;
+  text-align: center;
+}
+
+/* singer */
+
+
+
+/* footer */
+.footer {
+  height: 140px;
+}
+.footer_copyright {
+  padding: 25px 0;
+  text-align: center;
+  line-height: 28px;
+  color: #999;
+  font-size: 14px;
+}
+.footer_copyright a {
+  padding: 0 6px;
+  color: #999;
+}

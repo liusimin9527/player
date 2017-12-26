@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css">
+      .main {
+        height: 640px;
+      }
+      .player {
+        width: 980px;
+        height: 500px;
+        margin: 0 auto;
+        margin-top: 30px;
+      }
+      .player_box {
+        width: 980px;
+        height: 500px;
+        color: #f2f2f2;
+        background: #333;
+      }
+      .box_left {
+        float: left;
+        width: 340px;
+        height: 500px;
+        text-align: center;
+      }
+      .box_left .singer {
+        height: 300px;
+      }
+      .box_left .singer_info {
+        height: 200px;
+      }
+      .box_left_img {
+        width: 200px;
+        height: 200px;
+        margin-top: 70px;
+        border-radius: 100%;
+      }
+      .singer_info_item {
+        width: 150px;
+        height: 30px;
+        line-height: 30px;
+        text-align: left;
+        margin: 0 auto;
+        margin-left: 100px;
+        color: #f2f2f2;
+      }
+      .singer_info_link {
+        color: #f2f2f2;
+      }
+      .box_right {
+        float: right;
+        width: 640px;
+        height: 500px;
+      }
+      .title {
+        height: 80px;
+        line-height: 80px;
+        text-align: center;
+        font-size: 16px;
+      }
+      .lyric {
+        height: 420px;
+        text-align: center;
+        overflow: hidden;
+        color: #f2f2f2;
+        padding: 0 40px;
+      }
+      .box_bottom {
+        width: 980px;
+        height: 80px;
+        background: #000;
+      }
+      .bottom_left {
+        float: left;
+        width: 200px;
+        height: 80px;
+        line-height: 80px;
+        margin-left: 40px;
+      }
+      .bottom_left span {
+        display: inline-block;
+        margin-left: 5px;
+        margin-top: 14px;
+        border-radius: 100%;
+      }
+      .prev {
+        width: 34px;
+        height: 34px;
+        background: #fff url(/images/prev.png) no-repeat center center;
+      }
+      .play {
+        width: 50px;
+        height: 50px;
+        background: #fff url(/images/pause.png) no-repeat center center;
+      }
+      .next {
+        width: 34px;
+        height: 34px;
+        background: #fff url(/images/next.png) no-repeat center center;
+      }
+      .bottom_middle {
+        float: left;
+        width: 500px;
+        height: 80px;
+        line-height: 80px;
+      }
+      .bottom_middle_top {
+        height: 50px;
+        color: #fff;
+      }
+      .songName {
+        float: left;
+        width: 390px;
+        height: 50px;
+        line-height: 50px;
+      }
+      .duration_time {
+        float: left;
+        width: 40px;
+        height: 50px;
+        line-height: 50px;
+      }
+      .times {
+        float: left;
+        width: 46px;
+        height: 50px;
+        line-height: 50px;
+      }
+      .bottom_middle_bottom {
+        height: 30px;
+      }
+      .process {
+        float: left;
+        width: 480px;
+        height: 6px;
+        background: #fff;
+      }
+      .bottom_right {
+        float: left;
+        width: 240px;
+        height: 80px;
+        line-height: 80px;
+      }
+      .bottom_right li {
+        float: left;
+        width: 40px;
+        height: 80px;
+        margin-left: 10px;
+      }
+      .bottom_right a {
+        display: block;
+        margin-top: 24px;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+      }
+      .bottom_right_comment {
+        background: url(/images/icon_list_menu.png) no-repeat 0px -238px;
+      }
+      .bottom_right_download {
+        background: url(/images/icon_list_menu.png) no-repeat 0px -118px;
+      }
+      .bottom_right_add {
+        background: url(/images/icon_list_menu.png) no-repeat 0px -78px;
+      }
+      .bottom_right_share {
+        background: url(/images/icon_list_menu.png) no-repeat 0px -38px;
+      }
+    </style>
+  </head>
+  <body>
+    <% include ./public/header.html %>
+    <audio src='<%= music.musicUrl %>' autoplay></audio>
+
+    <div class="main">
+      <div class="player">
+        <div class="player_box">
+          <div class="box_left">
+            <div class="singer">
+              <a href="singer?singerName=<%= music.singerName %>">
+                <img src="<%= music.imgUrl%>" class="box_left_img">
+              </a>
+            </div>
+            <div class="singer_info">
+              <li class="singer_info_item"><a href="/singer?singerName=<%= music.singerName %>" class="singer_info_link">歌 手：<%= music.singerName %></a></li>
+              <li class="singer_info_item"><a href="" class="singer_info_link">专 辑：<%= music.cdName %></a></li>
+              <li class="singer_info_item"><a href="" class="singer_info_link">发行时间：<%= music.publicDate %></a></li>
+              <li class="singer_info_item">点击量：<%= music.clicks %></li>
+            </div>
+          </div>
+          <div class="box_right">
+            <div class="title"><%= music.musicName %></div>
+            <div class="lyric">
+              <%= music.lyric %>
+            </div>
+          </div>
+        </div>
+        <div class="box_bottom">
+          <div class="bottom_left">
+            <span class="prev js_prev"></span>
+            <span class="play js_play"></span>
+            <span class="next js_next"></span>
+          </div>
+          <div class="bottom_middle">
+            <div class="bottom_middle_top">
+              <span class="songName"><%= music.musicName%></span>
+              <span class="duration_time">00:00</span>
+              <span class="times">/ <%= music.time%></span>
+            </div>
+            <div class="bottom_middle_bottom">
+              <span class="process"></span>
+            </div>
+          </div>
+          <div class="bottom_right">
+            <li><a href="" class="bottom_right_download" title="下载"></a></li>
+            <li><a href="" class="bottom_right_add" title="添加"></a></li>
+            <li><a href="/comment?musicId=<%= music.musicId %>" class="bottom_right_comment" title="评论"></a></li>
+            <li><a href="" class="bottom_right_share" title="分享"></a></li>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <% include ./public/footer.html %>
+    <script src="/javascripts/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="/javascripts/main.js"></script>
+    <script type="text/javascript">
+
+    </script>
+  </body>
+</html>

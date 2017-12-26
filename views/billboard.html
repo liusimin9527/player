@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css">
+    </style>
+  </head>
+  <body>
+    <% include ./public/header.html %>
+
+
+    <div class="subnav">
+      <ul class="subnav_item">
+        <li class="subnav_list"><a class="subnav_link" href="/">首页</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/singerList">歌手</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/chart">排行榜</a></li>
+        <li class="subnav_list"><a class="subnav_link subnav_link--current" href="/billboard">打榜</a></li>
+      </ul>
+    </div>
+
+    <div class="main">
+
+    </div>
+
+    <% include ./public/footer.html %>
+
+    <script src="/javascripts/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="/javascripts/main.js"></script>
+  </body>
+</html>

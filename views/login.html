@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css">
+    .login {
+      width: 480px;
+      height: 150px;
+      margin-top: 50px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .login p {
+      padding: 10px 0;
+    }
+    .login label {
+      display: inline-block;
+      width: 100px;
+      padding: 8px 0;
+      text-align: center;
+    }
+    .login input {
+      width: 210px;
+      height: 24px;
+      padding: 0 11px;
+      border: 1px solid #E8E8E8;
+      border-radius: 6px;
+      box-shadow: 1px 1px 1px 1px #f2f2f2;
+    }
+    .login input:focus {
+      outline: none;
+    }
+    .forget_pass {
+      float: right;
+      margin-right: 140px;
+    }
+    .login .loginrBtn {
+      padding: 5px 120px;
+      margin-top: 30px;
+      margin-left: 60px;
+      cursor: pointer;
+      background: #31c27c;
+      border: 0 none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 16px;
+    }
+    .login .loginrBtn:hover {
+      color: #fff;
+      outline: none;
+      background: #2fa46c;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+  		<div class="header-left">
+  			<a href="/" class="icon_title">音乐台</a>
+  		</div>
+  	</div>
+    <div class="main">
+      <div class="login">
+        <p>
+          <label>账号</label>
+          <input type="text" name="name" class="login_name" placeholder="请输入用户名">
+        </p>
+        <p>
+          <label>密码</label>
+          <input type="password" name="password" class="login_pass" placeholder="请输入密码">
+        </p>
+        <p>
+          <a href="#" class="forget_pass">忘记密码？</a>
+        </p>
+        <p>
+          <button type="button" class="js_login loginrBtn">登录</button>
+        </p>
+      </div>
+    </div>
+
+    <% include ./public/footer.html %>
+
+    <script src="/javascripts/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="/javascripts/main.js"></script>
+    <script type="text/javascript">
+    	$('.js_login').click(function () {
+        var name = $('.login_name').val(),
+            password = $('.login_pass').val(),
+            data = {
+         	    name: name,
+         	    password: password
+            };
+
+        $.ajax({
+          url: '/login',
+          type: 'POST',
+          data: data,
+          success: function (msg) {
+            if (msg == '未注册') {
+              alert('用户未注册，请先注册');
+            } else if (msg == '登录成功') {
+              location.replace(document.referrer);
+            }else if (msg == '密码错误') {
+              alert('密码错误');
+            }
+          },
+          error: function () {
+          	location.href = '/login';
+          }
+        });
+    	});
+    </script>
+  </body>
+</html>

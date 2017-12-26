@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css">
+      .singer_tag {
+        width: 1200px;
+        background-color: #fbfbfb;
+        padding: 30px 0 20px 30px;
+				margin: 30px 0 20px;
+        box-sizing: border-box;
+      }
+      .singer_tag__list {
+				padding-bottom: 3px;
+				height: auto;
+				zoom: 1;
+				clear: both;
+				overflow: hidden;
+			}
+      .singer_tag__item--select,
+			.singer_tag__item--select:hover {
+				background-color: #31c27c;
+				color: #fff;
+			}
+			.singer_tag__item {
+				float: left;
+				line-height: 26px;
+				padding: 0 8px;
+				margin: 0 12px 14px 0;
+        cursor: pointer;
+			}
+      .singer_tag__item:hover {
+        background-color: #31c27c;
+				color: #fff;
+      }
+      .singer_list {
+        height: 800px;
+        overflow: hidden;
+      }
+      .singer_list__item {
+        float: left;
+        height: 195px;
+        width: calc(100% / 5);
+      }
+      .singer_list__item_box {
+        text-align: center;
+        background: #fbfbfd;
+      }
+      .singer_img {
+        width: 140px;
+        height: 140px;
+        margin-top: 10px;
+        border-radius: 100%;
+      }
+      .singer_list__link {
+        display: block;
+        width: 150px;
+        height: 30px;
+        line-height: 30px;
+        margin: 0 auto;
+        font-size: 15px;
+        overflow: hidden;
+        color: #333;
+      }
+      .singer_list_link {
+        display: block;
+        width: 150px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 16px;
+        overflow: hidden;
+        color: #333;
+      }
+      .singer_list__link:hover,
+      .singer_list_link:hover {
+        color: #31c27c;
+      }
+      .singer_list_item {
+        float: left;
+        width: calc(100% / 5);
+        height: 45px;
+        line-height: 45px;
+        font-size: 15px;
+        text-align: left;
+      }
+      .page {
+        width: 1200px;
+        height: 30px;
+        margin: 40px 0;
+      }
+      .page_item {
+        display: table;
+        margin: 0 auto;
+      }
+      .page_list {
+        float: left;
+        height: 28px;
+        padding: 0 10px;
+        line-height: 28px;
+        color: #333;
+        margin: 0 5px;
+        font-size: 14px;
+        cursor: pointer;
+        border: 1px solid #e8e8e8;
+      }
+      .page_list--current,
+      .page_list:hover {
+        background: #31c27c;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <% include ./public/header.html %>
+
+    <div class="subnav">
+      <ul class="subnav_item">
+        <li class="subnav_list"><a class="subnav_link" href="/">首页</a></li>
+        <li class="subnav_list"><a class="subnav_link subnav_link--current" href="/singerList">歌手</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/chart">排行榜</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/billboard">打榜</a></li>
+      </ul>
+    </div>
+
+    <div class="main">
+      <div class="singer_tag">
+        <div class="singer_tag__list">
+          <li class="singer_tag__item singer_tag__item--all singer_tag__item--select">全部</li>
+          <li class="singer_tag__item">华语男</li>
+          <li class="singer_tag__item">华语女</li>
+          <li class="singer_tag__item">华语组合</li>
+          <li class="singer_tag__item">日韩男</li>
+          <li class="singer_tag__item">日韩女</li>
+          <li class="singer_tag__item">日韩组合</li>
+          <li class="singer_tag__item">欧美男</li>
+          <li class="singer_tag__item">欧美女</li>
+          <li class="singer_tag__item">欧美组合</li>
+        </div>
+      </div>
+      <div class="singer_list"></div>
+      <div class="page">
+        <ul class="page_item">
+          <li class="page_list page_list--first">首页</li>
+          <li class="page_list page_list--curretn">1</li>
+          <li class="page_list page_list--end">尾页</li>
+        </ul>
+      </div>
+    </div>
+    <% include ./public/footer.html %>
+
+    <script src="/javascripts/jquery-3.2.1.js"></script>
+    <script src="/javascripts/main.js"></script>
+    <script type="text/javascript">
+      var datas = {};
+      var pageNum = 55;
+
+      $.ajax({
+        url: '/singerLi',
+        type: 'GET',
+        success: function (data) {
+          createNode(data);
+        }
+      });
+
+      $('.singer_tag__item').click(function () {
+        $('.singer_tag__item').removeClass('singer_tag__item--select');
+        $(this).addClass('singer_tag__item--select');
+        var text = $(this).html();
+
+        if (text == '全部') {
+          $.ajax({
+            url: '/singerLi',
+            type: 'GET',
+            success: function (data) {
+              createNode(data);
+            }
+          });
+        } else {
+          var param = {
+            countryType: text.substring(0, 2),
+            singerGender: text.substring(2)
+          };
+
+          $.ajax({
+            url: 'singers?countryType=' + param.countryType +'&singerGender=' + param.singerGender,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+              console.log(data);
+              createNode(data);   // 将歌手信息显示在页面上
+            }
+          });
+        }
+      });
+
+      function createNode(data) {
+        $('.singer_list').empty();
+
+        for (var i = 0; i < 10; i++) {
+          var node = $('<li class="singer_list__item"></li>');
+          var node_div = $('<div class="singer_list__item_box"></div>');
+          var node_a1 = $('<a></a>');
+          var node_img = $('<img class="singer_img">');
+          var node_a = $('<a class="singer_list__link"></a>');
+
+          node_a.html(data[i].singerName);
+          node_a.attr("href", "singer?singerName="+data[i].singerName);
+          node_a.attr("title", data[i].singerName);
+          node_a1.attr("href", "singer?singerName="+data[i].singerName);
+          node_a1.attr("title", data[i].singerName);
+          node_img.attr("src", data[i].imgUrl);
+
+
+          node_a1.append(node_img);
+          node_div.append(node_a1);
+          node_div.append(node_a);
+          node.append(node_div);
+
+          $('.singer_list').append(node);
+        }
+        for (var i = 10; i < pageNum; i++) {
+          var node = $('<li class="singer_list_item"></li>');
+          var node_a = $('<a class="singer_list_link"></a>');
+
+          node_a.html(data[i].singerName);
+          node_a.attr("href", "singer?singerName="+data[i].singerName);
+          node_a.attr("title", data[i].singerName);
+
+          node.append(node_a);
+
+          $('.singer_list').append(node);
+        }
+      }
+    </script>
+  </body>
+</html>
