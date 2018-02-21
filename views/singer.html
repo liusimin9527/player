@@ -1,161 +1,226 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <style type="text/css">
-    .singer {
-      width: 1200px;
-      height: 1000px;
-      margin: 0 auto;
-    }
-    .singer_info {
-      height: 350px;
-      background: #fbfbfb;
-    }
-    .singer_info_left {
-      float: left;
-    }
-    .singer_info_left img {
-      width: 250px;
-      height: 250px;
-      margin-left: 50px;
-      margin-top: 60px;
-      border-radius: 100%;
-    }
-    .singer_att {
-      width: 300px;
-      height: 40px;
-      margin-top: 30px;
-    }
-    .fans {
-      display: block;
-      float: left;
-      width: 100px;
-      height: 30px;
-      text-align: center;
-      line-height: 30px;
-    }
-    .attention {
-      display: block;
-      float: left;
-      width: 60px;
-      height: 30px;
-      text-align: center;
-      color: #fff;
-      background: #31c27c;
-      cursor: pointer;
-      line-height: 30px;
-    }
-    .singer_info_right {
-      float: left;
-      padding: 90px 40px 0;
-    }
-    .singer_desc {
-      width: 780px;
-      height: 80px;
-      overflow: hidden;
-      margin-top: 26px;
-    }
-    .singer_list {
-      margin-top: 30px;
-    }
-    .singer_item {
-      padding: 9px 0;
-      line-height: 30px;
-      font-size: 0;
-    }
-    .singer_item span {
-      font-size: 16px;
-    }
-    .singer_songName {
-      display: inline-block;
-      width: 600px;
-      height: 30px;
-      margin-left: 40px;
-    }
-    .singer_singerName {
-      display: inline-block;
-      width: 120px;
-    }
-    .singer_ablum {
-      display: inline-block;
-      width: 280px;
-    }
-    .singer_time {
-      display: inline-block;
-      width: 130px;
-    }
-    .atten-select {
-      background: #fff;
-      color: #333;
-      border: 1px solid #999;
-    }
-    </style>
+	<title><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<style type="text/css">
+	.singer {
+	  width: 1200px;
+	  height: 1000px;
+	  margin: 0 auto;
+	}
+	.singer_info {
+	  height: 350px;
+	  background: #fbfbfb;
+	}
+	.singer_info_left {
+	  float: left;
+	}
+	.singer_info_left img {
+	  width: 250px;
+	  height: 250px;
+	  margin-left: 50px;
+	  margin-top: 60px;
+	  border-radius: 100%;
+	}
+	.singer_att {
+	  width: 300px;
+	  height: 40px;
+	  margin-top: 10px;
+	}
+	.fans {
+	  display: block;
+	  float: left;
+	  width: 100px;
+	  height: 30px;
+	  text-align: center;
+	  line-height: 30px;
+	}
+	.attention {
+	  float: left;
+	  width: 60px;
+	  height: 30px;
+	  text-align: center;
+	  color: #fff;
+	  background: #31c27c;
+	  cursor: pointer;
+	  line-height: 30px;
+	}
+	.singer_info_right {
+	  float: left;
+	  padding: 90px 40px 0;
+	}
+	.singer_name {
+	  font-size: 20px;
+	  font-weight: bold;
+	}
+	.singer_desc {
+	  width: 780px;
+	  height: 80px;
+	  overflow: hidden;
+	  margin-top: 26px;
+	}
+  .show_desc {
+    text-align: right;
+    color: #31c27c;
+    cursor: pointer;
+  }
+	.singer_list {
+	  margin-top: 30px;
+	}
+	.singer_item {
+	  height: 50px;
+	  line-height: 50px;
+	  font-size: 0;
+	}
+	.singer_item span {
+	  display: inline-block;
+	  height: 50px;
+	  line-height: 50px;
+	  font-size: 15px;
+	  overflow: hidden;
+	}
+	.singer_songName {
+	  width: 200px;
+	  margin-left: 60px;
+	  overflow: hidden;
+	}
+	.song_icon {
+	  width: 400px;
+	}
+	.song_icon a {
+	  display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 8px;
+	}
+  .play {
+    background: url(images/icon_list_menu.png) 0px 0px;
+  }
+  .play:hover {
+    background: url(images/icon_list_menu.png) -40px 0px;
+  }
+  .attent {
+    background: url(images/icon_list_menu.png) 0px 200px;
+  }
+  .attent:hover {
+    background: url(images/icon_list_menu.png) -40px 200px;
+  }
+  .download {
+    background: url(images/icon_list_menu.png) 0px 160px;
+  }
+  .download:hover {
+    background: url(images/icon_list_menu.png) -40px 160px;
+  }
+  .share {
+    background: url(images/icon_list_menu.png) 0px 240px;
+  }
+  .share:hover {
+    background: url(images/icon_list_menu.png) -40px 240px;
+  }
+  .comment {
+    background: url(images/icon_list_menu.png) 0px 40px;
+  }
+  .comment:hover {
+    background: url(images/icon_list_menu.png) -40px 40px;
+  }
+	.singer_singerName {
+	  width: 120px;
+	}
+	.singer_ablum {
+	  display: inline-block;
+	  width: 280px;
+	}
+	.singer_time {
+	  display: inline-block;
+	  width: 130px;
+	}
+	.atten-select {
+	  background: #fff;
+	  color: #333;
+	  border: 1px solid #999;
+	}
+	</style>
   </head>
   <body>
-    <% include ./public/header.html %>
+	<% include ./public/header.html %>
 
-    <div class="subnav">
-      <ul class="subnav_item">
-        <li class="subnav_list"><a class="subnav_link" href="/">首页</a></li>
-        <li class="subnav_list"><a class="subnav_link subnav_link--current" href="/singerList">歌手</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="/chart">排行榜</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="/billboard">打榜</a></li>
-      </ul>
-    </div>
+	<div class="subnav">
+	  <ul class="subnav_item">
+		<li class="subnav_list"><a class="subnav_link" href="/">首页</a></li>
+		<li class="subnav_list"><a class="subnav_link subnav_link--current" href="/singerList">歌手</a></li>
+		<li class="subnav_list"><a class="subnav_link" href="/chart">排行榜</a></li>
+		<li class="subnav_list"><a class="subnav_link" href="/billboard">打榜</a></li>
+	  </ul>
+	</div>
 
-    <div class="main">
-      <div class="singer">
-        <div class="singer_info">
-          <div class="singer_info_left">
-            <img src=<%= singer.imgUrl %> alt="">
-          </div>
-          <div class="singer_info_right">
-            <h1 class="singer_name"><%= singer.singerName %></h1>
-            <p class="singer_desc"><%= singer.description %></p>
-            <div class="singer_att">
-              <span class="attention js_att">关注</span>
-              <span class="fans">粉丝数：<%= singer.attention %></span>
-            </div>
-          </div>
-        </div>
-        <div class="singer_list">
-          <li class="singer_item">
-            <span class="singer_songName">歌曲</span>
-            <span class="singer_singerName">歌手</span>
-            <span class="singer_ablum">专辑</span>
-            <span class="singer_time">时长</span>
-          </li>
-          <% for (var i = 0; i < song.length; i++) { %>
-            <li class="singer_item">
-              <span class="singer_songName"><a href="/player?musicName=<%= song[i].musicName %>&singerName=<%= singer.singerName %>"><%= song[i].musicName %></a></span>
-              <span class="singer_singerName"><%= singer.singerName %></span>
-              <span class="singer_ablum"><a href="#" class="singer_link_cdName"><%= song[i].cdName %></a></span>
-              <span class="singer_time"><%= song[i].time %></span>
-            </li>
-          <% } %>
-        </div>
-      </div>
-    </div>
+	<div class="main">
+	  <div class="singer">
+		<div class="singer_info">
+		  <div class="singer_info_left">
+			<img src=<%= singer.imgUrl %> alt="">
+		  </div>
+		  <div class="singer_info_right">
+			<h1 class="singer_name"><%= singer.singerName %></h1>
+			<p class="singer_desc"><%= singer.description %></p>
+      <p class="show_desc">展开</p>
+			<div class="singer_att">
+			  <span class="attention js_att">关注</span>
+			  <span class="fans">粉丝数：<%= singer.attention %></span>
+			</div>
+		  </div>
+		</div>
+		<div class="singer_list">
+		  <li class="singer_item">
+			<span class="singer_songName">歌曲</span>
+			<span class="song_icon"></span>
+			<span class="singer_singerName">歌手</span>
+			<span class="singer_ablum">专辑</span>
+			<span class="singer_time">时长</span>
+		  </li>
+		  <% for (var i = 0; i < song.length; i++) { %>
+			<li class="singer_item">
+			  <span class="singer_songName"><a href="/player?musicName=<%= song[i].musicName %>&singerName=<%= singer.singerName %>"><%= song[i].musicName %></a></span>
+			  <span class="song_icon">
+  				<a href="/player?musicName=<%= song[i].musicName %>&singerName=<%= singer.singerName %>" class="play" title="播放"></a>
+          <a href="" class="attent" title="添加"></a>
+          <a href="" class="download" title="下载"></a>
+          <a href="javascript:;" class="share" title="分享"></a>
+  				<a href="/comment?musicId=<%= song[i].musicId %>" class="comment" title="评论"></a>
+			  </span>
+			  <span class="singer_singerName"><%= singer.singerName %></span>
+			  <span class="singer_ablum"><a href="#" class="singer_link_cdName"><%= song[i].cdName %></a></span>
+			  <span class="singer_time"><%= song[i].time %></span>
+			</li>
+		  <% } %>
+		</div>
+	  </div>
+	</div>
 
-    <% include ./public/footer.html %>
-    <script src="/javascripts/jquery-3.2.1.js" type="text/javascript"></script>
-    <script src="/javascripts/main.js"></script>
-    <script type="text/javascript">
-      $('.singer_item:even').css("background", "#fbfbfb");
-      $('.js_att').click(function () {
-        $.ajax({
-          url: '/attention?singerName=' + $('.singer_name').html(),
-          type: 'GET',
-          success: function (data) {
-            if (data = 'success') {
-              window.location.reload();
-              $('.js_att').html('已关注').addClass('atten-select');
-            }
-          }
-        });
-      });
-    </script>
+	<% include ./public/footer.html %>
+	<script src="/javascripts/jquery.js" type="text/javascript"></script>
+	<script src="/javascripts/main.js"></script>
+	<script type="text/javascript">
+	  $('.singer_item:even').css("background", "#fbfbfb");
+	  $('.js_att').click(function () {
+			$.ajax({
+			  url: '/attention?singerName=' + $('.singer_name').html(),
+			  type: 'GET',
+			  success: function (data) {
+				if (data = 'success') {
+				  window.location.reload();
+				  $('.js_att').html('已关注').addClass('atten-select');
+				}
+			  }
+			});
+	  });
+    $('.show_desc').click(function () {
+
+    });
+    $('.singer_songName').mouseover(function () {
+
+    });
+	</script>
   </body>
 </html>

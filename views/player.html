@@ -8,13 +8,12 @@
         height: 640px;
       }
       .player {
-        width: 980px;
-        height: 500px;
+        width: 1000px;
         margin: 0 auto;
         margin-top: 30px;
       }
       .player_box {
-        width: 980px;
+        width: 1000px;
         height: 500px;
         color: #f2f2f2;
         background: #333;
@@ -44,6 +43,7 @@
         text-align: left;
         margin: 0 auto;
         margin-left: 100px;
+        overflow: hidden;
         color: #f2f2f2;
       }
       .singer_info_link {
@@ -68,7 +68,7 @@
         padding: 0 40px;
       }
       .box_bottom {
-        width: 980px;
+        width: 1000px;
         height: 80px;
         background: #000;
       }
@@ -83,22 +83,23 @@
         display: inline-block;
         margin-left: 5px;
         margin-top: 14px;
+        cursor: pointer;
         border-radius: 100%;
       }
       .prev {
         width: 34px;
-        height: 33px;
-        background: #fff url(/images/prev.png) no-repeat center center;
+        height: 34px;
+        background: #fff url(/images/prev.png) no-repeat 1px 1px;
       }
       .play {
-        width: 49px;
-        height: 49px;
-        background: #fff url(/images/pause.png) no-repeat center center;
+        width: 50px;
+        height: 50px;
+        background: #fff url(/images/pause.png) no-repeat 1px 1px;
       }
       .next {
         width: 34px;
-        height: 33px;
-        background: #fff url(/images/next.png) no-repeat center center;
+        height: 34px;
+        background: #fff url(/images/next.png) no-repeat 1px 1px;
       }
       .bottom_middle {
         float: left;
@@ -118,7 +119,7 @@
       }
       .duration_time {
         float: left;
-        width: 40px;
+        width: 36px;
         height: 50px;
         line-height: 50px;
       }
@@ -129,6 +130,7 @@
         line-height: 50px;
       }
       .bottom_middle_bottom {
+        position: relative;
         height: 30px;
       }
       .process {
@@ -137,9 +139,28 @@
         height: 6px;
         background: #fff;
       }
+      .process_btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 12px;
+        height: 12px;
+        margin-left: -6px;
+        margin-top: -3px;
+        border-radius: 100%;
+        background: #31c27c;
+      }
+      .duration_process {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0px;
+        height: 6px;
+        background: #31c27c;
+      }
       .bottom_right {
         float: left;
-        width: 240px;
+        width: 260px;
         height: 80px;
         line-height: 80px;
       }
@@ -156,24 +177,41 @@
         height: 40px;
         border-radius: 100%;
       }
+      .bottom_right_attention {
+        background: url(/images/icon_list_menu.png) no-repeat 0px -78px;
+      }
+      .bottom_right_attention:hover {
+        background: url(/images/icon_list_menu.png) no-repeat -40px -78px;
+      }
       .bottom_right_comment {
         background: url(/images/icon_list_menu.png) no-repeat 0px -238px;
+      }
+      .bottom_right_comment:hover {
+        background: url(/images/icon_list_menu.png) no-repeat -40px -238px;
       }
       .bottom_right_download {
         background: url(/images/icon_list_menu.png) no-repeat 0px -118px;
       }
+      .bottom_right_download:hover {
+        background: url(/images/icon_list_menu.png) no-repeat -40px -118px;
+      }
       .bottom_right_add {
         background: url(/images/icon_list_menu.png) no-repeat 0px -78px;
       }
+      .bottom_right_add:hover {
+        background: url(/images/icon_list_menu.png) no-repeat -40px -78px;
+      }
       .bottom_right_share {
         background: url(/images/icon_list_menu.png) no-repeat 0px -38px;
+      }
+      .bottom_right_share:hover {
+        background: url(/images/icon_list_menu.png) no-repeat -40px -38px;
       }
     </style>
   </head>
   <body>
     <% include ./public/header.html %>
-    <audio src='<%= music.musicUrl %>' autoplay></audio>
-
+    <audio id="audioDom" src="<%= music.musicUrl %>" autoplay></audio>
     <div class="main">
       <div class="player">
         <div class="player_box">
@@ -184,17 +222,15 @@
               </a>
             </div>
             <div class="singer_info">
-              <li class="singer_info_item"><a href="/singer?singerName=<%= music.singerName %>" class="singer_info_link">歌 手：<%= music.singerName %></a></li>
-              <li class="singer_info_item"><a href="" class="singer_info_link">专 辑：<%= music.cdName %></a></li>
-              <li class="singer_info_item"><a href="" class="singer_info_link">发行时间：<%= music.publicDate %></a></li>
+              <li class="singer_info_item">歌 手：<a href="/singer?singerName=<%= music.singerName %>" class="singer_info_link"><%= music.singerName %></a></li>
+              <li class="singer_info_item">专 辑：<a href="" class="singer_info_link"><%= music.cdName %></a></li>
+              <li class="singer_info_item">发行时间：<%= music.publicDate %></li>
               <li class="singer_info_item">点击量：<%= music.clicks %></li>
             </div>
           </div>
           <div class="box_right">
             <div class="title"><%= music.musicName %></div>
-            <div class="lyric">
-              <%= music.lyric %>
-            </div>
+            <div class="lyric"></div>
           </div>
         </div>
         <div class="box_bottom">
@@ -205,30 +241,76 @@
           </div>
           <div class="bottom_middle">
             <div class="bottom_middle_top">
-              <span class="songName"><%= music.musicName%></span>
+              <span class="songName"><%= music.musicName%> - <%= music.singerName%></span>
               <span class="duration_time">00:00</span>
               <span class="times">/ <%= music.time%></span>
             </div>
             <div class="bottom_middle_bottom">
               <span class="process"></span>
+              <span class="process_btn"></span>
+              <span class="duration_process"></span>
             </div>
           </div>
           <div class="bottom_right">
+            <li><a href="" class="bottom_right_volice">音量</a></li>
             <li><a href="" class="bottom_right_download" title="下载"></a></li>
-            <li><a href="" class="bottom_right_add" title="添加"></a></li>
+            <li><a href="" class="bottom_right_attention" title="添加"></a></li>
             <li><a href="/comment?musicId=<%= music.musicId %>" class="bottom_right_comment" title="评论"></a></li>
-            <li><a href="" class="bottom_right_share" title="分享"></a></li>
+            <li><a href="" class="bottom_right_share js_share" title="分享"></a></li>
           </div>
-
         </div>
       </div>
     </div>
 
     <% include ./public/footer.html %>
-    <script src="/javascripts/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.js" type="text/javascript"></script>
     <script src="/javascripts/main.js"></script>
     <script type="text/javascript">
+      var isFirst = false,
+          audioDom = document.getElementById('audioDom');
 
+      $('.js_share').click(function () {
+        alert(11);
+      });
+      $('.js_play').click(function () {
+        if (isFirst) {  // 播放
+          audioDom.play();
+          isFirst = false;
+          $('.play').css('background', '#fff url(/images/pause.png) no-repeat center center');
+        } else {       // 暂停
+          audioDom.pause();
+          isFirst = true;
+          $('.play').css('background', '#333 url(images/cover_play.png) no-repeat center center');
+        }
+      });
+
+      audioDom.ontimeupdate = function () {
+        var width = audioDom.currentTime/audioDom.duration*$('.process').width();
+        var second = Math.floor(audioDom.currentTime/60);
+        var minute = Math.floor(audioDom.currentTime%60);
+
+        second = second<10?'0'+second:second;
+        minute = minute<10?'0'+minute:minute;
+
+        $('.process_btn').css('left', width);
+        $('.duration_process').css('width', width);
+        $('.duration_time').html(second+':'+minute);
+      };
+
+      $('.process, .duration_process').click(function (event) {
+        var width = event.clientX - $('.process').offset().left;
+        var currentTime = width/$('.process').width()*audioDom.duration;
+        var second = Math.floor(currentTime/60);
+        var minute = Math.floor(currentTime%60);
+
+        second = second<10?'0'+second:second;
+        minute = minute<10?'0'+minute:minute;
+
+        audioDom.currentTime = currentTime;
+        $('.process_btn').css('left', width);
+        $('.duration_process').css('width', width);
+        $('.duration_time').html(second+':'+minute);
+      });
     </script>
   </body>
 </html>

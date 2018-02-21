@@ -37,7 +37,7 @@ router.get('/singer?', function (req, res) {
       SQL = 'select * from music where singerId = ?';
       obj["singerInfo"] = doc[0];
       connection.query(SQL, [doc[0].singerId], function (err, doc) {
-        res.render('singer', { title: '音乐台-歌手', user: obj.user, song: doc , singer: obj.singerInfo });
+        res.render('singer', { title: '音乐台-歌手', user: obj.user, song: doc, singer: obj.singerInfo });
       });
     });
   });
@@ -140,11 +140,15 @@ router.post('/addComment', function (req, res) {
 
 router.get('/player?', function (req, res) {
   var param = req.query;
-  var SQL = 'select music.*, singer.* from singer left join music on music.singerId = singer.singerId where musicName = ? and singerName = ?';
+  var SQL = 'update music set clicks = clicks+1 where musicName = ?';
 
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, [param.musicName, param.singerName], function (err, doc) {
-      res.render('player', { title: '正在播放-' + param.musicName, user: obj.userName, music: doc[0] });
+    connection.query(SQL, [param.singerName, param.musicName], function (err, doc) {
+      SQL = 'select music.*, singer.* from singer left join music on music.singerId = singer.singerId where musicName = ? and singerName = ?';
+
+      connection.query(SQL, [param.musicName, param.singerName], function (err, doc) {
+        res.render('player', { title: '正在播放-' + param.musicName, user: obj.userName, music: doc[0] });
+      });
     });
   });
 });
