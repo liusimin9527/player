@@ -1,6 +1,4 @@
 var express = require('express');
-var session = require('express-session');
-var cookie = require('cookie-parser');
 var router = express.Router();
 
 /* mysql */
@@ -9,10 +7,11 @@ var dbconfig = require('../db/DBconfig');
 var sql = mysql.createPool(dbconfig.mysql);
 var obj = {};
 
-router.get(function (req, res) {
+router.get('/', function (req, res) {
 	res.render('register', { title: '音乐台-注册' });
 });
-router.post(function (req, res) {
+
+router.post('/', function (req, res) {
 	var param = req.body,
       SQL = 'select * from users where telephone = ?',
       imgUrl = 'images/person_300.png',
@@ -38,3 +37,5 @@ router.post(function (req, res) {
     });
   });
 });
+
+module.exports = router;

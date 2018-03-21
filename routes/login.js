@@ -17,8 +17,6 @@ router.post('/', function (req, res) {
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [req.body.name, req.body.password], function (err, doc) {
-      // console.log(err);
-      // console.log(doc);
       if (doc.length) {
         msg = 'success';
         data = {
