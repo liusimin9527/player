@@ -1,13 +1,12 @@
 ;(function($){
-
 	var Carousel = function(poster){
 			var self = this;
 			//保存单个旋转木马对象
-			this.poster                  = poster;
+			this.poster = poster;
 			this.posterItemMain = poster.find("ul.poster-list");
-			this.nextBtn               = poster.find("div.poster-next-btn");
-			this.prevBtn               = poster.find("div.poster-prev-btn");
-			this.posterItems        =poster.find("li.poster-item");
+			this.nextBtn = poster.find("div.poster-next-btn");
+			this.prevBtn = poster.find("div.poster-prev-btn");
+			this.posterItems =poster.find("li.poster-item");
 			if(this.posterItems.size()%2==0){
 				this.posterItemMain.append(this.posterItems.eq(0).clone());
 				this.posterItems = this.posterItemMain.children();
@@ -32,8 +31,9 @@
 			//设置配置参数值
 			this.setSettingValue();
 			this.setPosterPos();
+
 			//左旋转按钮
-			this.nextBtn .click(function(){
+			this.nextBtn.click(function(){
 				if(self.rotateFlag){
 					self.rotateFlag = false;
 					self.carouseRotate("left");
@@ -50,13 +50,11 @@
 		if(this.setting.autoPlay){
 			this.autoPlay();
 			this.poster.hover(function(){
-										window.clearInterval(self.timer);
-										},function(){
-										self.autoPlay();
-										});
-
+				window.clearInterval(self.timer);
+			},function(){
+				self.autoPlay();
+			});
 		};
-
 	};
 	Carousel.prototype = {
 		autoPlay:function(){
@@ -64,9 +62,7 @@
 			this.timer = window.setInterval(function(){
 				self.nextBtn.click();
 			},this.setting.delay);
-
 		},
-
 		//旋转
 		carouseRotate:function(dir){
 			var _this_  = this;
@@ -75,24 +71,25 @@
 			if(dir === "left"){
 				this.posterItems .each(function(){
 					var self = $(this),
-						   prev = self.prev().get(0)?self.prev():_this_.posterLastItem,
-						   width = prev.width(),
-						   height =prev.height(),
-						   zIndex = prev.css("zIndex"),
-						   opacity = prev.css("opacity"),
-						   left = prev.css("left"),
-						   top = prev.css("top");
-							zIndexArr.push(zIndex);
-						   self.animate({
-							   					width:width,
-												height:height,
-												//zIndex:zIndex,
-												opacity:opacity,
-												left:left,
-												top:top
-												},_this_.setting.speed,function(){
-													_this_.rotateFlag = true;
-												});
+						  prev = self.prev().get(0)?self.prev():_this_.posterLastItem,
+						  width = prev.width(),
+						  height =prev.height(),
+						  zIndex = prev.css("zIndex"),
+						  opacity = prev.css("opacity"),
+						  left = prev.css("left"),
+						  top = prev.css("top");
+
+					zIndexArr.push(zIndex);
+					self.animate({
+						width:width,
+						height:height,
+						//zIndex:zIndex,
+						opacity:opacity,
+						left:left,
+						top:top
+					},_this_.setting.speed,function(){
+						_this_.rotateFlag = true;
+					});
 				});
 				//zIndex需要单独保存再设置，防止循环时候设置再取的时候值永远是最后一个的zindex
 				this.posterItems.each(function(i){
@@ -225,7 +222,6 @@
 		},
 		//获取人工配置参数
 		getSetting:function(){
-
 			var setting = this.poster.attr("data-setting");
 			if(setting&&setting!=""){
 				return $.parseJSON(setting);

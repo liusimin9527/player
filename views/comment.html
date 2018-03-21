@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
     <style type="text/css">
-      .comment {
+      .comment_area {
         height: 800px;
         margin-top: 40px;
         overflow: hidden;
@@ -56,6 +54,9 @@
         height: 40px;
         line-height: 40px;
       }
+      .comment_content {
+        padding: 8px;
+      }
       .comment_btn {
         float: right;
         width: 100px;
@@ -74,9 +75,8 @@
   <body>
     <% include ./public/header.html %>
 
-
     <div class="main">
-      <div class="comment">
+      <div class="comment_area">
         <% for (var i = 0; i < comment.length; i++) { %>
           <div class="comment_item">
             <div class="comment_item_left">
@@ -108,20 +108,21 @@
             url = window.location.search,
             songId = url.split('?')[1].split('=')[1],
             data = {
+              uid: localStorage.getItem('uid'),
               musicId: songId,
               comment: comment
             };
 
-        if ($('.header_right_name').html() == undefined) {
+        if (localStorage.getItem('name') == undefined) {
           alert("请先登录");
         } else {
           $.ajax({
-            url: '/addComment',
+            url: '/addComment?',
             type: 'POST',
             data: data,
             success: function (msg) {
               if (msg == 'success') {
-                location.href = '/comment?musicId=' + songId;
+                location.reload();
               } else if (msg == 'defalt') {
                 alert('评论失败');
               }

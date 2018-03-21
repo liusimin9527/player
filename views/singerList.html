@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
     <meta charset="utf-8">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
     <style type="text/css">
       .singer_tag {
         width: 1200px;
@@ -61,6 +59,7 @@
         line-height: 30px;
         margin: 0 auto;
         font-size: 15px;
+        text-align: center;
         overflow: hidden;
         color: #333;
       }
@@ -87,36 +86,10 @@
         font-size: 15px;
         text-align: left;
       }
-      .page {
-        width: 1200px;
-        height: 30px;
-        margin: 40px 0;
-      }
-      .page_item {
-        display: table;
-        margin: 0 auto;
-      }
-      .page_list {
-        float: left;
-        height: 28px;
-        padding: 0 10px;
-        line-height: 28px;
-        color: #333;
-        margin: 0 5px;
-        font-size: 14px;
-        cursor: pointer;
-        border: 1px solid #e8e8e8;
-      }
-      .page_list--current,
-      .page_list:hover {
-        background: #31c27c;
-        color: #fff;
-      }
     </style>
   </head>
   <body>
     <% include ./public/header.html %>
-
     <div class="subnav">
       <ul class="subnav_item">
         <li class="subnav_list"><a class="subnav_link" href="/">首页</a></li>
@@ -125,115 +98,52 @@
         <li class="subnav_list"><a class="subnav_link" href="/billboard">打榜</a></li>
       </ul>
     </div>
-
     <div class="main">
       <div class="singer_tag">
         <div class="singer_tag__list">
-          <a href="javascript:;" class="singer_tag__item singer_tag__item--all singer_tag__item--select">全部</a>
-          <a href="javascript:;" class="singer_tag__item">华语男</a>
-          <a href="javascript:;" class="singer_tag__item">华语女</a>
-          <a href="javascript:;" class="singer_tag__item">华语组合</a>
-          <a href="javascript:;" class="singer_tag__item">日韩男</a>
-          <a href="javascript:;" class="singer_tag__item">日韩女</a>
-          <a href="javascript:;" class="singer_tag__item">日韩组合</a>
-          <a href="javascript:;" class="singer_tag__item">欧美男</a>
-          <a href="javascript:;" class="singer_tag__item">欧美女</a>
-          <a href="javascript:;" class="singer_tag__item">欧美组合</a>
+          <a href="singerList" class="singer_tag__item singer_tag__item--all">全部</a>
+          <a href="singers?countryType=1&singerGender=1" class="singer_tag__item">华语男</a>
+          <a href="singers?countryType=1&singerGender=2" class="singer_tag__item">华语女</a>
+          <a href="singers?countryType=1&singerGender=3" class="singer_tag__item">华语组合</a>
+          <a href="singers?countryType=2&singerGender=1" class="singer_tag__item">日韩男</a>
+          <a href="singers?countryType=2&singerGender=2" class="singer_tag__item">日韩女</a>
+          <a href="singers?countryType=2&singerGender=3" class="singer_tag__item">日韩组合</a>
+          <a href="singers?countryType=3&singerGender=1" class="singer_tag__item">欧美男</a>
+          <a href="singers?countryType=3&singerGender=2" class="singer_tag__item">欧美女</a>
+          <a href="singers?countryType=3&singerGender=3" class="singer_tag__item">欧美组合</a>
         </div>
       </div>
-
-      <div class="singer_list"></div>
-
-      <div class="page">
-        <ul class="page_item">
-          <li class="page_list page_list--first">首页</li>
-          <li class="page_list page_list--curretn">1</li>
-          <li class="page_list page_list--end">尾页</li>
-        </ul>
+      <div class="singer_list">
+        <% for (var i = 0; i < 10; i++) { %>
+          <li class="singer_list__item">
+            <div class="singer_list__item_box">
+              <a href="singer?singerName=<%= singer[i].singerName%>">
+                <img class="singer_img" src="<%= singer[i].imgUrl%>">
+              </a>
+            </div>
+            <a class="singer_list__link" href="singer?singerName=<%= singer[i].singerName %>" title="<%= singer[i].singerName %>"><%= singer[i].singerName %></a>
+          </li>
+        <% } %>
+        <% for (var i = 10; i < singer.length; i++) { %>
+          <li class="singer_list_item">
+            <a class="singer_list_link" href="singer?singerName=<%= singer[i].singerName %>" title="<%= singer[i].singerName %>"><%= singer[i].singerName %></a>
+          </li>
+        <% } %>
       </div>
+      <% include ./public/page.html %>
     </div>
     <% include ./public/footer.html %>
 
     <script src="/javascripts/jquery.js"></script>
     <script src="/javascripts/main.js"></script>
     <script type="text/javascript">
-      var datas = {};
-      var pageNum = 55;
+      var keyword = location.href;
+      var list = $('.singer_tag__item');
 
-      $.ajax({
-        url: '/singerLi',
-        type: 'GET',
-        success: function (data) {
-          createNode(data);
-        }
-      });
-
-      $('.singer_tag__item').click(function () {
-        $('.singer_tag__item').removeClass('singer_tag__item--select');
-        $(this).addClass('singer_tag__item--select');
-        var text = $(this).html();
-
-        if (text == '全部') {
-          $.ajax({
-            url: '/singerLi',
-            type: 'GET',
-            success: function (data) {
-              createNode(data);
-            }
-          });
-        } else {
-          var param = {
-            countryType: text.substring(0, 2),
-            singerGender: text.substring(2)
-          };
-
-          $.ajax({
-            url: 'singers?countryType=' + param.countryType +'&singerGender=' + param.singerGender,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-              createNode(data);   // 将歌手信息显示在页面上
-            }
-          });
-        }
-      });
-
-      function createNode(data) {
-        $('.singer_list').empty();
-
-        for (var i = 0; i < 10; i++) {
-          var node = $('<li class="singer_list__item"></li>');
-          var node_div = $('<div class="singer_list__item_box"></div>');
-          var node_a1 = $('<a></a>');
-          var node_img = $('<img class="singer_img">');
-          var node_a = $('<a class="singer_list__link"></a>');
-
-          node_a.html(data[i].singerName);
-          node_a.attr("href", "singer?singerName="+data[i].singerName);
-          node_a.attr("title", data[i].singerName);
-          node_a1.attr("href", "singer?singerName="+data[i].singerName);
-          node_a1.attr("title", data[i].singerName);
-          node_img.attr("src", data[i].imgUrl);
-
-
-          node_a1.append(node_img);
-          node_div.append(node_a1);
-          node_div.append(node_a);
-          node.append(node_div);
-
-          $('.singer_list').append(node);
-        }
-        for (var i = 10; i < pageNum; i++) {
-          var node = $('<li class="singer_list_item"></li>');
-          var node_a = $('<a class="singer_list_link"></a>');
-
-          node_a.html(data[i].singerName);
-          node_a.attr("href", "singer?singerName="+data[i].singerName);
-          node_a.attr("title", data[i].singerName);
-
-          node.append(node_a);
-
-          $('.singer_list').append(node);
+      for (var i = 0; i < list.length; i++) {
+        if (keyword == list[i].href) {
+          $('.singer_tag__item').removeClass('singer_tag__item--select');
+          $(list[i]).addClass('singer_tag__item--select');
         }
       }
     </script>

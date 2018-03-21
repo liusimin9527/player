@@ -1,23 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <% include ./public/header.html %>
-
-    <div class="subnav">
-      <ul class="subnav_item">
-        <li class="subnav_list"><a class="subnav_link subnav_link--current" href="/">首页</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="/singerList">歌手</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="/chart">排行榜</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="/billboard">打榜</a></li>
-      </ul>
-    </div>
+    <% include ./public/nav.html %>
 
     <div class="main">
-      <div class="new_song">  <!-- 新歌推荐 -->
+      <div class="new_song">
         <span class="new_song_title">新歌推荐</span>
         <div class="J_Poster poster-main" data-setting='{
             "width":1200,
@@ -118,13 +108,14 @@
 
     <% include ./public/footer.html %>
     <% include ./public/backTop.html %>
-    
+
     <script src="/javascripts/jquery.js"></script>
     <script src="/javascripts/carousel.js"></script>
     <script src="/javascripts/main.js"></script>
     <script>
+      // 轮播图
       $(function(){
-      	Carousel.init($(".J_Poster"));
+        Carousel.init($(".J_Poster"));
       });
     </script>
   </body>

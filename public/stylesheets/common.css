@@ -1,0 +1,269 @@
+/* common */
+body {
+  color:#666;
+  background-color:#fff;
+  font: 12px/1.5 '微软雅黑',tahoma,arial,'Hiragino Sans GB',宋体,sans-serif;
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4,h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td{
+  margin:0;
+  padding:0;
+}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+fieldset,img {
+  border:0;
+}
+address, caption, cite, code, dfn, em, strong, th, var {
+  font-style:normal;
+  font-weight:normal;
+}
+ol, ul{
+  list-style:none;
+}
+caption, th{
+  text-align:left;
+}
+h1, h2, h3, h4, h5, h6{
+  font-size:100%;
+  font-weight:normal;
+}
+q:before, q:after{
+  content: ;
+}
+abbr, acronym{
+  border:0;
+}
+.clearfix:after {
+  visibility:hidden;
+  display:block;
+  font-size:0;
+  content:" ";
+  clear:both;
+  height:0;
+}
+.clearfix {
+  zoom:1;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+.icon_txt {
+  font: 0/0 a;
+}
+.main {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 400px;
+}
+/* header */
+.header {
+  position: relative;
+  height: 90px;
+  line-height: 90px;
+  border-bottom: 1px solid #f2f2f2;
+}
+.header .header-left {
+  float: left;
+  width: 640px;
+  height: 90px;
+  line-height: 90px;
+  font-style: italic;
+}
+.header-left .icon_title {
+  margin-left: 200px;
+  font-size: 34px;
+  font-weight: bold;
+  color: #000;
+}
+.header .header-right {
+  position: absolute;
+  top: 0;
+  right: 50px;
+  height: 90px;
+  line-height: 90px;
+}
+.header-right .header_right_list {
+  float: left;
+  margin: 0 6px;
+  font-size: 16px;
+}
+.header_right_img {
+  width: 50px;
+  height: 50px;
+  margin-top: 18px;
+  margin-right: 10px;
+  float: left;
+}
+.header-right .header_right_link {
+  padding: 8px 14px;
+  background: #31c27c;
+  color: #fff;
+}
+.header-right .header_right_link:hover {
+  background: #2fa46c;
+}
+.logined ,
+.unlogin{
+  float: left;
+  height: 90px;
+}
+.opt {
+  display: none;
+}
+.logoutBtn {
+  cursor: pointer;
+}
+/* nav */
+.subnav {
+  height: 65px;
+}
+.subnav .subnav_item {
+  display: table;
+  margin: 0 auto;
+}
+.subnav .subnav_list {
+  float: left;
+  height: 65px;
+  line-height: 65px;
+}
+.subnav .subnav_link {
+  display: block;
+  padding: 0 14px;
+  font-size: 18px;
+  color: #777;
+}
+.subnav .subnav_link:hover,
+.subnav .subnav_link--current {
+  color: #2fa46c;
+}
+/* footer */
+.footer {
+  height: 140px;
+}
+.footer_copyright {
+  padding: 25px 0;
+  text-align: center;
+  line-height: 28px;
+  color: #999;
+  font-size: 14px;
+}
+.footer_copyright a {
+  padding: 0 6px;
+  color: #999;
+}
+/* register login */
+.register p,
+.login p {
+  padding: 10px 0;
+}
+.register label,
+.login label {
+  display: inline-block;
+  width: 100px;
+  padding: 8px 0;
+  text-align: center;
+}
+.register input:focus,
+.login input:focus {
+  outline: none;
+}
+/* singer */
+.song_item {
+  height: 50px;
+  line-height: 50px;
+  font-size: 0;
+}
+.song_item span {
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  font-size: 14.5px;
+  overflow: hidden;
+}
+.song_songName {
+  width: 23%;
+  margin-left: 30px;
+  overflow: hidden;
+}
+.song_icon {
+  width: 30%;
+}
+.song_icon a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 8px;
+}
+.play {
+  background: url(/images/icon_list_menu.png) 0px 0px;
+}
+.play:hover {
+  background: url(/images/icon_list_menu.png) -40px 0px;
+}
+.attent {
+  background: url(/images/icon_list_menu.png) 0px 200px;
+}
+.attent:hover {
+  background: url(/images/icon_list_menu.png) -40px 200px;
+}
+.download {
+  background: url(/images/icon_list_menu.png) 0px 160px;
+}
+.download:hover {
+  background: url(/images/icon_list_menu.png) -40px 160px;
+}
+.share {
+  background: url(/images/icon_list_menu.png) 0px 240px;
+}
+.share:hover {
+  background: url(/images/icon_list_menu.png) -40px 240px;
+}
+.comment {
+  background: url(/images/icon_list_menu.png) 0px 40px;
+}
+.comment:hover {
+  background: url(/images/icon_list_menu.png) -40px 40px;
+}
+.song_singerName {
+  width: 12%;
+}
+.song_ablum {
+  display: inline-block;
+  width: 21%;
+}
+.song_time {
+  display: inline-block;
+  width: 10%;
+}
+.page {
+  height: 30px;
+  margin: 40px 0;
+}
+.page_item {
+  display: table;
+  margin: 0 auto;
+}
+.page_list {
+  float: left;
+  height: 28px;
+  padding: 0 10px;
+  line-height: 28px;
+  color: #333;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+}
+.page_list--current,
+.page_list:hover {
+  background: #31c27c;
+  color: #fff;
+}

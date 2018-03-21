@@ -1,112 +1,89 @@
-/* common */
-body {
-  color:#666;
-  background-color:#fff;
-  font: 12px/1.5 '微软雅黑',tahoma,arial,'Hiragino Sans GB',宋体,sans-serif;
+/* register */
+.register {
+  width: 480px;
+  height: 150px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4,h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td{
-  margin:0;
-  padding:0;
+.register input {
+  width: 210px;
+  height: 24px;
+  padding: 0 11px;
+  border: 1px solid #E8E8E8;
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px 1px #f2f2f2;
 }
-table {
-  border-collapse:collapse;
-  border-spacing:0;
+.register .verificationcode {
+  width: 110px;
 }
-fieldset,img {
-  border:0;
-}
-address, caption, cite, code, dfn, em, strong, th, var {
-  font-style:normal;
-  font-weight:normal;
-}
-ol, ul{
-  list-style:none;
-}
-caption, th{
-  text-align:left;
-}
-h1, h2, h3, h4, h5, h6{
-  font-size:100%;
-  font-weight:normal;
-}
-q:before, q:after{
-  content: ;
-}
-abbr, acronym{
-  border:0;
-}
-.clearfix:after {
-  visibility:hidden;
-  display:block;
-  font-size:0;
-  content:" ";
-  clear:both;
-  height:0;
-}
-.clearfix {
-  zoom:1;
-}
-li {
-  list-style: none;
-}
-a {
-  text-decoration: none;
-  color: #333;
-}
-.icon_txt {
-  font: 0/0 a;
-}
-.main {
-  max-width: 1200px;
-  margin: 0 auto;
-  min-height: 400px;
-}
-
-/* header */
-.header {
-  position: relative;
-  height: 90px;
-  line-height: 90px;
-  border-bottom: 1px solid #f2f2f2;
-}
-.header .header-left {
-  float: left;
-  width: 640px;
-  height: 90px;
-  line-height: 90px;
-  font-style: italic;
-}
-.header-left .icon_title {
-  margin-left: 200px;
-  font-size: 34px;
-  font-weight: bold;
-  color: #000;
-}
-.header .header-right {
-  position: absolute;
-  top: 0;
-  right: 50px;
-  height: 90px;
-  line-height: 90px;
-}
-.header-right .header_right_list {
-  float: left;
-  margin: 0 6px;
+.register .registerBtn {
+  padding: 5px 120px;
+  margin-top: 30px;
+  margin-left: 80px;
+  cursor: pointer;
+  background: #31c27c;
+  border: 0 none;
+  border-radius: 6px;
+  color: #fff;
   font-size: 16px;
 }
-.header_right_img {
-  width: 50px;
-  height: 50px;
-  margin-top: 18px;
-  margin-right: 10px;
-  float: left;
-}
-.header-right .header_right_link {
-  padding: 8px 14px;
-  background: #31c27c;
+.register .registerBtn:hover {
   color: #fff;
+  outline: none;
+  background: #2fa46c;
 }
-.header-right .header_right_link:hover {
+.register .sendVer {
+  padding: 5px 8px;
+  cursor: pointer;
+  margin-left: 10px;
+  background: #fff;
+  border: 1px solid #E8E8E8;
+  border-radius: 6px;
+  outline: none;
+}
+.register .tip {
+  display: inline-block;
+  width: 120px;
+  margin-left: 10px;
+  color: red;
+}
+
+/* login */
+.login {
+  width: 480px;
+  height: 150px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.login input[type="text"],
+.login input[type="password"] {
+  width: 210px;
+  height: 24px;
+  padding: 0 11px;
+  border: 1px solid #E8E8E8;
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px 1px #f2f2f2;
+}
+.forget_pass {
+  float: right;
+  margin-right: 140px;
+}
+.login .loginrBtn {
+  padding: 5px 120px;
+  margin-top: 30px;
+  margin-left: 60px;
+  cursor: pointer;
+  background: #31c27c;
+  border: 0 none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+}
+.login .loginrBtn:hover {
+  color: #fff;
+  outline: none;
   background: #2fa46c;
 }
 
@@ -139,31 +116,6 @@ a {
   cursor: pointer;
   background: url(/images/search.png) no-repeat center center;
 }
-
-/* nav */
-.subnav {
-  height: 65px;
-}
-.subnav .subnav_item {
-  display: table;
-  margin: 0 auto;
-}
-.subnav .subnav_list {
-  float: left;
-  height: 65px;
-  line-height: 65px;
-}
-.subnav .subnav_link {
-  display: block;
-  padding: 0 14px;
-  font-size: 18px;
-  color: #777;
-}
-.subnav .subnav_link:hover,
-.subnav .subnav_link--current {
-  color: #2fa46c;
-}
-
 /* index */
 .new_song,
 .hot_song,
@@ -256,22 +208,4 @@ a {
 .poster-main .poster-next-btn {
   right:0;
   background: url(/images/btn_r.png) no-repeat center center;
-}
-
-/* singer */
-
-/* footer */
-.footer {
-  height: 140px;
-}
-.footer_copyright {
-  padding: 25px 0;
-  text-align: center;
-  line-height: 28px;
-  color: #999;
-  font-size: 14px;
-}
-.footer_copyright a {
-  padding: 0 6px;
-  color: #999;
 }

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
     <style type="text/css">
     .singer {
       width: 1200px;
@@ -33,71 +31,22 @@
       overflow: hidden;
       margin-top: 26px;
     }
-    .singer_list {
-      margin-top: 30px;
-    }
-    .singer_item {
-      padding: 9px 0;
-      line-height: 30px;
-      font-size: 16px;
-    }
-    .singer_songName {
-      display: inline-block;
-      width: 600px;
-      height: 30px;
-      margin-left: 40px;
-    }
-    .singer_singerName {
-      display: inline-block;
-      width: 120px;
-    }
-    .singer_ablum {
-      display: inline-block;
-      width: 280px;
-    }
-    .singer_time {
-      display: inline-block;
-      width: 130px;
-    }
     </style>
   </head>
   <body>
     <% include ./public/header.html %>
-
-    <div class="subnav">
-      <ul class="subnav_item">
-        <li class="subnav_list"><a class="subnav_link subnav_link--current" href="/">首页</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="/singerList">歌手</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="/chart">排行榜</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="#">打榜</a></li>
-      </ul>
-    </div>
+    <% include ./public/nav.html %>
 
     <div class="main">
       <span>查询结果如下：</span>
-      <div class="singer_list">
-        <li class="singer_item">
-          <span class="singer_songName">歌曲</span>
-          <span class="singer_singerName">歌手</span>
-          <span class="singer_ablum">专辑</span>
-          <span class="singer_time">时长</span>
-        </li>
-
-        <% for (var i = 0; i < result.length; i++) { %>
-          <li class="singer_item">
-            <span class="singer_songName"><a href="/player?musicName=<%= result[i].musicName %>&singerName=<%= result[i].singerName %>"><%= result[i].musicName %></a></span>
-            <span class="singer_singerName"><a href="singer?singerName=<%= result[i].singerName %>"><%= result[i].singerName %></a></span>
-            <span class="singer_ablum"><a href="#" class="singer_link_cdName"><%= result[i].cdName %></a></span>
-            <span class="singer_time"><%= result[i].time %></span>
-          </li>
-        <% } %>
+      <% include ./public/musiclist.html %>
     </div>
 
     <% include ./public/footer.html %>
 
       <script src="/javascripts/jquery.js" type="text/javascript"></script>
+      <script src="/javascripts/main.js"></script>
       <script type="text/javascript">
-        $('.singer_item:even').css("background", "#fbfbfb");
       </script>
   </body>
 </html>

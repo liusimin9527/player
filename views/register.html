@@ -1,80 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title><%= title %></title>
-	<link rel='stylesheet' href='/stylesheets/style.css' />
-	<style type="text/css">
-	  .main {
-	  	height: 300px;
-	  }
-		.register {
-			width: 480px;
-			height: 150px;
-			margin-top: 50px;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		.register p {
-			padding: 10px 0;
-		}
-		.register label {
-			display: inline-block;
-			width: 100px;
-      padding: 8px 0;
-			text-align: center;
-		}
-		.register input {
-      width: 210px;
-      height: 24px;
-      padding: 0 11px;
-      border: 1px solid #E8E8E8;
-      border-radius: 6px;
-      box-shadow: 1px 1px 1px 1px #f2f2f2;
-    }
-    .register input:focus {
-      outline: none;
-    }
-    .register .verificationcode {
-      width: 110px;
-    }
-    .register .registerBtn {
-      padding: 5px 120px;
-      margin-top: 30px;
-			margin-left: 80px;
-      cursor: pointer;
-      background: #31c27c;
-      border: 0 none;
-      border-radius: 6px;
-      color: #fff;
-      font-size: 16px;
-    }
-    .register .registerBtn:hover {
-      color: #fff;
-      outline: none;
-      background: #2fa46c;
-    }
-		.register .sendVer {
-      padding: 5px 8px;
-      cursor: pointer;
-      margin-left: 10px;
-      background: #fff;
-      border: 1px solid #E8E8E8;
-      border-radius: 6px;
-    }
-		.register .tip {
-			display: inline-block;
-			width: 120px;
-			margin-left: 10px;
-			color: red;
-		}
-	</style>
-</head>
+	<head></head>
 <body>
-	<div class="header">
-		<div class="header-left">
-			<a href="/" class="icon_title">音乐台</a>
-		</div>
-	</div>
+	<% include ./public/header.html %>
+
 	<div class="main">
 		<div class="register">
 			<p>
@@ -174,6 +103,22 @@
 			  });
 			}
   	});
+		// 发送验证码
+			// $('.sendVer').disabled();
+			$('.js_send').click(function () {
+				clearInterval(timer);
+				i = 20;
+				var timer = setInterval(function () {
+					i--;
+					$('.sendVer').html("重新发送("+ i +"s)").attr("disabled", true);
+
+
+					if (i == 0) {
+						clearInterval(timer);
+						$('.sendVer').attr("disabled", false).html("发送验证码");
+					}
+				}, 1000);
+			});
   </script>
 </body>
 </html>

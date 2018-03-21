@@ -2,6 +2,7 @@
 <html>
   <head>
     <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/common.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
@@ -17,13 +18,14 @@
       </div>
 
       <ul class="header-right">
-        <% if (user) { %>
-          <a href="#"><img src=<%= user.imgUrl %> alt="" class="header_right_img"></a>
-          <li class="header_right_list header_right_name"><%= user.name %></li>
-        <% } else {%>
+        <div class="opt">
+          <li class="header_right_list"><a class="header_right_name" href="/personal"></a></li>
+          <a class="logoutBtn">退出</a>
+        </div>
+        <div class="header_content">
           <li class="header_right_list"><a class="header_right_link" href="/register">注册</a></li>
           <li class="header_right_list"><a class="header_right_link" href="/login">登录</a></li>
-        <% } %>
+        </div>
       </ul>
     </div>
   </body>
