@@ -5,204 +5,6 @@
     <link rel='stylesheet' href='/stylesheets/common.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <style type="text/css">
-      .player {
-        width: 100%;
-        height: 600px;
-        margin: 0 auto;
-      }
-      .player_box {
-        height: 520px;
-        color: #f2f2f2;
-        background: #333;
-      }
-      .box_left {
-        float: left;
-        width: 40%;
-        height: 500px;
-        text-align: center;
-      }
-      .box_left .singer {
-        height: 300px;
-      }
-      .box_left .singer_info {
-        height: 200px;
-      }
-      .box_left_img {
-        width: 200px;
-        height: 200px;
-        margin-top: 70px;
-        border-radius: 100%;
-      }
-      .singer_info_item {
-        width: 150px;
-        height: 30px;
-        line-height: 30px;
-        text-align: left;
-        margin: 0 auto;
-        margin-left: 100px;
-        overflow: hidden;
-        color: #f2f2f2;
-      }
-      .singer_info_link {
-        color: #f2f2f2;
-      }
-      .box_right {
-        float: right;
-        width: 60%;
-        height: 500px;
-      }
-      .title {
-        height: 80px;
-        line-height: 80px;
-        text-align: center;
-        font-size: 16px;
-      }
-      .lyric {
-        height: 420px;
-        text-align: center;
-        overflow: hidden;
-        color: #f2f2f2;
-        padding: 0 40px;
-      }
-      .box_bottom {
-        height: 82px;
-        background: #000;
-      }
-      .bottom_left {
-        float: left;
-        width: 24%;
-        height: 80px;
-        line-height: 80px;
-        margin-left: 40px;
-      }
-      .bottom_left span {
-        display: inline-block;
-        margin-left: 5px;
-        margin-top: 14px;
-        cursor: pointer;
-        border-radius: 100%;
-      }
-      .prev {
-        width: 34px;
-        height: 34px;
-        background: #fff url(/images/prev.png) no-repeat 1px 1px;
-      }
-      .play_btn {
-        width: 50px;
-        height: 50px;
-        background: #fff url(/images/pause.png) no-repeat 1px 1px;
-      }
-      .next {
-        width: 34px;
-        height: 34px;
-        background: #fff url(/images/next.png) no-repeat 1px 1px;
-      }
-      .bottom_middle {
-        float: left;
-        width: 500px;
-        height: 80px;
-        line-height: 80px;
-      }
-      .bottom_middle_top {
-        height: 50px;
-        color: #fff;
-      }
-      .songName {
-        float: left;
-        width: 390px;
-        height: 50px;
-        line-height: 50px;
-      }
-      .duration_time {
-        float: left;
-        width: 36px;
-        height: 50px;
-        line-height: 50px;
-      }
-      .times {
-        float: left;
-        width: 46px;
-        height: 50px;
-        line-height: 50px;
-      }
-      .bottom_middle_bottom {
-        position: relative;
-        height: 30px;
-      }
-      .process {
-        float: left;
-        width: 480px;
-        height: 6px;
-        background: #fff;
-      }
-      .process_btn {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 12px;
-        height: 12px;
-        margin-left: -6px;
-        margin-top: -3px;
-        border-radius: 100%;
-        background: #31c27c;
-      }
-      .duration_process {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 0px;
-        height: 6px;
-        background: #31c27c;
-      }
-      .bottom_right {
-        float: left;
-        width: 260px;
-        height: 80px;
-        line-height: 80px;
-      }
-      .bottom_right li {
-        float: left;
-        width: 40px;
-        height: 80px;
-        margin-left: 10px;
-      }
-      .bottom_right a {
-        display: block;
-        margin-top: 24px;
-        width: 40px;
-        height: 40px;
-        border-radius: 100%;
-      }
-      .bottom_right_attention {
-        background: url(/images/icon_list_menu.png) no-repeat 0px -78px;
-      }
-      .bottom_right_attention:hover {
-        background: url(/images/icon_list_menu.png) no-repeat -40px -78px;
-      }
-      .bottom_right_comment {
-        background: url(/images/icon_list_menu.png) no-repeat 0px -238px;
-      }
-      .bottom_right_comment:hover {
-        background: url(/images/icon_list_menu.png) no-repeat -40px -238px;
-      }
-      .bottom_right_download {
-        background: url(/images/icon_list_menu.png) no-repeat 0px -118px;
-      }
-      .bottom_right_download:hover {
-        background: url(/images/icon_list_menu.png) no-repeat -40px -118px;
-      }
-      .bottom_right_add {
-        background: url(/images/icon_list_menu.png) no-repeat 0px -78px;
-      }
-      .bottom_right_add:hover {
-        background: url(/images/icon_list_menu.png) no-repeat -40px -78px;
-      }
-      .bottom_right_share {
-        background: url(/images/icon_list_menu.png) no-repeat 0px -38px;
-      }
-      .bottom_right_share:hover {
-        background: url(/images/icon_list_menu.png) no-repeat -40px -38px;
-      }
     </style>
   </head>
   <body>
@@ -211,7 +13,7 @@
           <div class="box_left">
             <div class="singer">
               <a href="singer?singerName=<%= music.singerName %>">
-                <img src="<%= music.imgUrl%>" class="box_left_img">
+                <img src="../<%= music.imgUrl%>" class="box_left_img">
               </a>
             </div>
             <div class="singer_info">
@@ -222,14 +24,14 @@
             </div>
           </div>
           <div class="box_right">
-            <div class="title"><%= music.musicName %></div>
+            <div class="musicName"><%= music.musicName %></div>
             <div class="lyric"><%= music.lyric %></div>
           </div>
         </div>
         <div class="box_bottom">
           <audio class="audioDom" id="audioDom" src="<%= music.musicUrl %>" autoPlay></audio>
           <div class="bottom_left">
-            <span class="prev js_prev"><a href="" class="prev_a"></a></span>
+            <span class="prev js_prev"></span>
             <span class="play_btn js_play"></span>
             <span class="next js_next"></span>
           </div>
@@ -262,10 +64,6 @@
       var isFirst = false,
           audioDom = document.getElementById('audioDom');
 
-      $('.js_share').click(function () {
-        alert(11);
-      });
-
       audioDom.ontimeupdate = function () {
         var width = audioDom.currentTime/audioDom.duration*$('.process').width();
         var second = Math.floor(audioDom.currentTime/60);
@@ -278,10 +76,6 @@
         $('.duration_process').css('width', width);
         $('.duration_time').html(second+':'+minute);
       };
-
-      function getData() {
-        console.log(111);
-      }
 
       $(function () {
         MusicPlayer.init($('.player'));

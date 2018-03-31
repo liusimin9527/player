@@ -5,7 +5,6 @@ var router = express.Router();
 var mysql = require('mysql');
 var dbconfig = require('../db/DBconfig');
 var sql = mysql.createPool(dbconfig.mysql);
-var obj = {};
 
 router.get('/', function (req, res) {
   res.render('login', { title: '音乐台-登录' });
@@ -22,7 +21,8 @@ router.post('/', function (req, res) {
         data = {
           msg: 'success',
           uid: doc[0].uid,
-          name: doc[0].name
+          name: doc[0].name,
+          uImg: doc[0].imgUrl
         };
       } else {
         data = {
@@ -31,7 +31,6 @@ router.post('/', function (req, res) {
       }
 
       res.send(data);
-      //res.send(data);
     });
   });
 });

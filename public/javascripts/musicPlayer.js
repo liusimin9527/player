@@ -12,13 +12,16 @@
     this.duration_process = player.find(".duration_process");  // 进度条()
     this.lyric = player.find(".lyric");   // 歌词
 
-    this.prevBtn.click(function () {
-      var alt = parseInt(location.href.split('alt=')[1]);
-      var singerName = $('.singer_info_link').html();
-
-      location.href = 'player?singerName='+ singerName + '&alt=' + (alt-1);
+    this.prevBtn.click(function prev() {
+      $.ajax({
+        url: '/player/prev',
+        type: 'get',
+        success: function (data) {
+          location.href = '/player';
+        }
+      })
     });
-
+    
     this.playBtn.click(function () {
       if (isFirst) {
         self.playerDom[0].play();  // 播放
@@ -31,11 +34,14 @@
       }
     });
 
-    this.nextBtn.click(function () {
-      var alt = parseInt(location.href.split('alt=')[1]);
-      var singerName = $('.singer_info_link').html();
-
-      location.href = 'player?singerName='+ singerName + '&alt=' + (alt+1);
+    this.nextBtn.click(function next() {
+      $.ajax({
+        url: '/player/next',
+        type: 'get',
+        success: function (data) {
+          location.href = '/player';
+        }
+      })
     });
 
     this.process.click(function (event) {

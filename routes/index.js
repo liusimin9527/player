@@ -5,7 +5,7 @@ var router = express.Router();
 var mysql = require('mysql');
 var dbconfig = require('../db/DBconfig');
 var sql = mysql.createPool(dbconfig.mysql);
-var obj = {};
+var alt = 0;
 
 /* 路由控制 */
 /* GET home page. */
@@ -13,99 +13,15 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: '音乐台-首页' });
 });
 // 排行榜
-router.get('/chart', function (req, res) {
-  var SQL = 'select * from music order by clicks desc limit 10';
+
+router.get('/addLike', function (req, res) {
+  var SQL = 'insert into like(uid, musicName, singerName, ) value (?????????)';
 
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, function (err, doc) {
-      res.render('chart', { title: '音乐台-排行版', song: doc});
+    connection.query(SQL, [], function (err, doc) {
+
     });
-  });
-});
-// 个人中心
-router.get('/personal', function (req, res) {
-  var SQL = 'select * from musiclist';
-
-  sql.getConnection(function (err, connection) {
-    connection.query(SQL, function (err, doc) {
-      res.render('personal', { title: "音乐台-个人中心", song: doc });
-    });
-  });
-});
-// 歌手列表
-router.get('/singerList', function (req, res) {
-  var SQL = 'select * from singer order by attention desc';
-
-  sql.getConnection(function (err, connection) {
-    connection.query(SQL, function (err, doc) {
-      res.render('singerList', { title: '音乐台-歌手', singer: doc });
-    });
-  });
-});
-/* 传输数据 */
-// 歌手信息
-router.get('/singer?', function (req, res) {
-  var param = req.query;
-  var SQL = 'select * from singer where singerName = ?';
-
-  sql.getConnection(function (err, connection) {
-    connection.query(SQL, [param.singerName], function (err, doc) {
-      SQL = 'select * from music where singerId = ?';
-      obj["singerInfo"] = doc[0];
-      connection.query(SQL, [doc[0].singerId], function (err, doc) {
-        res.render('singer', { title: '音乐台-歌手', user: obj.user, song: doc, singer: obj.singerInfo });
-      });
-    });
-  });
-});
-// 歌手列表
-router.get('/singers?', function (req, res) {
-  var param = req.query;
-  var SQL = 'select * from singer where countryType = ? and singerGender = ? order by attention desc';
-
-  if (param.countryType == '1') {
-    param.countryType = '华语';
-  } else if (param.countryType == '2') {
-    param.countryType = '日韩';
-  } else if (param.countryType == '3') {
-    param.countryType = '欧美';
-  }
-
-  if (param.singerGender == '1') {
-    param.singerGender = '男';
-  } else if (param.singerGender == '2') {
-    param.singerGender = '女';
-  } else if (param.singerGender == '3') {
-    param.singerGender = '组合';
-  }
-
-  sql.getConnection(function (err, connection) {
-    connection.query(SQL, [param.countryType, param.singerGender], function (err, doc) {
-      res.render('singerList', { singer: doc });
-    });
-  });
-});
-/* 个人中心 */
-router.get('/person?', function (req, res) {
-  var param = req.query;
-  var SQL = "";
-
-  if (param.alt == '1') {   // 我喜欢
-    SQL = "select * from musiclist where liked = 'true'";
-  // } else if (param.alt == '2') {  // 播放列表
-
-  } else if (param.alt == '3') {  // 下载列表
-    SQL = "select * from musiclist where download = 'true'";
-  } else if (param.alt == '4') {  // 全部歌曲
-    SQL = 'select * from musiclist';
-  }
-
-  sql.getConnection(function (err, connection) {
-    connection.query(SQL, function (err, doc) {
-      console.log(doc);
-      res.render('personal', { title: "音乐台-个人中心", song: doc });
-    });
-  });
+  })
 });
 // 关注
 router.get('/attention?', function (req, res) {
@@ -142,6 +58,16 @@ router.get('/cancel?', function (req, res) {
   });
 });
 // 排行榜
+router.get('/chart', function (req, res) {
+  var SQL = 'select * from music order by clicks desc limit 10';
+
+  sql.getConnection(function (err, connection) {
+    connection.query(SQL, function (err, doc) {
+      obj.song = doc;
+      res.render('chart', { title: '音乐台-排行版', song: doc});
+    });
+  });
+});
 router.get('/charts?', function (req, res) {
   var param = req.query;
   var SQL = '';
@@ -158,6 +84,7 @@ router.get('/charts?', function (req, res) {
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, function (err, doc) {
+      obj.song = doc;
       res.render('chart', { title: "音乐台-排行榜", song: doc });
     });
   });
@@ -199,25 +126,14 @@ router.post('/addComment', function (req, res) {
     });
   });
 })
-/* 播放器 */
-router.get('/player?', function (req, res) {
-  var param = req.query;
-  var SQL = 'select * from music where singerName = ? limit ?,1';
-
-  sql.getConnection(function (err, connection) {
-    connection.query(SQL, [param.singerName, parseInt(param.alt)], function (err, doc) {
-      console.log(doc);
-      res.render('player', { title: '正在播放-' + param.musicName, music: doc[0] });
-    });
-  });
-});
 /* 搜索歌曲结果 */
 router.get('/result?', function (req, res) {
   var param = req.query,
-      SQL = 'select music.*, singer.* from singer left join music on music.singerId = singer.singerId where musicName = ?';
+      SQL = 'select * from music where musicName = ? order by clicks';
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [param.musicName], function (err, doc) {
+      obj.song = doc;
       res.render('result', { title: '音乐台-搜索结果', song: doc});
     });
   });

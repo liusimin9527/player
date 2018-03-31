@@ -39,14 +39,20 @@
       }
       .singer_list__item {
         float: left;
-        height: 195px;
-        width: calc(100% / 5);
+        width: 20%;
+        margin-bottom: 20px;
+        overflow: hidden;
       }
       .singer_list__item_box {
-        text-align: center;
-        background: #fbfbfd;
+        position: relative;
+        margin-right: 20px;
+        background-color: #fbfbfd;
+        min-height: 195px;
+        padding: 25px 0;
+        overflow: hidden;
       }
       .singer_img {
+        display: block;
         width: 140px;
         height: 140px;
         margin-top: 10px;
@@ -54,10 +60,9 @@
       }
       .singer_list__link {
         display: block;
-        width: 150px;
+        width: 140px;
         height: 30px;
         line-height: 30px;
-        margin: 0 auto;
         font-size: 15px;
         text-align: center;
         overflow: hidden;
@@ -68,8 +73,6 @@
         width: 150px;
         height: 40px;
         line-height: 40px;
-        text-align: center;
-        margin: 0 auto;
         font-size: 16px;
         overflow: hidden;
         color: #333;
@@ -86,6 +89,38 @@
         font-size: 15px;
         text-align: left;
       }
+      .singer_list__cover, .singer_list__pic {
+        display: block;
+        width: 140px;
+        height: 140px;
+        border-radius: 126px;
+      }
+      .singer_list__cover {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .singer_list__title {
+        font-size: 16px;
+        font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        zoom: 1;
+        margin: 20px 30px 4px;
+      }
+      .singer_list_txt__item {
+        float: left;
+        width: 20%;
+      }
+      .singer_list_txt__link {
+        float: left;
+        max-width: 90%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        line-height: 36px;
+      }
     </style>
   </head>
   <body>
@@ -101,33 +136,35 @@
     <div class="main">
       <div class="singer_tag">
         <div class="singer_tag__list">
-          <a href="singerList" class="singer_tag__item singer_tag__item--all">全部</a>
-          <a href="singers?countryType=1&singerGender=1" class="singer_tag__item">华语男</a>
-          <a href="singers?countryType=1&singerGender=2" class="singer_tag__item">华语女</a>
-          <a href="singers?countryType=1&singerGender=3" class="singer_tag__item">华语组合</a>
-          <a href="singers?countryType=2&singerGender=1" class="singer_tag__item">日韩男</a>
-          <a href="singers?countryType=2&singerGender=2" class="singer_tag__item">日韩女</a>
-          <a href="singers?countryType=2&singerGender=3" class="singer_tag__item">日韩组合</a>
-          <a href="singers?countryType=3&singerGender=1" class="singer_tag__item">欧美男</a>
-          <a href="singers?countryType=3&singerGender=2" class="singer_tag__item">欧美女</a>
-          <a href="singers?countryType=3&singerGender=3" class="singer_tag__item">欧美组合</a>
+          <a href="/singerList" class="singer_tag__item singer_tag__item--all">全部</a>
+          <a href="/singerList/singers?countryType=1&singerGender=1" class="singer_tag__item">华语男</a>
+          <a href="/singerList/singers?countryType=1&singerGender=2" class="singer_tag__item">华语女</a>
+          <a href="/singerList/singers?countryType=1&singerGender=3" class="singer_tag__item">华语组合</a>
+          <a href="/singerList/singers?countryType=2&singerGender=1" class="singer_tag__item">日韩男</a>
+          <a href="/singerList/singers?countryType=2&singerGender=2" class="singer_tag__item">日韩女</a>
+          <a href="/singerList/singers?countryType=2&singerGender=3" class="singer_tag__item">日韩组合</a>
+          <a href="/singerList/singers?countryType=3&singerGender=1" class="singer_tag__item">欧美男</a>
+          <a href="/singerList/singers?countryType=3&singerGender=2" class="singer_tag__item">欧美女</a>
+          <a href="/singerList/singers?countryType=3&singerGender=3" class="singer_tag__item">欧美组合</a>
         </div>
       </div>
       <div class="singer_list">
         <% for (var i = 0; i < 10; i++) { %>
           <li class="singer_list__item">
             <div class="singer_list__item_box">
-              <a href="singer?singerName=<%= singer[i].singerName%>">
-                <img class="singer_img" src="<%= singer[i].imgUrl%>">
+              <a href="/singerList/singer?singerName=<%= singer[i].singerName%>" class="singer_list__cover">
+                <img class="singer_list__pic" src="../<%= singer[i].imgUrl%>">
               </a>
+              <h3 class="singer_list__title">
+                <a class="singer_list__link" href="/singerList/singer?singerName=<%= singer[i].singerName %>" title="<%= singer[i].singerName %>"><%= singer[i].singerName %></a>
+              </h3>
             </div>
-            <a class="singer_list__link" href="singer?singerName=<%= singer[i].singerName %>" title="<%= singer[i].singerName %>"><%= singer[i].singerName %></a>
           </li>
         <% } %>
         <% for (var i = 10; i < singer.length; i++) { %>
-          <li class="singer_list_item">
-            <a class="singer_list_link" href="singer?singerName=<%= singer[i].singerName %>" title="<%= singer[i].singerName %>"><%= singer[i].singerName %></a>
-          </li>
+            <li class="singer_list_txt__item">
+              <a class="singer_list_txt__link" href="/singerList/singer?singerName=<%= singer[i].singerName %>" title="<%= singer[i].singerName %>"><%= singer[i].singerName %></a>
+            </li>
         <% } %>
       </div>
       <% include ./public/page.html %>

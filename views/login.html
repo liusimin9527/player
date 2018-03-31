@@ -44,6 +44,7 @@
             if (data.msg == 'success') {
               localStorage.setItem('uid', data.uid);
               localStorage.setItem('name', data.name);
+              localStorage.setItem('uImg', data.uImg);
 
               window.location.href = document.referrer;  // 返回上一页并刷新
             }

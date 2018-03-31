@@ -1,16 +1,16 @@
-<div class="song_list">
-  <li class="song_item">
+<ul class="song_list">
+  <p class="song_item">
     <span class="song_songName">歌曲</span>
     <span class="song_icon"></span>
     <span class="song_singerName">歌手</span>
     <span class="song_ablum">专辑</span>
     <span class="song_time">时长</span>
-  </li>
+  </p>
   <% for (var i = 0; i < song.length; i++) { %>
     <li class="song_item">
-      <span class="song_songName"><a href="/player?singerName=<%= song[i].singerName %>&alt=<%= i %>"><%= song[i].musicName %></a></span>
+      <span class="song_songName"><%= song[i].musicName %></span>
       <span class="song_icon">
-        <a href="/player?musicName=<%= song[i].musicName %>&singerName=<%= song[i].singerName %>" class="play" title="播放"></a>
+        <a href="" class="play" title="播放"></a>
         <a href="" class="attent" title="添加"></a>
         <a href="" class="download" title="下载"></a>
         <a href="javascript:;" class="share" title="分享"></a>
@@ -21,4 +21,4 @@
       <span class="song_time"><%= song[i].time %></span>
     </li>
   <% } %>
-</div>
+</ul>

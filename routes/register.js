@@ -5,7 +5,6 @@ var router = express.Router();
 var mysql = require('mysql');
 var dbconfig = require('../db/DBconfig');
 var sql = mysql.createPool(dbconfig.mysql);
-var obj = {};
 
 router.get('/', function (req, res) {
 	res.render('register', { title: '音乐台-注册' });
