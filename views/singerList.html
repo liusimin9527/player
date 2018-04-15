@@ -2,169 +2,57 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <style type="text/css">
-      .singer_tag {
-        width: 1200px;
-        background-color: #fbfbfb;
-        padding: 30px 0 20px 30px;
-				margin: 30px 0 20px;
-        box-sizing: border-box;
-      }
-      .singer_tag__list {
-				padding-bottom: 3px;
-				height: auto;
-				zoom: 1;
-				clear: both;
-				overflow: hidden;
-			}
-      .singer_tag__item--select,
-			.singer_tag__item--select:hover {
-				background-color: #31c27c;
-				color: #fff;
-			}
-			.singer_tag__item {
-				float: left;
-				line-height: 26px;
-				padding: 0 8px;
-				margin: 0 12px 14px 0;
-        cursor: pointer;
-			}
-      .singer_tag__item:hover {
-        background-color: #31c27c;
-				color: #fff;
-      }
-      .singer_list {
-        height: 800px;
-        overflow: hidden;
-      }
-      .singer_list__item {
-        float: left;
-        width: 20%;
-        margin-bottom: 20px;
-        overflow: hidden;
-      }
-      .singer_list__item_box {
-        position: relative;
-        margin-right: 20px;
-        background-color: #fbfbfd;
-        min-height: 195px;
-        padding: 25px 0;
-        overflow: hidden;
-      }
-      .singer_img {
-        display: block;
-        width: 140px;
-        height: 140px;
-        margin-top: 10px;
-        border-radius: 100%;
-      }
-      .singer_list__link {
-        display: block;
-        width: 140px;
-        height: 30px;
-        line-height: 30px;
-        font-size: 15px;
-        text-align: center;
-        overflow: hidden;
-        color: #333;
-      }
-      .singer_list_link {
-        display: block;
-        width: 150px;
-        height: 40px;
-        line-height: 40px;
-        font-size: 16px;
-        overflow: hidden;
-        color: #333;
-      }
-      .singer_list__link:hover,
-      .singer_list_link:hover {
-        color: #31c27c;
-      }
-      .singer_list_item {
-        float: left;
-        width: calc(100% / 5);
-        height: 45px;
-        line-height: 45px;
-        font-size: 15px;
-        text-align: left;
-      }
-      .singer_list__cover, .singer_list__pic {
-        display: block;
-        width: 140px;
-        height: 140px;
-        border-radius: 126px;
-      }
-      .singer_list__cover {
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .singer_list__title {
-        font-size: 16px;
-        font-weight: 400;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        zoom: 1;
-        margin: 20px 30px 4px;
-      }
-      .singer_list_txt__item {
-        float: left;
-        width: 20%;
-      }
-      .singer_list_txt__link {
-        float: left;
-        max-width: 90%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 14px;
-        line-height: 36px;
-      }
-    </style>
   </head>
   <body>
     <% include ./public/header.html %>
     <div class="subnav">
       <ul class="subnav_item">
         <li class="subnav_list"><a class="subnav_link" href="/">首页</a></li>
-        <li class="subnav_list"><a class="subnav_link subnav_link--current" href="/singerList">歌手</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="/chart">排行榜</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="/billboard">打榜</a></li>
+        <li class="subnav_list"><a class="subnav_link subnav_link--current" href="/singerList?index=0">歌手</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/chart?alt=0">排行榜</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="#">打榜</a></li>
       </ul>
     </div>
     <div class="main">
       <div class="singer_tag">
         <div class="singer_tag__list">
-          <a href="/singerList" class="singer_tag__item singer_tag__item--all">全部</a>
-          <a href="/singerList/singers?countryType=1&singerGender=1" class="singer_tag__item">华语男</a>
-          <a href="/singerList/singers?countryType=1&singerGender=2" class="singer_tag__item">华语女</a>
-          <a href="/singerList/singers?countryType=1&singerGender=3" class="singer_tag__item">华语组合</a>
-          <a href="/singerList/singers?countryType=2&singerGender=1" class="singer_tag__item">日韩男</a>
-          <a href="/singerList/singers?countryType=2&singerGender=2" class="singer_tag__item">日韩女</a>
-          <a href="/singerList/singers?countryType=2&singerGender=3" class="singer_tag__item">日韩组合</a>
-          <a href="/singerList/singers?countryType=3&singerGender=1" class="singer_tag__item">欧美男</a>
-          <a href="/singerList/singers?countryType=3&singerGender=2" class="singer_tag__item">欧美女</a>
-          <a href="/singerList/singers?countryType=3&singerGender=3" class="singer_tag__item">欧美组合</a>
+          <a href="/singerList?index=0" class="singer_tag__item singer_tag__item--all">全部</a>
+          <a href="/singerList/singers?countryType=1&singerGender=1&index=0" class="singer_tag__item">华语男</a>
+          <a href="/singerList/singers?countryType=1&singerGender=2&index=0" class="singer_tag__item">华语女</a>
+          <a href="/singerList/singers?countryType=1&singerGender=3&index=0" class="singer_tag__item">华语组合</a>
+          <a href="/singerList/singers?countryType=2&singerGender=1&index=0" class="singer_tag__item">日韩男</a>
+          <a href="/singerList/singers?countryType=2&singerGender=2&index=0" class="singer_tag__item">日韩女</a>
+          <a href="/singerList/singers?countryType=2&singerGender=3&index=0" class="singer_tag__item">日韩组合</a>
+          <a href="/singerList/singers?countryType=3&singerGender=1&index=0" class="singer_tag__item">欧美男</a>
+          <a href="/singerList/singers?countryType=3&singerGender=2&index=0" class="singer_tag__item">欧美女</a>
+          <a href="/singerList/singers?countryType=3&singerGender=3&index=0" class="singer_tag__item">欧美组合</a>
         </div>
       </div>
       <div class="singer_list">
-        <% for (var i = 0; i < 10; i++) { %>
-          <li class="singer_list__item">
-            <div class="singer_list__item_box">
-              <a href="/singerList/singer?singerName=<%= singer[i].singerName%>" class="singer_list__cover">
-                <img class="singer_list__pic" src="../<%= singer[i].imgUrl%>">
-              </a>
-              <h3 class="singer_list__title">
-                <a class="singer_list__link" href="/singerList/singer?singerName=<%= singer[i].singerName %>" title="<%= singer[i].singerName %>"><%= singer[i].singerName %></a>
-              </h3>
-            </div>
-          </li>
-        <% } %>
-        <% for (var i = 10; i < singer.length; i++) { %>
+        <% if (index == 0) { %>
+          <% for (var i = 0; i < 10; i++) { %>
+            <li class="singer_list__item">
+              <div class="singer_list__item_box">
+                <a href="/singerList/singer?singerName=<%= singer[i].singerName%>" class="singer_list__cover">
+                  <img class="singer_list__pic" src="../<%= singer[i].imgUrl%>">
+                </a>
+                <h3 class="singer_list__title">
+                  <a class="singer_list__link" href="/singerList/singer?singerName=<%= singer[i].singerName %>" title="<%= singer[i].singerName %>"><%= singer[i].singerName %></a>
+                </h3>
+              </div>
+            </li>
+          <% } %>
+          <% for (var i = 10; i < singer.length; i++) { %>
             <li class="singer_list_txt__item">
               <a class="singer_list_txt__link" href="/singerList/singer?singerName=<%= singer[i].singerName %>" title="<%= singer[i].singerName %>"><%= singer[i].singerName %></a>
             </li>
+          <% } %>
+        <% } else { %>
+            <% for (var i = 0; i < singer.length; i++) { %>
+              <li class="singer_list_txt__item">
+                <a class="singer_list_txt__link" href="/singerList/singer?singerName=<%= singer[i].singerName %>" title="<%= singer[i].singerName %>"><%= singer[i].singerName %></a>
+              </li>
+            <% } %>
         <% } %>
       </div>
       <% include ./public/page.html %>
@@ -174,15 +62,39 @@
     <script src="/javascripts/jquery.js"></script>
     <script src="/javascripts/main.js"></script>
     <script type="text/javascript">
-      var keyword = location.href;
+      var keyword = location.href.split('index')[0];
+      var index = parseInt(location.href.split('index=')[1]);
       var list = $('.singer_tag__item');
+      var len = $('.page_item li').length - 1;
+
+      if (index == 0) {
+        $('.js_first').hide();
+      } else {
+        $('.js_first').show();
+      }
+
+      if (index == len) {
+        $('.js_end').hide();
+      } else {
+        $('.js_end').show();
+      }
 
       for (var i = 0; i < list.length; i++) {
-        if (keyword == list[i].href) {
+        if (keyword == list[i].href.split('index')[0]) {
           $('.singer_tag__item').removeClass('singer_tag__item--select');
           $(list[i]).addClass('singer_tag__item--select');
         }
       }
+
+      $('.page_item li').each(function () {
+        var index = $(this).index();
+        var keyword = parseInt(location.href.split('index=')[1]);
+
+        if (index == keyword) {
+          $('.page_list').removeClass('page_list--current');
+          $(this).addClass('page_list--current');
+        }
+      });
     </script>
   </body>
 </html>

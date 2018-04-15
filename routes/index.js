@@ -9,19 +9,8 @@ var alt = 0;
 
 /* 路由控制 */
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   res.render('index', { title: '音乐台-首页' });
-});
-// 排行榜
-
-router.get('/addLike', function (req, res) {
-  var SQL = 'insert into like(uid, musicName, singerName, ) value (?????????)';
-
-  sql.getConnection(function (err, connection) {
-    connection.query(SQL, [], function (err, doc) {
-
-    });
-  })
 });
 // 关注
 router.get('/attention?', function (req, res) {
@@ -54,38 +43,6 @@ router.get('/cancel?', function (req, res) {
       }
 
       res.send(msg);
-    });
-  });
-});
-// 排行榜
-router.get('/chart', function (req, res) {
-  var SQL = 'select * from music order by clicks desc limit 10';
-
-  sql.getConnection(function (err, connection) {
-    connection.query(SQL, function (err, doc) {
-      obj.song = doc;
-      res.render('chart', { title: '音乐台-排行版', song: doc});
-    });
-  });
-});
-router.get('/charts?', function (req, res) {
-  var param = req.query;
-  var SQL = '';
-
-  if (param.alt == '1') {  // 内地
-    SQL = "select * from music where songType = '内地' order by clicks desc limit 10";
-  } else if (param.alt == '2') {  // 港台
-    SQL = "select * from music where songType = '港台' order by clicks desc limit 10";
-  } else if (param.alt == '3') {  // 日韩
-    SQL = "select * from music where songType = '日韩' order by clicks desc limit 10";
-  } else if (param.alt == '4') {  // 欧美
-    SQL = "select * from music where songType = '欧美' order by clicks desc limit 10";
-  }
-
-  sql.getConnection(function (err, connection) {
-    connection.query(SQL, function (err, doc) {
-      obj.song = doc;
-      res.render('chart', { title: "音乐台-排行榜", song: doc });
     });
   });
 });
@@ -140,17 +97,17 @@ router.get('/result?', function (req, res) {
 });
 /*  */
 router.get('/searching?', function (req, res) {
-  var param = req.query,
-      SQL = 'select * from singer where singerName = ?';
+  var param = req.query;
+  var SQL = 'select * from singer where singerName = ?';
 
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, [param.keyword], function (err, doc) {
+    connection.query(SQL, [param.keyword, param.keyword], function (err, doc) {
       if (doc.length) {
         msg = '歌手';
       } else {
         msg = '歌曲';
       }
-      // console.log(doc);
+
       res.send(msg);
     });
   });

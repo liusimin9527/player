@@ -15,7 +15,6 @@ router.post('/', function (req, res) {
   var SQL = 'select * from music where musicName = ?';
   alt = parseInt(req.body.alt);
 
-
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [req.body.musicName], function (err, doc) {
       music = doc[0];

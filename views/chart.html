@@ -7,25 +7,49 @@
     <% include ./public/header.html %>
     <div class="subnav">
       <ul class="subnav_item">
-        <li class="subnav_list"><a class="subnav_link" href="/index">首页</a></li>
-        <li class="subnav_list"><a class="subnav_link" href="/singerList">歌手</a></li>
-        <li class="subnav_list"><a class="subnav_link subnav_link--current" href="/chart">排行榜</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/">首页</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/singerList?index=0">歌手</a></li>
+        <li class="subnav_list"><a class="subnav_link subnav_link--current" href="/chart?alt=0">排行榜</a></li>
         <li class="subnav_list"><a class="subnav_link" href="#">打榜</a></li>
       </ul>
     </div>
-
     <div class="main">
       <div class="charts">
         <div class="chart_left">
-          <a href="chart" class="chart_list">音乐总榜</a>
-          <a href="charts?alt=1" class="chart_list">内地音乐榜</a>
-          <a href="charts?alt=2" class="chart_list">港台音乐榜</a>
-          <a href="charts?alt=3" class="chart_list">日韩音乐榜</a>
-          <a href="charts?alt=4" class="chart_list">欧美音乐榜</a>
+          <a href="chart?alt=0" class="chart_list">音乐总榜</a>
+          <a href="chart?alt=1" class="chart_list">内地音乐榜</a>
+          <a href="chart?alt=2" class="chart_list">港台音乐榜</a>
+          <a href="chart?alt=3" class="chart_list">日韩音乐榜</a>
+          <a href="chart?alt=4" class="chart_list">欧美音乐榜</a>
         </div>
         <div class="chart_right">
-          <% include ./public/musiclist.html %>
-          <% include ./public/page.html %>
+          <div class="music_list">
+            <div class="list_title">
+              <span class="list_sort"></span>
+              <span class="song_songName">歌曲</span>
+              <span class="song_icon"></span>
+              <span class="song_singerName">歌手</span>
+              <span class="song_ablum">专辑</span>
+              <span class="song_time">时长</span>
+            </div>
+            <ul class="song_list">
+              <% for (var i = 0; i < song.length; i++) { %>
+                <li class="song_item">
+                  <span class="list_sort"><%= i+1 %></span>
+                  <span class="song_songName"><%= song[i].musicName %></span>
+                  <span class="song_icon">
+                    <a href="" class="play" title="播放"></a>
+                    <a href="" class="attent" title="添加"></a>
+                    <a href="" class="download" title="下载"></a>
+                    <a href="/comment?musicId=<%= song[i].musicId %>" class="comment" title="评论"></a>
+                  </span>
+                  <span class="song_singerName"><a href="/singerList/singer?singerName=<%= song[i].singerName %>"><%= song[i].singerName %></a></span>
+                  <span class="song_ablum"><a href="#" class="singer_link_cdName"><%= song[i].cdName %></a></span>
+                  <span class="song_time"><%= song[i].time %></span>
+                </li>
+              <% } %>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

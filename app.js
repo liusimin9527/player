@@ -14,9 +14,9 @@ var register = require('./routes/register');
 var personal = require('./routes/person');
 var singers = require('./routes/singer');
 var player = require('./routes/player');
+var chart = require('./routes/chart');
 
 obj = {};   // 全局变量-存储歌曲
-
 
 var app = express();
 
@@ -40,6 +40,7 @@ app.use('/register', register);
 app.use('/personal', personal);
 app.use('/singerList', singers);
 app.use('/player', player);
+app.use('/chart', chart);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

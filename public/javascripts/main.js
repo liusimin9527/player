@@ -3,14 +3,12 @@ $(document).ready(function () {
   var year = time.getFullYear();
   var name = localStorage.getItem('name');
 
-  //
   if (localStorage.getItem('name')) {
     $('.header_right_name').html(name);  // 用户名
     $('.userImg').attr('src', '../'+localStorage.getItem('uImg'));
     $('.opt').show();
     $('.header_content').hide();
   }
-
   // 退出登录
   $('.logoutBtn').click(function () {
     localStorage.removeItem('uid');
@@ -32,37 +30,41 @@ $(document).ready(function () {
         if (data == '歌曲') {
           location.href="/result?musicName=" + keyword;
         } else if (data == '歌手') {
-          location.href="/singer?singerName=" + keyword;
+          location.href="/singerList/singer?singerName=" + keyword;
         }
       }
     })
   });
+  // 播放
   $('.song_list li').click(function () {
     $.ajax({
       url: 'http://localhost:3000/player',
       type: 'post',
       data: {
         musicName: $(this).find('.song_songName').html(),
-        alt: $(this).index()-1
+        alt: $(this).index()
       },
       success: function (data) {
+        //window.open('http://localhost:3000/player ');
         location.href = '/player';
       }
     });
   });
-  // 添加到我喜欢
-  // $('.attent').click(function () {
-  //   $.ajax({
-  //     url: 'addLike?',
-  //     type: 'GET',
-  //     data: {
-  //
-  //     }
-  //     success: function (data) {
-  //
-  //     }
-  //   });
-  // });
+  $('.page_item li').click(function () {
+    $(this).find('a').attr('href', location.href.split('index')[0]+'index='+($(this).index()));
+  });
+
+  $('.js_first').click(function () {
+    var index = parseInt(location.href.split('index=')[1]);
+
+    $(this).find('a').attr('href', location.href.split('index')[0]+'index=' + (index-1));
+  });
+
+  $('.js_end').click(function () {
+    var index = parseInt(location.href.split('index=')[1]);
+
+    $(this).find('a').attr('href', location.href.split('index')[0]+'index=' + (index+1));
+  })
 
   // 底部时间
   $('.footer_time').html(year);

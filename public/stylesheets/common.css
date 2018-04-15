@@ -64,7 +64,7 @@ a {
 }
 /* header */
 .header {
-  position: relative;
+  width: 100%;
   height: 90px;
   line-height: 90px;
   border-bottom: 1px solid #f2f2f2;
@@ -147,6 +147,7 @@ a {
 /* footer */
 .footer {
   height: 140px;
+  clear: both;
 }
 .footer_copyright {
   padding: 25px 0;
@@ -176,7 +177,38 @@ a {
   outline: none;
 }
 /* singer */
-.song_item {
+.song_list li {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+}
+.item {
+  font-size: 15px;
+  height: 50px;
+  line-height: 50x;
+}
+.music_list span {
+  display: inline-block;
+  overflow: hidden;
+  height: 50px;
+  line-height: 50px;
+}
+.song_songName {
+  width: 50%;
+}
+.song_icon {
+  position: absolute;
+  top: 0;
+  left: 25%;
+  width: 30%;
+  height: 50px;
+}
+.list_sort {
+  width: 40px;
+  text-align: center;
+  font-size: 16px;
+}
+/* .song_item {
   height: 50px;
   line-height: 50px;
   font-size: 0;
@@ -189,13 +221,15 @@ a {
   overflow: hidden;
 }
 .song_songName {
-  width: 23%;
+  width: 53%;
   margin-left: 30px;
   overflow: hidden;
-}
-.song_icon {
+  cursor: pointer;
+} */
+/* .song_icon {
+  display: none;
   width: 30%;
-}
+} */
 .song_icon a {
   display: inline-block;
   width: 40px;
@@ -237,11 +271,9 @@ a {
   width: 12%;
 }
 .song_ablum {
-  display: inline-block;
   width: 21%;
 }
 .song_time {
-  display: inline-block;
   width: 10%;
 }
 /* player */
@@ -408,20 +440,31 @@ a {
   height: 80px;
   margin-left: 10px;
 }
-.bottom_right a {
+.bottom_right span {
   display: block;
   margin-top: 24px;
   width: 40px;
   height: 40px;
   border-radius: 100%;
+  cursor: pointer;
 }
 .bottom_right_attention {
+  /* display: block;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  margin-top: 24px; */
   background: url(/images/icon_list_menu.png) no-repeat 0px -78px;
 }
 .bottom_right_attention:hover {
   background: url(/images/icon_list_menu.png) no-repeat -40px -78px;
 }
 .bottom_right_comment {
+  display: block;
+  margin-top: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
   background: url(/images/icon_list_menu.png) no-repeat 0px -238px;
 }
 .bottom_right_comment:hover {
@@ -448,25 +491,35 @@ a {
 /* page */
 .page {
   height: 30px;
-  margin: 40px 0;
+  margin: 40px auto;
 }
-.page_item {
+.page_items {
   display: table;
   margin: 0 auto;
 }
+.page_item {
+  display: inline;
+}
 .page_list {
   float: left;
+}
+.page_link {
+  display: block;
   height: 28px;
-  padding: 0 10px;
   line-height: 28px;
+  padding: 0 8px;
   color: #333;
   margin: 0 5px;
   font-size: 14px;
   cursor: pointer;
   border: 1px solid #e8e8e8;
 }
-.page_list--current,
-.page_list:hover {
+.page_link--current,
+.page_link:hover {
   background: #31c27c;
   color: #fff;
+}
+.js_first,
+.sj_end {
+  display: none;
 }

@@ -1,7 +1,11 @@
 <div class="page">
-  <ul class="page_item">
-    <li class="page_list page_list--first">首页</li>
-    <li class="page_list page_list--curretn">1</li>
-    <li class="page_list page_list--end">尾页</li>
+  <ul class="page_items">
+    <li class="page_list js_first"><a href="" class="page_link">上一页</a></li>
+    <ul class="page_item">
+      <% for (var i = 0; i < length; i++) { %>
+        <li class="page_list"><a href="" class="page_link"><%= i+1 %></a></li>
+      <% } %>
+    </ul>
+    <li class="page_list js_end"><a href="" class="page_link">下一页</a></li>
   </ul>
 </div>

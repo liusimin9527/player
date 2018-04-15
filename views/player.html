@@ -49,10 +49,10 @@
           </div>
           <div class="bottom_right">
             <li><a href="" class="bottom_right_volice">音量</a></li>
-            <li><a href="" class="bottom_right_download" title="下载"></a></li>
-            <li><a href="" class="bottom_right_attention" title="添加"></a></li>
+            <li><span class="bottom_right_download" title="下载"></span></li>
+            <li><span class="bottom_right_attention" title="添加"></span></li>
             <li><a href="/comment?musicId=<%= music.musicId %>" class="bottom_right_comment" title="评论"></a></li>
-            <li><a href="" class="bottom_right_share js_share" title="分享"></a></li>
+            <li><span class="bottom_right_share js_share" title="分享"></span></li>
           </div>
         </div>
       </div>
@@ -76,6 +76,8 @@
         $('.duration_process').css('width', width);
         $('.duration_time').html(second+':'+minute);
       };
+
+      sessionStorage.setItem('src', audioDom.src);
 
       $(function () {
         MusicPlayer.init($('.player'));

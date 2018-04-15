@@ -237,7 +237,6 @@
 .chart_right {
   float: left;
   width: 920px;
-  height: 650px;
 }
 .chart_content_list {
   height: 60px;
@@ -247,4 +246,122 @@
 .chart_content_list span {
   float: left;
   font-size: 15px;
+}
+/* singerList.html */
+.singer_tag {
+  width: 1200px;
+  background-color: #fbfbfb;
+  padding: 30px 0 20px 30px;
+  margin: 30px 0 20px;
+  box-sizing: border-box;
+}
+.singer_tag__list {
+  padding-bottom: 3px;
+  height: auto;
+  zoom: 1;
+  clear: both;
+  overflow: hidden;
+}
+.singer_tag__item--select,
+.singer_tag__item--select:hover {
+  background-color: #31c27c;
+  color: #fff;
+}
+.singer_tag__item {
+  float: left;
+  line-height: 26px;
+  padding: 0 8px;
+  margin: 0 12px 14px 0;
+  cursor: pointer;
+}
+.singer_tag__item:hover {
+  background-color: #31c27c;
+  color: #fff;
+}
+.singer_list {
+  overflow: hidden;
+}
+.singer_list__item {
+  float: left;
+  width: 20%;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.singer_list__item_box {
+  position: relative;
+  margin-right: 20px;
+  background-color: #fbfbfd;
+  min-height: 195px;
+  padding: 25px 0;
+  overflow: hidden;
+}
+.singer_img {
+  display: block;
+  width: 140px;
+  height: 140px;
+  margin-top: 10px;
+  border-radius: 100%;
+}
+.singer_list__link {
+  display: block;
+  width: 140px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 15px;
+  text-align: center;
+  overflow: hidden;
+  color: #333;
+}
+.singer_list_link {
+  display: block;
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  overflow: hidden;
+  color: #333;
+}
+.singer_list__link:hover,
+.singer_list_link:hover {
+  color: #31c27c;
+}
+.singer_list_item {
+  float: left;
+  width: calc(100% / 5);
+  height: 45px;
+  line-height: 45px;
+  font-size: 15px;
+  text-align: left;
+}
+.singer_list__cover, .singer_list__pic {
+  display: block;
+  width: 140px;
+  height: 140px;
+  border-radius: 126px;
+}
+.singer_list__cover {
+  margin-left: auto;
+  margin-right: auto;
+}
+.singer_list__title {
+  font-size: 16px;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  zoom: 1;
+  margin: 20px 30px 4px;
+}
+.singer_list_txt__item {
+  float: left;
+  width: 20%;
+}
+.singer_list_txt__link {
+  float: left;
+  max-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  line-height: 36px;
 }
