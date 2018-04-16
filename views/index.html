@@ -42,7 +42,7 @@
         </div>
         <p style="height:50px;"></p>
       </div>
-      <div class="hot_song"> <!--热门歌曲-->
+      <div class="hot_song">
         <span class="hot_song_title">热门歌曲</span>
         <div class="hot_song_content">
           <div class="hot_song_list">
@@ -51,11 +51,14 @@
               <% for (var i = 0, k = 0; i < music.length; i++) { %>
                 <% if (music[i].songType == '内地' && k < 10) { %>
                   <% k++ %>
-                  <li class="hot_song__item"><a href="/player?musicName=<%= music[i].musicName %>&singerName=<%= music[i].singerName %>" title="借 - 毛不易" class="hot_song__link"><%= music[i].musicName %> - <%= music[i].singerName %></a></li>
+                  <li class="hot_song__item">
+                    <span class="musicName"><%= music[i].musicName %></span>
+                    <span class="singerName"><%= music[i].singerName %></span>
+                  </li>
                 <% } %>
               <% } %>
-              <li class="hot_song__item"><a href="http://localhost:3000/chart?alt=0" class="hot_song__link more">更多&lt;&lt;</a></li>
             </ul>
+            <a href="http://localhost:3000/chart?alt=0" class="more">更多&lt;&lt;</a>
           </div>
           <div class="hot_song_list">
             <span class="hot_song__title">港台</span>
@@ -63,11 +66,14 @@
               <% for (var i = 0, k = 0; i < music.length; i++) { %>
                 <% if (music[i].songType == '港台' && k < 10) { %>
                   <% k++ %>
-                  <li class="hot_song__item"><a href="/player?musicName=<%= music[i].musicName %>&singerName=<%= music[i].singerName %>" title="借 - 毛不易" class="hot_song__link"><%= music[i].musicName %> - <%= music[i].singerName %></a></li>
+                  <li class="hot_song__item">
+                    <span class="musicName"><%= music[i].musicName %></span>
+                    <span class="singerName"><%= music[i].singerName %></span>
+                  </li>
                 <% } %>
               <% } %>
-              <li class="hot_song__item"><a href="http://localhost:3000/chart?alt=0" class="hot_song__link more">更多&lt;&lt;</a></li>
             </ul>
+            <a href="http://localhost:3000/chart?alt=0" class="more">更多&lt;&lt;</a>
           </div>
           <div class="hot_song_list">
             <span class="hot_song__title">日韩</span>
@@ -75,11 +81,14 @@
               <% for (var i = 0, k = 0; i < music.length; i++) { %>
                 <% if (music[i].songType == '日韩' && k < 10) { %>
                   <% k++ %>
-                  <li class="hot_song__item"><a href="/player?musicName=<%= music[i].musicName %>&singerName=<%= music[i].singerName %>" title="借 - 毛不易" class="hot_song__link"><%= music[i].musicName %> - <%= music[i].singerName %></a></li>
+                  <li class="hot_song__item">
+                    <span class="musicName"><%= music[i].musicName %></span>
+                    <span class="singerName"><%= music[i].singerName %></span>
+                  </li>
                 <% } %>
               <% } %>
-              <li class="hot_song__item"><a href="http://localhost:3000/chart?alt=0" class="hot_song__link more">更多&lt;&lt;</a></li>
             </ul>
+            <a href="http://localhost:3000/chart?alt=0" class="more">更多&lt;&lt;</a>
           </div>
           <div class="hot_song_list">
             <span class="hot_song__title">欧美</span>
@@ -87,11 +96,14 @@
               <% for (var i = 0, k = 0; i < music.length; i++) { %>
                 <% if (music[i].songType == '欧美' && k < 10) { %>
                   <% k++ %>
-                  <li class="hot_song__item"><a href="/player?musicName=<%= music[i].musicName %>&singerName=<%= music[i].singerName %>" title="借 - 毛不易" class="hot_song__link"><%= music[i].musicName %> - <%= music[i].singerName %></a></li>
+                  <li class="hot_song__item">
+                    <span class="musicName"><%= music[i].musicName %></span>
+                    <span class="singerName"><%= music[i].singerName %></span>
+                  </li>
                 <% } %>
               <% } %>
-              <li class="hot_song__item"><a href="http://localhost:3000/chart?alt=0" class="hot_song__link more">更多&lt;&lt;</a></li>
             </ul>
+            <a href="http://localhost:3000/chart?alt=0" class="more">更多&lt;&lt;</a>
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ router.get('/', function (req, res) {
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, function (err, doc) {
+      obj.song = doc;
       res.render('index', { title: '音乐台-首页', music: doc });
     });
   });
@@ -92,7 +93,7 @@ router.post('/addComment', function (req, res) {
 /* 搜索歌曲结果 */
 router.get('/result?', function (req, res) {
   var param = req.query,
-      SQL = 'select * from music where musicName = ? order by clicks';
+      SQL = 'select * from music where musicName = ? order by clicks desc';
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [param.musicName], function (err, doc) {

@@ -35,6 +35,21 @@ $(document).ready(function () {
       }
     })
   });
+  $('.hot_song__list li').click(function () {
+    $.ajax({
+      url: 'http://localhost:3000/player',
+      type: 'post',
+      data: {
+        musicName: $(this).find('.musicName').html(),
+        singerName: $(this).find('.singerName').html(),
+        alt: $(this).index()
+      },
+        success: function () {
+          //window.open('http://localhost:3000/player ');
+          location.href = '/player';
+        }
+    });
+  });
   // 播放
   $('.song_list li').click(function () {
     $.ajax({

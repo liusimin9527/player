@@ -12,7 +12,7 @@ router.get('/', function (req, res) {
   res.render('player', { title: '正在播放-' + music.musicName, music: music });
 });
 router.post('/', function (req, res) {
-  var SQL = 'select * from music where musicName = ? and singerName = ?';
+  var SQL = 'select * from music where musicName = ? and singerName = ? order by clicks desc';
   alt = parseInt(req.body.alt);
 
   sql.getConnection(function (err, connection) {

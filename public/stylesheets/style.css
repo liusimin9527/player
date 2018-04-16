@@ -156,20 +156,40 @@
   font-size: 18px;
 }
 .hot_song__item {
-  padding: 8px 26px;
+  padding: 7px 26px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #e8e8e8;
+  overflow: hidden;
 }
 .hot_song__link {
   display: block;
   height: 18px;
-  font-size: 15px;
+  font-size: 14px;
   overflow: hidden;
   color: #e8e8e8;
 }
-.hot_song__link:hover {
-  color: #31c27c;
+.hot_song__item:hover,
+.hot_song__link:hover,
+.more:hover {
+  color: #666;
 }
-.hot_song__item .more {
-  text-align: right;
+.more {
+  float: right;
+  height: 40px;
+  line-height: 40px;
+  margin-right: 20px;
+  color: #f2f2f2;
+}
+.hot_song__item .musicName {
+  float: left;
+  width: 180px;
+  overflow: hidden;
+}
+.hot_song__item .singerName {
+  float: right;
+  width: 60px;
+  overflow: hidden;
 }
 
 /*旋转木马必要样式*/
