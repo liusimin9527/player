@@ -16,16 +16,16 @@
     <div class="main">
       <div class="singer_tag">
         <div class="singer_tag__list">
-          <a href="/singerList?index=0" class="singer_tag__item singer_tag__item--all">全部</a>
-          <a href="/singerList/singers?countryType=1&singerGender=1&index=0" class="singer_tag__item">华语男</a>
-          <a href="/singerList/singers?countryType=1&singerGender=2&index=0" class="singer_tag__item">华语女</a>
-          <a href="/singerList/singers?countryType=1&singerGender=3&index=0" class="singer_tag__item">华语组合</a>
-          <a href="/singerList/singers?countryType=2&singerGender=1&index=0" class="singer_tag__item">日韩男</a>
-          <a href="/singerList/singers?countryType=2&singerGender=2&index=0" class="singer_tag__item">日韩女</a>
-          <a href="/singerList/singers?countryType=2&singerGender=3&index=0" class="singer_tag__item">日韩组合</a>
-          <a href="/singerList/singers?countryType=3&singerGender=1&index=0" class="singer_tag__item">欧美男</a>
-          <a href="/singerList/singers?countryType=3&singerGender=2&index=0" class="singer_tag__item">欧美女</a>
-          <a href="/singerList/singers?countryType=3&singerGender=3&index=0" class="singer_tag__item">欧美组合</a>
+          <a href="http://localhost:3000/singerList?index=0" class="singer_tag__item singer_tag__item--all">全部</a>
+          <a href="http://localhost:3000/singerList/singers?countryType=1&singerGender=1&index=0" class="singer_tag__item">华语男</a>
+          <a href="http://localhost:3000/singerList/singers?countryType=1&singerGender=2&index=0" class="singer_tag__item">华语女</a>
+          <a href="http://localhost:3000/singerList/singers?countryType=1&singerGender=3&index=0" class="singer_tag__item">华语组合</a>
+          <a href="http://localhost:3000/singerList/singers?countryType=2&singerGender=1&index=0" class="singer_tag__item">日韩男</a>
+          <a href="http://localhost:3000/singerList/singers?countryType=2&singerGender=2&index=0" class="singer_tag__item">日韩女</a>
+          <a href="http://localhost:3000/singerList/singers?countryType=2&singerGender=3&index=0" class="singer_tag__item">日韩组合</a>
+          <a href="http://localhost:3000/singerList/singers?countryType=3&singerGender=1&index=0" class="singer_tag__item">欧美男</a>
+          <a href="http://localhost:3000/singerList/singers?countryType=3&singerGender=2&index=0" class="singer_tag__item">欧美女</a>
+          <a href="http://localhost:3000/singerList/singers?countryType=3&singerGender=3&index=0" class="singer_tag__item">欧美组合</a>
         </div>
       </div>
       <div class="singer_list">
@@ -64,7 +64,6 @@
     <script type="text/javascript">
       var keyword = location.href.split('index')[0];
       var index = parseInt(location.href.split('index=')[1]);
-      var list = $('.singer_tag__item');
       var len = $('.page_item li').length - 1;
 
       if (index == 0) {
@@ -79,20 +78,25 @@
         $('.js_end').show();
       }
 
-      for (var i = 0; i < list.length; i++) {
-        if (keyword == list[i].href.split('index')[0]) {
+      $('.singer_tag__item').each(function () {
+        var keyword = location.href.split('index')[0];
+        var _href = $(this).attr('href').split('index')[0];
+
+        if (keyword == _href) {
           $('.singer_tag__item').removeClass('singer_tag__item--select');
-          $(list[i]).addClass('singer_tag__item--select');
+          $(this).addClass('singer_tag__item--select');
         }
-      }
+      });
 
       $('.page_item li').each(function () {
         var index = $(this).index();
         var keyword = parseInt(location.href.split('index=')[1]);
 
+        console.log(index, keyword, index == keyword);
+
         if (index == keyword) {
-          $('.page_list').removeClass('page_list--current');
-          $(this).addClass('page_list--current');
+          $('.page_item li').find('a').removeClass('page_link--current');
+          $(this).find('a').addClass('page_link--current');
         }
       });
     </script>
