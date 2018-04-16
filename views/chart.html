@@ -16,11 +16,11 @@
     <div class="main">
       <div class="charts">
         <div class="chart_left">
-          <a href="chart?alt=0" class="chart_list">音乐总榜</a>
-          <a href="chart?alt=1" class="chart_list">内地音乐榜</a>
-          <a href="chart?alt=2" class="chart_list">港台音乐榜</a>
-          <a href="chart?alt=3" class="chart_list">日韩音乐榜</a>
-          <a href="chart?alt=4" class="chart_list">欧美音乐榜</a>
+          <a href="http://localhost:3000/chart?alt=0" class="chart_list">音乐总榜</a>
+          <a href="http://localhost:3000/chart?alt=1" class="chart_list">内地音乐榜</a>
+          <a href="http://localhost:3000/chart?alt=2" class="chart_list">港台音乐榜</a>
+          <a href="http://localhost:3000/chart?alt=3" class="chart_list">日韩音乐榜</a>
+          <a href="http://localhost:3000/chart?alt=4" class="chart_list">欧美音乐榜</a>
         </div>
         <div class="chart_right">
           <div class="music_list">
@@ -59,15 +59,16 @@
     <script src="javascripts/jquery.js" type="text/javascript"></script>
     <script src="javascripts/main.js"></script>
     <script>
-      var keyword = location.href;
-      var list = $('.chart_list');
+      $('.chart_list').each(function () {
+        var keyword = location.href;
+        var _href = $(this).attr('href');
 
-      for (var i = 0; i < list.length; i++) {
-        if (keyword == list[i].href) {
+        console.log(keyword, _href);
+        if (keyword == _href) {
           $('.chart_list').removeClass('chart_list--current');
-          $(list[i]).addClass('chart_list--current');
+          $(this).addClass('chart_list--current');
         }
-      }
+      });
     </script>
   </body>
 </html>

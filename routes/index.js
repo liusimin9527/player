@@ -10,7 +10,13 @@ var alt = 0;
 /* 路由控制 */
 /* GET home page. */
 router.get('/', function (req, res) {
-  res.render('index', { title: '音乐台-首页' });
+  var SQL = 'select * from music order by clicks desc';
+
+  sql.getConnection(function (err, connection) {
+    connection.query(SQL, function (err, doc) {
+      res.render('index', { title: '音乐台-首页', music: doc });
+    });
+  });
 });
 // 关注
 router.get('/attention?', function (req, res) {

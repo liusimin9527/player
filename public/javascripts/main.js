@@ -42,6 +42,7 @@ $(document).ready(function () {
       type: 'post',
       data: {
         musicName: $(this).find('.song_songName').html(),
+        singerName: $(this).find('.song_singerName a').html(),
         alt: $(this).index()
       },
       success: function (data) {

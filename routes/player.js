@@ -12,13 +12,13 @@ router.get('/', function (req, res) {
   res.render('player', { title: '正在播放-' + music.musicName, music: music });
 });
 router.post('/', function (req, res) {
-  var SQL = 'select * from music where musicName = ?';
+  var SQL = 'select * from music where musicName = ? and singerName = ?';
   alt = parseInt(req.body.alt);
 
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, [req.body.musicName], function (err, doc) {
+    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
       music = doc[0];
-      console.log(music);
+
       res.send('success');
     });
   });
