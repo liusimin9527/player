@@ -5,7 +5,7 @@
     <% include ./public/header.html %>
 
     <div class="main">
-      <form class="login">
+      <div class="login">
         <p>
           <label>账号</label>
           <input type="text" name="name" class="login_name" placeholder="请输入用户名">
@@ -15,16 +15,16 @@
           <input type="password" name="password" class="login_pass" placeholder="请输入密码">
         </p>
         <p>
-          <a href="/register" class="forget_pass">注册</a>
-          <a href="#" class="forget_pass">忘记密码？</a>
+          <a href="/forget" class="forget_pass">忘记密码？</a>
+          <a href="/register" class="forget_register">注册</a>
         </p>
         <p>
-          <span class="tip"></span>
+          <span class="login_tip"></span>
         </p>
         <p>
-          <button type="button" class="loginrBtn">登录</button>
+          <button type="button" class="js_login loginBtn">登录</button>
         </p>
-      </form>
+      </div>
     </div>
 
     <% include ./public/footer.html %>
@@ -32,30 +32,6 @@
     <script src="/javascripts/jquery.js" type="text/javascript"></script>
     <script src="/javascripts/main.js"></script>
     <script type="text/javascript">
-      $('.loginrBtn').click(function (event) {
-        $.ajax({
-          url: '/login',
-          type: 'POST',
-          data: {
-            name: $('.login_name').val(),
-            password: $('.login_pass').val()
-          },
-          success: function (data) {
-            if (data.msg == 'success') {
-              localStorage.setItem('uid', data.uid);
-              localStorage.setItem('name', data.name);
-              localStorage.setItem('uImg', data.uImg);
-
-              window.location.href = document.referrer;  // 返回上一页并刷新
-            }
-            if (data.msg == 'error') {
-              $('.tip').html("用户名或密码不正确");
-              $('.login_name').val('');
-              $('.login_pass').val('');
-            }
-          }
-        });
-      });
     </script>
   </body>
 </html>

@@ -1,39 +1,17 @@
 /* register */
 .register {
-  width: 480px;
+  width: 560px;
   height: 150px;
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
 }
-.register input {
-  width: 210px;
-  height: 24px;
-  padding: 0 11px;
-  border: 1px solid #E8E8E8;
-  border-radius: 6px;
-  box-shadow: 1px 1px 1px 1px #f2f2f2;
-}
-.register .verificationcode {
+.register .verificationcode,
+.forget .verificationcode{
   width: 110px;
 }
-.register .registerBtn {
-  padding: 5px 120px;
-  margin-top: 30px;
-  margin-left: 80px;
-  cursor: pointer;
-  background: #31c27c;
-  border: 0 none;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 16px;
-}
-.register .registerBtn:hover {
-  color: #fff;
-  outline: none;
-  background: #2fa46c;
-}
-.register .sendVer {
+.register .sendVer,
+.forget .sendVer {
   padding: 5px 8px;
   cursor: pointer;
   margin-left: 10px;
@@ -42,51 +20,48 @@
   border-radius: 6px;
   outline: none;
 }
-.register .tip {
+.tip {
   display: inline-block;
-  width: 120px;
+  width: 200px;
   margin-left: 10px;
   color: red;
 }
-
 /* login */
 .login {
-  width: 480px;
+  width: 340px;
   height: 150px;
   margin-top: 50px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 370px;
 }
-.login input[type="text"],
-.login input[type="password"] {
+.register input,
+.login input,
+.forget input {
   width: 210px;
   height: 24px;
   padding: 0 11px;
   border: 1px solid #E8E8E8;
   border-radius: 6px;
-  box-shadow: 1px 1px 1px 1px #f2f2f2;
+  /* box-shadow: 1px 1px 1px 1px #f2f2f2; */
+}
+.register input:focus,
+.login input:focus,
+.forget input:focus {
+  box-shadow: 0px 0px 5px 1px #cbc8fb;
+}
+/* forget */
+.forget {
+  width: 560px;
+  height: 200px;
+  margin: 30px auto;
+}
+.forget_register {
+  float: right;
+  margin-right: 15px;
 }
 .forget_pass {
-  float: right;
-  margin-right: 140px;
+  float: left;
+  margin-left: 50px;
 }
-.login .loginrBtn {
-  padding: 5px 120px;
-  margin-top: 30px;
-  margin-left: 60px;
-  cursor: pointer;
-  background: #31c27c;
-  border: 0 none;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 16px;
-}
-.login .loginrBtn:hover {
-  color: #fff;
-  outline: none;
-  background: #2fa46c;
-}
-
 /* search */
 .search {
   position: absolute;

@@ -5,49 +5,71 @@ var router = express.Router();
 var mysql = require('mysql');
 var dbconfig = require('../db/DBconfig');
 var sql = mysql.createPool(dbconfig.mysql);
-var music = {};
+var music = {};  // 当前歌曲
 
 /* 播放器 */
 router.get('/', function (req, res) {
   res.render('player', { title: '正在播放-' + music.musicName, music: music });
 });
 router.post('/', function (req, res) {
-  var SQL = 'select * from music where musicName = ? and singerName = ? order by clicks desc';
+  var SQL = 'select * from music where musicName = ? and singerName = ?';
   alt = parseInt(req.body.alt);
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
       music = doc[0];
-
       res.send('success');
+      // res.render('player', { title: '正在播放-' + doc[0].musicName, music: doc[0] });
     });
   });
 });
 // 上一首
-router.get('/prev', function (req, res) {
-  var len = obj.song.length;
+// router.get('/prev', function (req, res) {
+//   var len = obj.song.length;
+//
+//   if (alt == 0) {
+//     alt = len - 1;
+//   } else {
+//     alt = alt - 1;
+//   }
+//
+//   music = obj.song[alt];
+//   res.send('success');
+// });
+router.post('/prev', function (req, res) {
+  var SQL = 'select * from music where musicName = ? and singerName = ?';
 
-  if (alt == 0) {
-    alt = len - 1;
-  } else {
-    alt = alt - 1;
-  }
+  sql.getConnection(function (err, connection) {
+    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
+      // res.render('player', { title: '正在播放-' + doc[0].musicName, music: doc[0] });
+      music = doc[0];
+      res.send('success');
+    });
+  });
+});
+router.post('/next', function (req, res) {
+  var SQL = 'select * from music where musicName = ? and singerName = ?';
 
-  music = obj.song[alt];
-  res.send('success');
+  sql.getConnection(function (err, connection) {
+    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
+      // res.render('player', { title: '正在播放-' + doc[0].musicName, music: doc[0] });
+      music = doc[0];
+      res.send('success');
+    });
+  });
 });
 // 下一首
-router.get('/next', function(req, res) {
-  var len = obj.song.length;
-
-  if (alt == len - 1 ) {
-    alt = 0;
-  } else {
-    alt = alt + 1;
-  }
-
-  music = obj.song[alt];
-  res.send('success');
-});
+// router.get('/next', function(req, res) {
+//   var len = obj.song.length;
+//
+//   if (alt == len - 1 ) {
+//     alt = 0;
+//   } else {
+//     alt = alt + 1;
+//   }
+//
+//   music = obj.song[alt];
+//   res.send('success');
+// });
 
 module.exports = router;

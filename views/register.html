@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
-	<head></head>
+	<head>
+		<meta charset="utf-8">
+	</head>
 <body>
 	<% include ./public/header.html %>
 
@@ -8,28 +10,30 @@
 		<div class="register">
 			<p>
 				<label>用户名</label>
-				<input type="text" name="name" class="register_name" placeholder="请输入用户名">
+				<input type="text" class="register_name" placeholder="请输入用户名">
 				<span class="tip name_tip">*必填</span>
 			</p>
 			<p>
 				<label>密码</label>
-				<input type="password" name="" class="register_pass" placeholder="请输入密码">
+				<input type="password" class="register_pass" placeholder="请输入密码">
 				<span class="tip pass_tip">*必填</span>
 			</p>
 			<p>
 				<label>手机号码</label>
-				<input type="text" name="" class="telephone" placeholder="请输入手机号码">
+				<input type="text" class="telephone" placeholder="请输入手机号码">
 				<span class="tip telephone_tip">*必填</span>
 			</p>
 			<p>
 				<label>验证码</label>
-				<input type="text" name="" class="verification_code" placeholder="请输入验证码">
+				<input type="text" class="verification_code" placeholder="请输入验证码">
 				<button type="button" class="js_send sendVer">发送验证码</button>
+			</p>
+			<p>
+				<span class="register_tip"></span>
 			</p>
 			<p>
 				<button type="button" class="js_register registerBtn">注册</button>
 			</p>
-
 		</div>
 	</div>
 
@@ -43,7 +47,7 @@
 			    reg = /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
 
 			if (!reg.test(name)) {
-				$('.name_tip').html("请输入5-16个字符");
+				$('.name_tip').html("请输入以字母开头的5-16个字符");
 			} else {
 				$('.name_tip').html("");
 			}
@@ -54,71 +58,11 @@
           reg = /^[a-zA-Z]\w{5,17}$/;
 
 			if (!reg.test(password)) {
-				$('.pass_tip').html("请输入6-18个字符");
+				$('.pass_tip').html("请输入以字母开头的6-18个字符");
 			} else {
 				$('.pass_tip').html("");
 			}
 		});
-	  // 手机号码检验
-	  $('.telephone').blur(function () {
-			var telephone = $('.telephone').val(),
-					reg = /^1[3|4|5|8][0-9]\d{4,8}$/;
-
-			if (!reg.test(telephone)) {
-				$('.telephone_tip').html("格式不正确");
-			} else {
-				$('.telephone_tip').html("");
-			}
-		});
-    //
-  	$('.js_register').click(function () {
-  		var name = $('.register_name').val(),
-  		    password = $('.register_pass').val(),
-					telephone = $('.telephone').val(),
-  		    data = {
-  		    	name: name,
-  		    	password: password,
-						telephone: telephone
-  		    };
-
-      if (!telephone.length) {
-				alert('手机号不能为空');
-			} else {
-	  		$.ajax({
-	  			url: '/register',
-	  			type: 'POST',
-	  			data: data,
-	  			success: function (msg) {
-						if (msg == '该手机号码已被注册') {
-							alert('该手机号码已被注册，请登录');
-						}
-	  				if (msg == '注册成功') {
-							alert('注册成功');
-							location.href = '/login';
-						}
-	  			},
-					error: function () {
-						location.href = '/register';
-					}
-			  });
-			}
-  	});
-		// 发送验证码
-			// $('.sendVer').disabled();
-			$('.js_send').click(function () {
-				clearInterval(timer);
-				i = 20;
-				var timer = setInterval(function () {
-					i--;
-					$('.sendVer').html("重新发送("+ i +"s)").attr("disabled", true);
-
-
-					if (i == 0) {
-						clearInterval(timer);
-						$('.sendVer').attr("disabled", false).html("发送验证码");
-					}
-				}, 1000);
-			});
   </script>
 </body>
 </html>

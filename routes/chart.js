@@ -25,6 +25,7 @@ router.get('/?', function (req, res) {
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, function (err, doc) {
+      obj["song"] = doc;
       res.render('chart', { title: "音乐台-排行榜", song: doc });
     });
   });

@@ -13,15 +13,31 @@
     this.lyric = player.find(".lyric");   // 歌词
 
     this.prevBtn.click(function prev() {
+      var index = parseInt(sessionStorage.getItem("index"));
+      var musicName = sessionStorage.getItem("musicName").split(',');
+      var singerName = sessionStorage.getItem("singerName").split(',');
+      var len = musicName.length;
+
+      if (index == 0) {
+        index = len - 1;
+      } else {
+        index = index - 1;
+      }
+
       $.ajax({
         url: '/player/prev',
-        type: 'get',
-        success: function (data) {
+        type: 'POST',
+        data: {
+          musicName: musicName[index],
+          singerName: singerName[index]
+        },
+        success: function () {
           location.href = '/player';
+          sessionStorage.setItem("index", index);
         }
-      })
+      });
     });
-    
+
     this.playBtn.click(function () {
       if (isFirst) {
         self.playerDom[0].play();  // 播放
@@ -35,13 +51,29 @@
     });
 
     this.nextBtn.click(function next() {
+      var index = parseInt(sessionStorage.getItem("index"));
+      var musicName = sessionStorage.getItem("musicName").split(',');
+      var singerName = sessionStorage.getItem("singerName").split(',');
+      var len = musicName.length;
+
+      if (index == len - 1 ) {
+        index = 0;
+      } else {
+        index = index + 1;
+      }
+
       $.ajax({
-        url: '/player/next',
-        type: 'get',
-        success: function (data) {
+        url: '/player/prev',
+        type: 'POST',
+        data: {
+          musicName: musicName[index],
+          singerName: singerName[index]
+        },
+        success: function () {
           location.href = '/player';
+          sessionStorage.setItem("index", index);
         }
-      })
+      });
     });
 
     this.process.click(function (event) {

@@ -110,6 +110,33 @@ a {
 .header-right .header_right_link:hover {
   background: #2fa46c;
 }
+.register .registerBtn,
+.login .loginBtn,
+.forget .forgetBtn{
+  padding: 5px 120px;
+  margin-left: 52px;
+  cursor: pointer;
+  background: #31c27c;
+  border: 0 none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+}
+.register .registerBtn:hover,
+.login .loginBtn:hover,
+.forget .forgetBtn {
+  color: #fff;
+  outline: none;
+  background: #2fa46c;
+}
+.register .register_tip,
+.login .login_tip,
+.forget .forget_tip {
+  display: block;
+  margin-left: 30px;
+  color: red;
+  height: 30px;
+}
 .logined ,
 .unlogin{
   float: left;
@@ -146,7 +173,7 @@ a {
 }
 /* footer */
 .footer {
-  height: 140px;
+  height: 120px;
   clear: both;
 }
 .footer_copyright {
@@ -162,18 +189,22 @@ a {
 }
 /* register login */
 .register p,
-.login p {
+.login p,
+.forget p {
   padding: 10px 0;
+  overflow: hidden;
 }
 .register label,
-.login label {
+.login label,
+.forget label {
   display: inline-block;
   width: 100px;
   padding: 8px 0;
   text-align: center;
 }
 .register input:focus,
-.login input:focus {
+.login input:focus,
+.forget input:focus {
   outline: none;
 }
 /* singer */
