@@ -55,31 +55,34 @@ router.get('/cancel?', function (req, res) {
 });
 /* 查看评论 */
 router.get('/comment?', function (req, res) {
-  var param = req.query;
-  var users = {};
-  var SQL = 'select users.*, comment.* from comment left join users on users.uid = comment.uid where musicId = ? order by time desc';
+  var SQL = 'select users.*, comment.* from comment left join users on users.uid = comment.uid where musicName = ? and singerName = ? order by time desc';
+  // var SQL = 'select * from comment where musicName = ? and singerName = ?';
 
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, [param.musicId], function (err, doc) {
+    connection.query(SQL, [req.query.musicName, req.query.singerName], function (err, doc) {
+      SQL = 'select * from music where musicName = ? and singerName = ?';
       for (var i = 0; i < doc.length; i++) {
         time = doc[i].time;
         doc[i].time = time.format("yyyy-MM-dd hh:mm:ss");
-        console.log(time);
       }
-
-      res.render('comment', { title: '音乐台-评论', comment: doc, user: obj.user });
+      comment = doc;
+      connection.query(SQL, [req.query.musicName, req.query.singerName], function (err, doc) {
+        res.render('comment', { title: '音乐台-评论', comment: comment, song: doc[0] });
+      });
     });
   });
 })
 /* 增加评论 */
 router.post('/addComment', function (req, res) {
   var param = req.body,
-      SQL = 'insert into comment(uid, musicId, comment, time) values(?, ?, ?, ?)',
+      SQL = 'insert into comment(uid, musicName, singerName, comment, time) values(?, ?, ?, ?, ?)',
       msg = '';
   var date = new Date();
 
+  console.log(param);
+
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, [param.uid, param.musicId, param.comment, date], function (err, doc) {
+    connection.query(SQL, [param.uid, param.musicName, param.singerName, param.comment, date], function (err, doc) {
       if (err) {
         msg = 'default';
       } else {

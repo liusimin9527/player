@@ -23,7 +23,9 @@
           </div>
           <div class="box_right">
             <div class="musicName"><%= music.musicName %></div>
-            <div class="lyric"><%= music.lyric %></div>
+            <div id="lyric" class="lyric">
+              <%= music.lyric %>
+            </div>
           </div>
         </div>
         <div class="box_bottom">
@@ -35,7 +37,7 @@
           </div>
           <div class="bottom_middle">
             <div class="bottom_middle_top">
-              <span class="songName"><%= music.musicName%> - <%= music.singerName%></span>
+              <span class="songName"><%= music.musicName%>-<%= music.singerName%></span>
               <span class="duration_time">00:00</span>
               <span class="times">/ <%= music.time%></span>
             </div>
@@ -47,10 +49,9 @@
           </div>
           <div class="bottom_right">
             <li><a href="" class="bottom_right_volice">音量</a></li>
-            <li><span class="bottom_right_download" title="下载"></span></li>
+            <li><a href="" class="bottom_right_download" download="/src/<%= music.musicName%> - <%= music.singerName%>.mp3" title="下载"></a></li>
             <li><span class="bottom_right_attention" title="添加"></span></li>
-            <li><a href="/comment?musicId=<%= music.musicId %>" class="bottom_right_comment" title="评论"></a></li>
-            <li><span class="bottom_right_share js_share" title="分享"></span></li>
+            <li><span class="bottom_right_comment" title="评论"></span></li>
           </div>
         </div>
       </div>
@@ -59,8 +60,9 @@
     <script src="/javascripts/MusicPlayer.js"></script>
     <script src="/javascripts/main.js"></script>
     <script type="text/javascript">
-      var isFirst = false,
-          audioDom = document.getElementById('audioDom');
+    $(document).ready(function() {
+      var isFirst = false;
+      var audioDom = document.getElementById('audioDom');
 
       audioDom.ontimeupdate = function () {
         var width = audioDom.currentTime/audioDom.duration*$('.process').width();
@@ -73,13 +75,15 @@
         $('.process_btn').css('left', width);
         $('.duration_process').css('width', width);
         $('.duration_time').html(second+':'+minute);
+
       };
 
-      sessionStorage.setItem('src', audioDom.src);
+      localStorage.setItem('src', audioDom.src);
 
       $(function () {
         MusicPlayer.init($('.player'));
       });
+    });
     </script>
   </body>
 </html>

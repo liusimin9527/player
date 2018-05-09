@@ -1,6 +1,8 @@
 $(document).ready(function () {
   var time = new Date();
   var year = time.getFullYear();
+  var musics = [];
+  var objWin;
 
   /* 设置样式 */
   $('.song_item:even').css("background", "#fbfbfb");
@@ -159,69 +161,6 @@ $(document).ready(function () {
       }
     });
   });
-  // 热门歌曲播放
-  $('.hot_song__list li').click(function () {
-    var items = $(this).parents('.hot_song__list').find('li');
-    var music = [];
-    var singer = [];
-    var musicName = $(this).parents('.hot_song__list').find('.musicName');
-    var singerName = $(this).parents('.hot_song__list').find('.singerName');
-
-    for (var i = 0; i < items.length; i++) {
-      music[i] = musicName[i].innerHTML;
-      singer[i] = singerName[i].innerHTML;
-    }
-
-    sessionStorage.setItem("musicName", music);
-    sessionStorage.setItem("singerName", singer);
-    sessionStorage.setItem("index", $(this).index());
-
-    $.ajax({
-      url: 'http://localhost:3000/player',
-      type: 'post',
-      data: {
-        musicName: $(this).find('.musicName').html(),
-        singerName: $(this).find('.singerName').html(),
-        alt: $(this).index()
-      },
-        success: function () {
-          location.href = '/player';
-        }
-    });
-  });
-  // 播放
-  $('.song_list li').click(function () {
-    var items = $(this).parents('.song_list').find('li');
-    var songList = [];
-    var music = [];
-    var singer = [];
-    // 获取当前列表中的歌曲内容
-
-    var musicName = $(this).parents('.song_list').find('.song_songName');
-    var singerName = $(this).parents('.song_list').find('.song_singerName a');
-
-    for (var i = 0; i < items.length; i++) {
-      music[i] = musicName[i].innerHTML;
-      singer[i] = singerName[i].innerHTML;
-      songList[i] = music[i] + ' ' + singer[i];
-    }
-
-    sessionStorage.setItem("musicName", music);
-    sessionStorage.setItem("singerName", singer);
-    sessionStorage.setItem("index", $(this).index());
-
-    $.ajax({
-      url: 'http://localhost:3000/player',
-      type: 'post',
-      data: {
-        musicName: $(this).find('.song_songName').html(),
-        singerName: $(this).find('.song_singerName a').html(),
-      },
-      success: function (data) {
-        location.href = '/player';
-      }
-    });
-  });
   // 排行榜
   $('.chart_list').each(function () {
     var keyword = location.href;
@@ -232,6 +171,87 @@ $(document).ready(function () {
       $(this).addClass('chart_list--current');
     }
   });
+  // 关注歌手
+  $('.js_att').click(function () {
+    text = $('.fans').html();
+    $.ajax({
+      url: '/attention?singerName=' + $('.singer_name').html(),
+      type: 'GET',
+      success: function (data) {
+        if (data == 'success') {
+          $('.fans').html(parseInt(text)+1);
+          $('.attention').hide();
+          $('.cancel').show();
+        }
+      }
+    });
+  });
+  // 取消关注
+  $('.js_cancle').click(function () {
+    text = $('.fans').html();
+    $.ajax({
+      url: '/cancel?singerName=' + $('.singer_name').html(),
+      type: 'GET',
+      success: function (data) {
+        if (data == 'success') {
+          $('.fans').html(parseInt(text)-1);
+          $('.attention').show();
+          $('.cancel').hide();
+        }
+      }
+    });
+  });
+  // 热门歌曲播放
+  $('.hot_song__list li').click(function () {
+    var musicName = $(this).find('.musicName').html();
+    var singerName = $(this).find('.singerName').html();
+    var target = 'http://localhost:3000/player?musicName=' + musicName + '&singerName=' + singerName;
+    var data = {
+      musicName: musicName,
+      singerName: singerName
+    };
 
+    musics.push(data);
+    localStorage.setItem("index", musics.length-1);
+    localStorage.setItem("musics", JSON.stringify(musics));
 
+    if (objWin == null || objWin.closed) {  // 打开页面
+      objWin = window.open(target);
+    } else {
+      objWin.location.replace(target);
+    }
+  });
+  // 评论
+  $('.music_name').click(function () {
+    var musicName = $(this).html();
+    var singerName = $(this).parent().siblings('.song_singerName').html();
+
+    location.href = 'http://localhost:3000/comment?musicName=' + musicName + '&singerName=' + singerName;
+  });
+  $('.bottom_right_comment').click(function () {
+    var song = $(this).parents().find('.songName').html();
+    var musicName = song.split('-')[0];
+    var singerName = song.split('-')[1];
+
+    window.open('http://localhost:3000/comment?musicName=' + musicName + '&singerName='+singerName);
+  });
+  $('.song_list .play').click(function () {
+    var musicName = $(this).parent().siblings('.song_songName').children('.music_name').html();
+    var singerName = $(this).parent().siblings('.song_singerName').html();
+    var target = 'http://localhost:3000/player?musicName=' + musicName + '&singerName=' + singerName;
+    var data = {
+      musicName: musicName,
+      singerName: singerName
+    };
+
+    musics.push(data);
+    localStorage.setItem("index", musics.length-1);
+    localStorage.setItem("musics", JSON.stringify(musics));
+
+    if (objWin == null || objWin.closed) {  // 打开页面
+      objWin = window.open(target);
+    } else {
+      objWin.location.replace(target);
+    }
+  });
 });

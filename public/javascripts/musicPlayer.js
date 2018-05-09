@@ -13,29 +13,21 @@
     this.lyric = player.find(".lyric");   // 歌词
 
     this.prevBtn.click(function prev() {
-      var index = parseInt(sessionStorage.getItem("index"));
-      var musicName = sessionStorage.getItem("musicName").split(',');
-      var singerName = sessionStorage.getItem("singerName").split(',');
-      var len = musicName.length;
+      var index = parseInt(localStorage.getItem("index"));
+      var musics = JSON.parse(localStorage.getItem("musics"));
+      var len = musics.length;
 
       if (index == 0) {
         index = len - 1;
       } else {
         index = index - 1;
       }
+      localStorage.setItem("index", index);
 
-      $.ajax({
-        url: '/player/prev',
-        type: 'POST',
-        data: {
-          musicName: musicName[index],
-          singerName: singerName[index]
-        },
-        success: function () {
-          location.href = '/player';
-          sessionStorage.setItem("index", index);
-        }
-      });
+      var musicName = musics[index].musicName;
+      var singerName = musics[index].singerName;
+
+      location.replace('http://localhost:3000/player?musicName=' + musicName + '&singerName=' + singerName);
     });
 
     this.playBtn.click(function () {
@@ -51,10 +43,9 @@
     });
 
     this.nextBtn.click(function next() {
-      var index = parseInt(sessionStorage.getItem("index"));
-      var musicName = sessionStorage.getItem("musicName").split(',');
-      var singerName = sessionStorage.getItem("singerName").split(',');
-      var len = musicName.length;
+      var index = parseInt(localStorage.getItem("index"));
+      var musics = JSON.parse(localStorage.getItem("musics"));
+      var len = musics.length;
 
       if (index == len - 1 ) {
         index = 0;
@@ -62,18 +53,12 @@
         index = index + 1;
       }
 
-      $.ajax({
-        url: '/player/prev',
-        type: 'POST',
-        data: {
-          musicName: musicName[index],
-          singerName: singerName[index]
-        },
-        success: function () {
-          location.href = '/player';
-          sessionStorage.setItem("index", index);
-        }
-      });
+      localStorage.setItem("index", index);
+
+      var musicName = musics[index].musicName;
+      var singerName = musics[index].singerName;
+
+      location.replace('http://localhost:3000/player?musicName=' + musicName + '&singerName=' + singerName);
     });
 
     this.process.click(function (event) {
@@ -97,17 +82,28 @@
       $('.duration_process').css('width', width);
       $('.duration_time').html(time);
     });
+
+    this.playerDom[0].onended = function () {
+      var index = parseInt(localStorage.getItem("index"));
+      var musics = JSON.parse(localStorage.getItem("musics"));
+      var len = musics.length;
+
+      if (index == len - 1 ) {
+        index = 0;
+      } else {
+        index = index + 1;
+      }
+
+      localStorage.setItem("index", index);
+
+      var musicName = musics[index].musicName;
+      var singerName = musics[index].singerName;
+
+      location.replace('http://localhost:3000/player?musicName=' + musicName + '&singerName=' + singerName);
+    }
   };
   //
   MusicPlayer.prototype = {
-    // 获取歌曲的信息
-    getSongInfo: function () {
-
-    },
-    // 解析歌词
-    getLyric: function () {
-
-    },
     // 获取时间
     getCurrentTime: function (currentTime) {
       var second = Math.floor(currentTime/60);

@@ -215,6 +215,24 @@
   height: 400px;
   margin-right: 30px;
 }
+.chart_left_title {
+  height: 80px;
+  line-height: 80px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+.chart_list__link{
+  font-size: 15px;
+  display: block;
+  line-height: 22px;
+  padding: 8px 17px;
+}
+.chart_list__link--current,
+.chart_list__link--current:hover {
+  background-color: #31c27c;
+  color: #fff;
+}
 .chart_list {
   display: block;
   height: 40px;
@@ -230,8 +248,7 @@
   background: #31c27c;
 }
 .chart_right {
-  float: left;
-  width: 920px;
+  overflow: hidden;
 }
 .chart_content_list {
   height: 60px;

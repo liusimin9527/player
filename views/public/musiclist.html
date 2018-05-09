@@ -9,14 +9,15 @@
   <ul class="song_list">
     <% for (var i = 0; i < song.length; i++) { %>
       <li class="song_item">
-        <span class="song_songName"><%= song[i].musicName %></span>
-        <span class="song_icon">
-          <a href="" class="play" title="播放"></a>
-          <a href="" class="attent" title="添加"></a>
-          <a href="" class="download" title="下载"></a>
-          <a href="/comment?musicId=<%= song[i].musicId %>" class="comment" title="评论"></a>
+        <span class="song_songName">
+          <a href="javascript:;" class="music_name"><%= song[i].musicName %></a>
         </span>
-        <span class="song_singerName"><a href="/singerList/singer?singerName=<%= song[i].singerName %>"><%= song[i].singerName %></a></span>
+        <span class="song_icon">
+          <span class="play" title="播放"></span>
+          <span class="attent" title="添加"></span>
+          <a href="" download="<%= song[i].musicName %> - <%= song[i].singerName %>.mp3" class="download" title="下载"></a>
+        </span>
+        <span class="song_singerName"><%= song[i].singerName %></span>
         <span class="song_ablum"><a href="#" class="singer_link_cdName"><%= song[i].cdName %></a></span>
         <span class="song_time"><%= song[i].time %></span>
       </li>

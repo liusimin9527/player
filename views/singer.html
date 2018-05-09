@@ -81,7 +81,13 @@
   </head>
   <body>
 	<% include ./public/header.html %>
-
+  <div class="subnav">
+    <ul class="subnav_item">
+      <li class="subnav_list"><a class="subnav_link" href="/">首页</a></li>
+      <li class="subnav_list"><a class="subnav_link" href="/singerList?index=0">歌手</a></li>
+      <li class="subnav_list"><a class="subnav_link" href="/chart?alt=0">排行榜</a></li>
+    </ul>
+  </div>
 	<div class="main">
 	  <div class="singer">
   		<div class="singer_info">
@@ -100,45 +106,15 @@
   			  </div>
   		  </div>
   		</div>
-      <p>热门歌曲</p>
+      <p class="song_list_title">热门歌曲</p>
   		<% include ./public/musiclist.html %>
 	  </div>
 	</div>
-
 	<% include ./public/footer.html %>
 	<script src="/javascripts/jquery.js" type="text/javascript"></script>
 	<script src="/javascripts/main.js"></script>
 	<script type="text/javascript">
     $('.attention').show();
-	  $('.js_att').click(function () {
-      text = $('.fans').html();
-      $.ajax({
-			  url: '/attention?singerName=' + $('.singer_name').html(),
-			  type: 'GET',
-			  success: function (data) {
-          if (data == 'success') {
-            $('.fans').html(parseInt(text)+1);
-            $('.attention').hide();
-            $('.cancel').show();
-          }
-			  }
-			});
-	  });
-
-    $('.js_cancle').click(function () {
-      text = $('.fans').html();
-      $.ajax({
-        url: '/cancel?singerName=' + $('.singer_name').html(),
-        type: 'GET',
-        success: function (data) {
-          if (data == 'success') {
-            $('.fans').html(parseInt(text)-1);
-            $('.attention').show();
-            $('.cancel').hide();
-          }
-        }
-      });
-    });
 	</script>
   </body>
 </html>

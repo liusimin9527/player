@@ -74,9 +74,26 @@
   </head>
   <body>
     <% include ./public/header.html %>
-
+    <div class="subnav">
+      <ul class="subnav_item">
+        <li class="subnav_list"><a class="subnav_link" href="/">首页</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/singerList?index=0">歌手</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/chart?alt=0">排行榜</a></li>
+      </ul>
+    </div>
     <div class="main">
+      <div class="singer_info">
+        <div class="music_name"><%= song.musicName %></div>
+        <div class="singer_name"><%= song.singerName %></div>
+        <div class="cdName"><%= song.cdName %></div>
+      </div>
       <div class="comment_area">
+        <div class="add_comment">
+          <span class="commnet_title">添加评论</span>
+          <textarea name="name" rows="9" cols="122" class="comment_content"></textarea>
+          <button type="button" name="button" class="js_comment comment_btn">发表</button>
+        </div>
+        <h2>最新评论</h2>
         <% for (var i = 0; i < comment.length; i++) { %>
           <div class="comment_item">
             <div class="comment_item_left">
@@ -90,45 +107,40 @@
           </div>
         <% } %>
       </div>
-      <div class="add_comment">
-        <span class="commnet_title">添加评论</span>
-        <textarea name="name" rows="9" cols="122" class="comment_content"></textarea>
-        <button type="button" name="button" class="js_comment comment_btn">发表</button>
-      </div>
     </div>
-
     <% include ./public/footer.html %>
 
     <script src="/javascripts/jquery.js" type="text/javascript"></script>
     <script src="/javascripts/main.js"></script>
     <script type="text/javascript">
-
       $('.js_comment').click(function () {
         var comment = $('.comment_content').val(),
-            url = window.location.search,
-            songId = url.split('?')[1].split('=')[1],
+            url = window.location.href.split('?')[1],
+            musicName = url.split('&')[0].split('=')[1],
+            singerName = url.split('&')[1].split('=')[1],
             data = {
               uid: localStorage.getItem('uid'),
-              musicId: songId,
+              musicName: musicName,
+              singerName: singerName,
               comment: comment
             };
-
-        if (localStorage.getItem('name') == undefined) {
-          alert("请先登录");
-        } else {
-          $.ajax({
-            url: '/addComment?',
-            type: 'POST',
-            data: data,
-            success: function (msg) {
-              if (msg == 'success') {
-                location.reload();
-              } else if (msg == 'defalt') {
-                alert('评论失败');
-              }
-            }
-          });
-        }
+        console.log(data);
+        // if (localStorage.getItem('name') == undefined) {
+        //   alert("请先登录");
+        // } else {
+        //   $.ajax({
+        //     url: '/addComment?',
+        //     type: 'POST',
+        //     data: data,
+        //     success: function (msg) {
+        //       if (msg == 'success') {
+        //         location.reload();
+        //       } else if (msg == 'defalt') {
+        //         alert('评论失败');
+        //       }
+        //     }
+        //   });
+        // }
       });
     </script>
   </body>
