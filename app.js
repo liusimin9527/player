@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var login = require('./routes/login');
 var register = require('./routes/register');
 var personal = require('./routes/person');
@@ -35,7 +34,6 @@ app.use(cookie());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/login', login);
 app.use('/register', register);
 app.use('/personal', personal);

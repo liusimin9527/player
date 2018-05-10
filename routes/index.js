@@ -20,36 +20,43 @@ router.get('/', function (req, res) {
   });
 });
 // 关注
-router.get('/attention?', function (req, res) {
-  var param = req.query;
+router.post('/attention', function (req, res) {
+  var param = req.body;
+  var msg = '';
   var SQL = 'update singer set attention = attention+1 where singerName = ?';
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [param.singerName], function (err, doc) {
-      if (err) {
-        msg = 'default';
-      } else {
-        msg = 'success';
-      }
+      SQL = 'update users set attention = ? where uid = ?';
+      connection.query(SQL, [param.attention, param.uid], function (err, doc) {
+        if (err) {
+            msg = 'default'
+        } else {
+            msg = 'success'
+        }
 
-      res.send(msg);
+        res.send(msg);
+      });
     });
   });
 });
 // 取消关注
-router.get('/cancel?', function (req, res) {
-  var param = req.query;
+router.post('/cancel', function (req, res) {
+  var param = req.body;
   var SQL = 'update singer set attention = attention-1 where singerName = ?'
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [param.singerName], function (err, doc) {
-      if (err) {
-        msg = 'default';
-      } else {
-        msg = 'success';
-      }
+      SQL = 'update users set attention = ? where uid = ?';
+      connection.query(SQL, [param.attention, param.uid], function (err, doc) {
+        if (err) {
+            msg = 'default'
+        } else {
+            msg = 'success'
+        }
 
-      res.send(msg);
+        res.send(msg);
+      });
     });
   });
 });

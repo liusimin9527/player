@@ -22,7 +22,8 @@ router.post('/', function (req, res) {
           msg: 'success',
           uid: doc[0].uid,
           name: doc[0].name,
-          uImg: doc[0].imgUrl
+          uImg: doc[0].imgUrl,
+          attention: doc[0].attention
         };
       } else {
         data = {

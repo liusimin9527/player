@@ -3,14 +3,48 @@ $(document).ready(function () {
   var year = time.getFullYear();
   var musics = [];
   var objWin;
+  var index = parseInt(location.href.split('index=')[1]);
+  var len = $('.page_item li').length - 1;
+  var user = JSON.parse(localStorage.getItem('user'));
+  var attens
+  // 显示用户信息
+  if (user) {
+    attens = user.attention.split(',');
 
+    for (var i = 0; i < attens.length; i++) {
+      if (attens.indexOf($('.singer_name').html()) != -1) {
+        $('.attention').hide();
+        $('.cancel').show();
+      } else {
+        $('.attention').show();
+        $('.cancel').hide();
+      }
+    }
+
+    $('.header_content').hide();  // 隐藏注册和登录按钮
+    $('.opt').show();             // 显示用户信息
+    $('.header_right_name').html(user.uName);  // 用户名
+    $('.userImg').attr('src', '../' + user.uImg);  // 显示用户头像
+  }
   /* 设置样式 */
   $('.song_item:even').css("background", "#fbfbfb");
   // 底部时间
   $('.footer_time').html(year);
-  //
-  $('.page_item li').click(function () {
-    $(this).find('a').attr('href', location.href.split('index')[0]+'index='+($(this).index()));
+  // 分页页码样式
+  $('.page_item li').each(function () {
+    if ($(this).index() == parseInt(location.href.split('index=')[1])) {
+      $('.page_item li').find('a').removeClass('page_link--current');
+      $(this).find('a').addClass('page_link--current');
+    }
+  });
+  // 经过歌曲名时
+  $('.song_songName').on({
+    mouseenter: function () {
+      $(this).children('.song_icon').children().show();
+    },
+    mouseleave: function () {
+      $(this).children('.song_icon').children().hide();
+    }
   });
   // 上一页
   $('.js_first').click(function () {
@@ -23,6 +57,28 @@ $(document).ready(function () {
     var index = parseInt(location.href.split('index=')[1]);
 
     $(this).find('a').attr('href', location.href.split('index')[0]+'index=' + (index+1));
+  });
+  // 用户名检测 字母开头，允许 5-16 字节，允许字母数字下划线
+  $('.register_name').blur(function () {
+    var name = $('.register_name').val(),
+        reg = /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
+
+    if (!reg.test(name)) {
+      $('.name_tip').html("请输入以字母开头的5-16个字符");
+    } else {
+      $('.name_tip').html("");
+    }
+  });
+  // 密码检测 以字母开头，长度在 6~18 之间，只能包含字母、数字和下划线
+  $('.register_pass').blur(function () {
+    var password = $('.register_pass').val(),
+        reg = /^[a-zA-Z]\w{5,17}$/;
+
+    if (!reg.test(password)) {
+      $('.pass_tip').html("请输入以字母开头的6-18个字符");
+    } else {
+      $('.pass_tip').html("");
+    }
   });
   // 手机号码检验
   $('.telephone').blur(function () {
@@ -49,14 +105,6 @@ $(document).ready(function () {
       }
     }, 1000);
   });
-  // 设置用户信息
-  if (localStorage.getItem('name')) {
-    $('.header_content').hide();  // 隐藏注册和登录按钮
-    $('.opt').show();             // 显示用户信息
-
-    $('.header_right_name').html(localStorage.getItem('name'));  // 用户名
-    $('.userImg').attr('src', '../'+localStorage.getItem('uImg'));  // 显示用户头像
-  }
   // 注册
   $('.js_register').click(function () {
     var name = $('.register_name').val(),
@@ -101,16 +149,17 @@ $(document).ready(function () {
       },
       success: function (data) {
         if (data.msg == 'success') {
-          localStorage.setItem('uid', data.uid);
-          localStorage.setItem('name', data.name);
-          localStorage.setItem('uImg', data.uImg);
-
+          var user = {
+            uId: data.uid,
+            uName: data.name,
+            uImg: data.uImg,
+            attention: data.attention
+          };
+          localStorage.setItem('user', JSON.stringify(user));
           window.location.href = document.referrer;  // 返回上一页并刷新
-        }
-        if (data.msg == 'error') {
+        } else if (data.msg == 'error') {
           $('.login_tip').html("用户名或密码不正确");
-          // 清空表单
-          $('.login_name').val('');
+          $('.login_name').val('');  // 清空表单
           $('.login_pass').val('');
         }
       }
@@ -118,9 +167,7 @@ $(document).ready(function () {
   });
   // 退出登录
   $('.logoutBtn').click(function () {
-    localStorage.removeItem('uid');
-    localStorage.removeItem('name');
-
+    localStorage.removeItem('user');
     location.reload();  // 刷新页面
   });
   // 忘记密码
@@ -133,17 +180,47 @@ $(document).ready(function () {
         verification: $('.forget_val').val()
       },
       success: function (data) {
-        if (data.msg == 'success') {
-          localStorage.setItem('uid', data.uid);
-          localStorage.setItem('name', data.name);
-          localStorage.setItem('uImg', data.uImg);
+        var user = {
+          uId: data.uid,
+          uName: data.name,
+          uImg: data.uImg,
+          attention: data.attention
+        };
 
+        if (data.msg == 'success') {
+          localStorage.setItem('user', JSON.stringify(user));
           location.href = '/';
         } else {
           $('.forget_tip').html("手机号码或验证码错误");
         }
       }
     });
+  });
+  // 分页页码
+  $('.page_item li').click(function () {
+    $(this).find('a').attr('href', location.href.split('index')[0]+'index='+($(this).index()));
+  });
+
+  if (index == 0) {
+    $('.js_first').hide();
+  } else {
+    $('.js_first').show();
+  }
+
+  if (index == len) {
+    $('.js_end').hide();
+  } else {
+    $('.js_end').show();
+  }
+  // 歌手引导
+  $('.singer_tag__item').each(function () {
+    var keyword = location.href.split('index')[0];
+    var _href = $(this).attr('href').split('index')[0];
+
+    if (keyword == _href) {
+      $('.singer_tag__item').removeClass('singer_tag__item--select');
+      $(this).addClass('singer_tag__item--select');
+    }
   });
   // 查找
   $('.js_search').click(function () {
@@ -173,30 +250,60 @@ $(document).ready(function () {
   });
   // 关注歌手
   $('.js_att').click(function () {
-    text = $('.fans').html();
-    $.ajax({
-      url: '/attention?singerName=' + $('.singer_name').html(),
-      type: 'GET',
-      success: function (data) {
-        if (data == 'success') {
-          $('.fans').html(parseInt(text)+1);
-          $('.attention').hide();
-          $('.cancel').show();
+    var singerName = $('.singer_name').html();
+
+    if (user.uName == null) {
+      alert("请先登陆");
+    } else {
+      user.attention += singerName + ',';
+
+      var data = {
+        singerName: singerName,
+        attention: user.attention,
+        uid: user.uId
+      };
+
+      $.ajax({
+        url: '/attention',
+        type: 'POST',
+        data: data,
+        success: function (data) {
+          if (data == 'success') {
+            localStorage.setItem('user', JSON.stringify(user));
+            location.reload();
+          }
         }
-      }
-    });
+      });
+    }
   });
   // 取消关注
   $('.js_cancle').click(function () {
-    text = $('.fans').html();
+    var attens = user.attention.split(',');
+    var singerName = $('.singer_name').html();
+    var str = '';
+
+    for (var i = 0; i < attens.length - 1; i++) {
+      if (attens[i] != singerName) {
+        str += attens[i] + ',';
+      }
+    }
+
+    user.attention = str;
+
+    var data = {
+      singerName: singerName,
+      attention: str,
+      uid: user.uId
+    }
+
     $.ajax({
-      url: '/cancel?singerName=' + $('.singer_name').html(),
-      type: 'GET',
+      url: '/cancel',
+      type: 'POST',
+      data: data,
       success: function (data) {
         if (data == 'success') {
-          $('.fans').html(parseInt(text)-1);
-          $('.attention').show();
-          $('.cancel').hide();
+          localStorage.setItem('user', JSON.stringify(user));
+          location.reload();
         }
       }
     });
@@ -221,13 +328,14 @@ $(document).ready(function () {
       objWin.location.replace(target);
     }
   });
-  // 评论
+  // 歌曲详细信息 包括评论
   $('.music_name').click(function () {
     var musicName = $(this).html();
-    var singerName = $(this).parent().siblings('.song_singerName').html();
+    var singerName = $(this).parent().siblings('.song_singerName').children('a').html();
 
     location.href = 'http://localhost:3000/comment?musicName=' + musicName + '&singerName=' + singerName;
   });
+  // 小图标-评论
   $('.bottom_right_comment').click(function () {
     var song = $(this).parents().find('.songName').html();
     var musicName = song.split('-')[0];
@@ -235,9 +343,10 @@ $(document).ready(function () {
 
     window.open('http://localhost:3000/comment?musicName=' + musicName + '&singerName='+singerName);
   });
-  $('.song_list .play').click(function () {
-    var musicName = $(this).parent().siblings('.song_songName').children('.music_name').html();
-    var singerName = $(this).parent().siblings('.song_singerName').html();
+  // 小图标-播放
+  $('.play').click(function () {
+    var musicName = $(this).parent().siblings('.music_name').html();
+    var singerName = $(this).parent().parent().siblings('.song_singerName').children('a').html();
     var target = 'http://localhost:3000/player?musicName=' + musicName + '&singerName=' + singerName;
     var data = {
       musicName: musicName,

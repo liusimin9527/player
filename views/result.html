@@ -5,15 +5,38 @@
   </head>
   <body>
     <% include ./public/header.html %>
-
     <div class="main">
-      <span>查询结果如下：</span>
-      <% include ./public/musiclist.html %>
+      <h2 class="result_title">查询结果如下：</h2>
+      <div class="music_list">
+        <div class="list_title">
+          <span class="song_songName">歌曲</span>
+          <span class="song_singerName">歌手</span>
+          <span class="song_ablum">专辑</span>
+          <span class="song_time">时长</span>
+        </div>
+        <ul class="song_list">
+          <% for (var i = 0; i < song.length; i++) { %>
+            <li class="song_item">
+              <span class="song_songName">
+                <a href="javascript:;" class="music_name"><%= song[i].musicName %></a>
+                <span class="song_icon">
+                  <a href="javascript:;" class="play" title="播放"></a>
+                  <a href="javascript:;" class="attent" title="添加"></a>
+                  <a href="" download="<%= song[i].musicName %> - <%= song[i].singerName %>.mp3" class="download" title="下载"></a>
+                </span>
+              </span>
+              <span class="song_singerName">
+                <a href="http://localhost:3000/singerList/singer?singerName=<%= song[i].singerName %>"><%= song[i].singerName %></a>
+              </span>
+              <span class="song_ablum"><a href="#" class="singer_link_cdName"><%= song[i].cdName %></a></span>
+              <span class="song_time"><%= song[i].time %></span>
+            </li>
+          <% } %>
+        </ul>
+      </div>
     </div>
-
     <% include ./public/footer.html %>
-
-      <script src="/javascripts/jquery.js" type="text/javascript"></script>
-      <script src="/javascripts/main.js"></script>
+    <script src="/javascripts/jquery.js" type="text/javascript"></script>
+    <script src="/javascripts/main.js"></script>
   </body>
 </html>

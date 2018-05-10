@@ -1,83 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<style type="text/css">
-  	.singer {
-  	  width: 1200px;
-  	  margin: 0 auto;
-  	}
-  	.singer_info {
-  	  height: 350px;
-      margin: 30px 0;
-  	  background: #fbfbfb;
-  	}
-  	.singer_info_left {
-  	  float: left;
-  	}
-  	.singer_info_left img {
-      display: block;
-  	  width: 250px;
-  	  height: 250px;
-  	  margin-left: 50px;
-  	  margin-top: 60px;
-  	  border-radius: 100%;
-  	}
-  	.singer_att {
-  	  width: 300px;
-  	  height: 40px;
-  	  margin-top: 10px;
-  	}
-  	.fans {
-  	  display: block;
-  	  float: left;
-  	  width: 100px;
-  	  height: 30px;
-  	  text-align: center;
-  	  line-height: 30px;
-  	}
-  	.attention {
-      display: none;
-  	  float: left;
-  	  width: 60px;
-  	  height: 30px;
-  	  text-align: center;
-  	  color: #fff;
-  	  background: #31c27c;
-  	  cursor: pointer;
-  	  line-height: 30px;
-  	}
-  	.singer_info_right {
-  	  float: left;
-  	  padding: 90px 40px 0;
-  	}
-  	.singer_name {
-  	  font-size: 20px;
-  	  font-weight: bold;
-  	}
-  	.singer_desc {
-  	  width: 780px;
-  	  height: 80px;
-  	  overflow: hidden;
-  	  margin-top: 26px;
-  	}
-    .show_desc {
-      text-align: right;
-      color: #31c27c;
-      cursor: pointer;
-    }
-  	.cancel {
-      display: none;
-      float: left;
-      width: 60px;
-      height: 30px;
-      line-height: 30px;
-      text-align: center;
-  	  background: #fff;
-  	  color: #31c27c;
-      cursor: pointer;
-  	  border: 1px solid #31c27c;
-  	}
-	</style>
+    <meta charset="utf-8">
   </head>
   <body>
 	<% include ./public/header.html %>
@@ -106,15 +30,40 @@
   			  </div>
   		  </div>
   		</div>
-      <p class="song_list_title">热门歌曲</p>
-  		<% include ./public/musiclist.html %>
+      <h2 class="song_list_title">热门歌曲</h2>
+      <div class="music_list">
+        <div class="list_title">
+          <span class="song_songName">歌曲</span>
+          <span class="song_singerName">歌手</span>
+          <span class="song_ablum">专辑</span>
+          <span class="song_time">时长</span>
+        </div>
+        <ul class="song_list">
+          <% for (var i = 0; i < song.length; i++) { %>
+            <li class="song_item">
+              <span class="song_songName">
+                <a href="javascript:;" class="music_name"><%= song[i].musicName %></a>
+                <span class="song_icon">
+                  <a href="javascript:;" class="play" title="播放"></a>
+                  <a href="javascript:;" class="attent" title="添加"></a>
+                  <a href="" download="<%= song[i].musicName %> - <%= song[i].singerName %>.mp3" class="download" title="下载"></a>
+                </span>
+              </span>
+              <span class="song_singerName">
+                <a href="http://localhost:3000/singerList/singer?singerName=<%= song[i].singerName %>"><%= song[i].singerName %></a>
+              </span>
+              <span class="song_ablum">
+                <a href="#" class="singer_link_cdName" title="<%= song[i].cdName %>"><%= song[i].cdName %></a>
+              </span>
+              <span class="song_time"><%= song[i].time %></span>
+            </li>
+          <% } %>
+        </ul>
+      </div>
 	  </div>
 	</div>
 	<% include ./public/footer.html %>
 	<script src="/javascripts/jquery.js" type="text/javascript"></script>
 	<script src="/javascripts/main.js"></script>
-	<script type="text/javascript">
-    $('.attention').show();
-	</script>
   </body>
 </html>

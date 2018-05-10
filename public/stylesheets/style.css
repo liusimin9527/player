@@ -1,7 +1,13 @@
+.main,
+.section_inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
 /* register */
 .register {
   width: 560px;
-  height: 150px;
+  height: 350px;
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
@@ -29,7 +35,7 @@
 /* login */
 .login {
   width: 340px;
-  height: 150px;
+  height: 350px;
   margin-top: 50px;
   margin-left: 370px;
 }
@@ -41,7 +47,6 @@
   padding: 0 11px;
   border: 1px solid #E8E8E8;
   border-radius: 6px;
-  /* box-shadow: 1px 1px 1px 1px #f2f2f2; */
 }
 .register input:focus,
 .login input:focus,
@@ -166,8 +171,6 @@
   width: 60px;
   overflow: hidden;
 }
-
-/*旋转木马必要样式*/
 .poster-main {
   position: relative;
   width: 1200px;
@@ -204,10 +207,9 @@
   right:0;
   background: url(/images/btn_r.png) no-repeat center center;
 }
-/*  */
+/* chart */
 .charts {
   min-height: 650px;
-  margin-top: 30px;
 }
 .chart_left {
   float: left;
@@ -217,10 +219,12 @@
 }
 .chart_left_title {
   height: 80px;
-  line-height: 80px;
+  line-height: 90px;
+  margin-bottom: 10px;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
+  border-bottom: 1px solid #ebebeb;
 }
 .chart_list__link{
   font-size: 15px;
@@ -250,6 +254,13 @@
 .chart_right {
   overflow: hidden;
 }
+.chart_right_title {
+  /* font-weight: bold; */
+  font-size: 19px;
+  height: 60px;
+  line-height: 60px;
+  margin-left: 100px;
+}
 .chart_content_list {
   height: 60px;
   line-height: 60px;
@@ -259,7 +270,7 @@
   float: left;
   font-size: 15px;
 }
-/* singerList.html */
+/* singerList */
 .singer_tag {
   width: 1200px;
   background-color: #fbfbfb;
@@ -376,4 +387,618 @@
   text-overflow: ellipsis;
   font-size: 14px;
   line-height: 36px;
+}
+/* nav */
+.subnav {
+  height: 65px;
+}
+.subnav .subnav_item {
+  display: table;
+  margin: 0 auto;
+}
+.subnav .subnav_list {
+  float: left;
+  height: 65px;
+  line-height: 65px;
+}
+.subnav .subnav_link {
+  display: block;
+  padding: 0 14px;
+  font-size: 18px;
+  color: #777;
+}
+.subnav .subnav_link:hover,
+.subnav .subnav_link--current {
+  color: #2fa46c;
+}
+/* register login */
+.register .registerBtn,
+.login .loginBtn,
+.forget .forgetBtn{
+  padding: 5px 120px;
+  margin-left: 52px;
+  cursor: pointer;
+  background: #31c27c;
+  border: 0 none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+}
+.register .registerBtn:hover,
+.login .loginBtn:hover,
+.forget .forgetBtn {
+  color: #fff;
+  outline: none;
+  background: #2fa46c;
+}
+.register .register_tip,
+.login .login_tip,
+.forget .forget_tip {
+  display: block;
+  margin-left: 30px;
+  color: red;
+  height: 30px;
+}
+.register p,
+.login p,
+.forget p {
+  padding: 10px 0;
+  overflow: hidden;
+}
+.register label,
+.login label,
+.forget label {
+  display: inline-block;
+  width: 100px;
+  padding: 8px 0;
+  text-align: center;
+}
+.register input:focus,
+.login input:focus,
+.forget input:focus {
+  outline: none;
+}
+/* singer */
+.singer {
+  width: 1200px;
+  margin: 0 auto;
+}
+.singer .singer_info {
+  height: 350px;
+  margin: 30px 0;
+  background: #fbfbfb;
+}
+.singer_info_left {
+  float: left;
+}
+.singer_info_left img {
+  display: block;
+  width: 250px;
+  height: 250px;
+  margin-left: 50px;
+  margin-top: 60px;
+  border-radius: 100%;
+}
+.singer_att {
+  width: 300px;
+  height: 40px;
+  margin-top: 10px;
+}
+.fans {
+  display: block;
+  float: left;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+}
+.attention {
+  float: left;
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  color: #fff;
+  background: #31c27c;
+  cursor: pointer;
+  line-height: 30px;
+}
+.singer_info_right {
+  float: left;
+  padding: 90px 40px 0;
+}
+.singer_name {
+  font-size: 20px;
+  font-weight: bold;
+}
+.singer_desc {
+  width: 780px;
+  height: 80px;
+  overflow: hidden;
+  margin-top: 26px;
+}
+.show_desc {
+  text-align: right;
+  color: #31c27c;
+  cursor: pointer;
+}
+.cancel {
+  display: none;
+  float: left;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #fff;
+  color: #31c27c;
+  cursor: pointer;
+  border: 1px solid #31c27c;
+}
+.song_list li {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+}
+.item {
+  font-size: 15px;
+  height: 50px;
+  line-height: 50x;
+}
+.list_title span {
+  display: inline-block;
+  overflow: hidden;
+  height: 50px;
+  line-height: 50px;
+}
+.song_item span {
+  float: left;
+  font-size: 14px;
+  height: 50px;
+  overflow: hidden;
+}
+.song_list_title {
+  height: 50px;
+  line-height: 50px;
+  margin-left: 50px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.song_num {
+  width: 60px;
+  text-align: right;
+}
+.song_songName {
+  position: relative;
+  width: 40%;
+  margin-left: 50px;
+  cursor: pointer;
+}
+.song_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35%;
+  height: 50px;
+}
+.song_icon a {
+  display: none;
+  float: left;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 8px;
+}
+.song_singerName {
+  width: 10%;
+}
+.song_ablum {
+  width: 20%;
+}
+.song_time {
+  width: 10%;
+}
+.list_sort {
+  width: 40px;
+  text-align: right;
+  font-size: 16px;
+}
+.play {
+  background: url(/images/icon_list_menu.png) 0px 0px;
+}
+.play:hover {
+  background: url(/images/icon_list_menu.png) -40px 0px;
+}
+.attent {
+  background: url(/images/icon_list_menu.png) 0px 200px;
+}
+.attent:hover {
+  background: url(/images/icon_list_menu.png) -40px 200px;
+}
+.download {
+  background: url(/images/icon_list_menu.png) 0px 160px;
+}
+.download:hover {
+  background: url(/images/icon_list_menu.png) -40px 160px;
+}
+/* player */
+.player {
+  width: 100%;
+  height: 600px;
+  margin: 0 auto;
+}
+.player_box {
+  height: 520px;
+  color: #f2f2f2;
+  background: #333;
+}
+.box_left {
+  float: left;
+  width: 40%;
+  height: 500px;
+  text-align: center;
+}
+.box_left .player_singer {
+  height: 300px;
+}
+.box_left .singer_info {
+  height: 200px;
+}
+.box_left_img {
+  width: 200px;
+  height: 200px;
+  margin-top: 70px;
+  border-radius: 100%;
+}
+.singer_info_item {
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+  text-align: left;
+  margin: 0 auto;
+  margin-left: 100px;
+  overflow: hidden;
+  color: #f2f2f2;
+}
+.singer_info_link {
+  color: #f2f2f2;
+}
+.box_right {
+  float: right;
+  width: 60%;
+  height: 500px;
+}
+.box_right .musicName {
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  font-size: 16px;
+}
+.lyric {
+  height: 420px;
+  text-align: center;
+  overflow: hidden;
+  color: #f2f2f2;
+  padding: 0 40px;
+}
+.box_bottom {
+  height: 82px;
+  background: #000;
+}
+.bottom_left {
+  float: left;
+  width: 24%;
+  height: 80px;
+  line-height: 80px;
+  margin-left: 40px;
+}
+.bottom_left span {
+  display: inline-block;
+  margin-left: 5px;
+  margin-top: 14px;
+  cursor: pointer;
+  border-radius: 100%;
+}
+.prev {
+  display: block;
+  width: 34px;
+  height: 34px;
+  background: #fff url(/images/prev.png) no-repeat 1px 1px;
+}
+.play_btn {
+  width: 50px;
+  height: 50px;
+  background: #fff url(/images/pause.png) no-repeat 1px 1px;
+}
+.next {
+  display: block;
+  width: 34px;
+  height: 34px;
+  background: #fff url(/images/next.png) no-repeat 1px 1px;
+}
+.bottom_middle {
+  float: left;
+  width: 500px;
+  height: 80px;
+  line-height: 80px;
+}
+.bottom_middle_top {
+  height: 50px;
+  color: #fff;
+}
+.songName {
+  float: left;
+  width: 390px;
+  height: 50px;
+  line-height: 50px;
+}
+.duration_time {
+  float: left;
+  width: 36px;
+  height: 50px;
+  line-height: 50px;
+}
+.times {
+  float: left;
+  width: 46px;
+  height: 50px;
+  line-height: 50px;
+}
+.bottom_middle_bottom {
+  position: relative;
+  height: 30px;
+}
+.process {
+  float: left;
+  width: 480px;
+  height: 6px;
+  background: #fff;
+}
+.process_btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  margin-top: -3px;
+  border-radius: 100%;
+  background: #31c27c;
+}
+.duration_process {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0px;
+  height: 6px;
+  background: #31c27c;
+}
+.bottom_right {
+  float: left;
+  width: 260px;
+  height: 80px;
+  line-height: 80px;
+}
+.bottom_right li {
+  float: left;
+  width: 40px;
+  height: 80px;
+  margin-left: 10px;
+}
+.bottom_right span {
+  display: block;
+  margin-top: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.bottom_right_attention {
+  background: url(/images/icon_list_menu.png) no-repeat 0px -78px;
+}
+.bottom_right_attention:hover {
+  background: url(/images/icon_list_menu.png) no-repeat -40px -78px;
+}
+.bottom_right_comment {
+  display: block;
+  margin-top: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background: url(/images/icon_list_menu.png) no-repeat 0px -238px;
+}
+.bottom_right_comment:hover {
+  background: url(/images/icon_list_menu.png) no-repeat -40px -238px;
+}
+.bottom_right_download {
+  display: block;
+  height: 40px;
+  background: url(/images/icon_list_menu.png) no-repeat 0px -118px;
+}
+.bottom_right_download:hover {
+  background: url(/images/icon_list_menu.png) no-repeat -40px -118px;
+}
+.bottom_right_add {
+  background: url(/images/icon_list_menu.png) no-repeat 0px -78px;
+}
+.bottom_right_add:hover {
+  background: url(/images/icon_list_menu.png) no-repeat -40px -78px;
+}
+.bottom_right_share {
+  background: url(/images/icon_list_menu.png) no-repeat 0px -38px;
+}
+.bottom_right_share:hover {
+  background: url(/images/icon_list_menu.png) no-repeat -40px -38px;
+}
+/* page */
+.page {
+  height: 30px;
+  margin: 40px auto;
+}
+.page_items {
+  display: table;
+  margin: 0 auto;
+}
+.page_item {
+  display: inline;
+}
+.page_list {
+  float: left;
+}
+.page_link {
+  display: block;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 8px;
+  color: #333;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+}
+.page_link--current,
+.page_link:hover {
+  background: #31c27c;
+  color: #fff;
+}
+.js_first,
+.sj_end {
+  display: none;
+}
+/* comment */
+.comment_area {
+  height: 800px;
+  margin-top: 40px;
+  overflow: hidden;
+}
+.comment_item {
+  height: 100px;
+  margin-top: 10px;
+  border-bottom: 1px solid #f2f2f2;
+}
+.comment_item_left {
+  float: left;
+  width: 240px;
+  height: 100px;
+  font-size: 0;
+  text-align: center;
+}
+.comment_list {
+  padding: 6px 0;
+  font-size: 16px;
+}
+.userName {
+  font-size: 16px;
+}
+.userImg img {
+  width: 55px;
+  height: 55px;
+}
+.comment_item_right {
+  float: left;
+  height: 100px;
+}
+.comment_list {
+  font-size: 14px;
+}
+.content {
+  width: 900px;
+  height: 60px;
+  overflow: hidden;
+}
+.add_comment {
+  width: 800px;
+  height: 260px;
+  margin-left: 80px;
+  margin-top: 40px;
+}
+.comment_title {
+  display: block;
+  width: 200px;
+  height: 40px;
+  line-height: 40px;
+}
+.comment_content {
+  padding: 8px;
+}
+.comment_btn {
+  float: right;
+  width: 100px;
+  height: 30px;
+  margin-top: 30px;
+  border: 0 none;
+  color: #fff;
+  background: #31c27c;
+}
+.comment_btn:hover {
+  color: #fff;
+  background: #31c27c;
+}
+/* personal */
+.user_info {
+  width: 240px;
+  height: 600px;
+  float: left;
+  text-align: center;
+}
+.user_list {
+  margin-top: 20px;
+}
+.user_link {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 2px;
+  font-size: 14px;
+}
+.user_link--current,
+.user_link:hover {
+  background: #31c27c;
+  color: #fff;
+}
+.user_item {
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+}
+.content {
+  float: left;
+  width: 900px;
+  height: 1000px;
+}
+/* singerList */
+.mod_singer_push {
+  position: relative;
+  width: 100%;
+  height: 376px;
+  background: url(/images/bg_singer.jpg) 50% 0 repeat-x;
+  overflow: hidden;
+}
+.section_inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  height: 400px;
+}
+.singer_push__tit {
+  width: 494px;
+  height: 60px;
+  margin-top: 103px;
+  background-position: 0 0;
+}
+.singer_push__desc {
+  width: 260px;
+  height: 26px;
+  margin-top: 20px;
+  background-position: 0 -70px;
+}
+.singer_push__desc,
+.singer_push__tit {
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url(/images/singer_tit.png);
+}
+.result_title {
+  height: 60px;
+  line-height: 60px;
+  font-size: 15px;
+  margin-left: 45px;
 }

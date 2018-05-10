@@ -5,7 +5,6 @@
 	</head>
 <body>
 	<% include ./public/header.html %>
-
 	<div class="main">
 		<div class="register">
 			<p>
@@ -36,33 +35,8 @@
 			</p>
 		</div>
 	</div>
-
 	<% include ./public/footer.html %>
-
   <script src="/javascripts/jquery.js"></script>
-  <script type="text/javascript">
-    // 用户名检测 字母开头，允许 5-16 字节，允许字母数字下划线
-		$('.register_name').blur(function () {
-			var name = $('.register_name').val(),
-			    reg = /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
-
-			if (!reg.test(name)) {
-				$('.name_tip').html("请输入以字母开头的5-16个字符");
-			} else {
-				$('.name_tip').html("");
-			}
-		});
-    // 密码检测 以字母开头，长度在 6~18 之间，只能包含字母、数字和下划线
-		$('.register_pass').blur(function () {
-			var password = $('.register_pass').val(),
-          reg = /^[a-zA-Z]\w{5,17}$/;
-
-			if (!reg.test(password)) {
-				$('.pass_tip').html("请输入以字母开头的6-18个字符");
-			} else {
-				$('.pass_tip').html("");
-			}
-		});
-  </script>
+	<script src="javascripts/main.js"></script>
 </body>
 </html>
