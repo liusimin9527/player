@@ -5,16 +5,23 @@
   </head>
   <body>
     <% include ./public/header.html %>
+    <div class="subnav">
+      <ul class="subnav_item">
+        <li class="subnav_list"><a class="subnav_link" href="/">首页</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/singerList?index=0">歌手</a></li>
+        <li class="subnav_list"><a class="subnav_link" href="/chart?alt=0">排行榜</a></li>
+      </ul>
+    </div>
     <div class="main">
       <div class="user_info">
         <a href="">
           <img src="./images/person_300.png" alt="" width="160px" height="160px">
         </a>
         <div class="user_list">
-          <a href="/personal" class="user_link user_link--current">全部歌曲</a>
-          <a href="/personal?alt=1" class="user_link">我喜欢</a>
-          <a href="/personal?alt=2" class="user_link">播放列表</a>
-          <a href="/personal?alt=3" class="user_link">下载列表</a>
+          <a href="/personal?alt=0&index=0" class="user_link user_link--current">全部歌曲</a>
+          <a href="/personal?alt=1&index=0" class="user_link">我喜欢</a>
+          <a href="/personal?alt=2&index=0" class="user_link">播放列表</a>
+          <a href="/personal?alt=3&index=0" class="user_link">下载列表</a>
         </div>
       </div>
       <div class="content">
@@ -31,9 +38,10 @@
                 <span class="song_songName">
                   <a href="javascript:;" class="music_name"><%= song[i].musicName %></a>
                   <span class="song_icon">
-                    <a href="javascript:;" class="play" title="播放"></a>
-                    <a href="javascript:;" class="attent" title="添加"></a>
-                    <a href="" download="<%= song[i].musicName %> - <%= song[i].singerName %>.mp3" class="download" title="下载"></a>
+                    <a href="javascript:;" class="play js_play" title="播放"></a>
+                    <a href="javascript:;" class="append js_append" title="添加至我喜欢"></a>
+                    <a href="" class="download js_download" download="<%= song[i].musicName %> - <%= song[i].singerName %>.mp3" title="下载"></a>
+                    <a href="javascript:;" class="delete js_delete" title="删除"></a>
                   </span>
                 </span>
                 <span class="song_singerName">
@@ -45,7 +53,10 @@
             <% } %>
           </ul>
         </div>
+        <div class="success"></div>
+        <% include ./public/page.html %>
       </div>
+
     </div>
     <% include ./public/footer.html %>
     <script src="javascripts/jquery.js" type="text/javascript"></script>

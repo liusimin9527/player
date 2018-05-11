@@ -21,11 +21,14 @@
   		  <div class="singer_info_right">
   			  <h1 class="singer_name"><%= singer.singerName %></h1>
   			  <p class="singer_desc"><%= singer.description %></p>
-          <p class="show_desc">展开</p>
+          <p class="show_desc">
+            <span class="spread js_spread">展开</span>
+            <p class="spread_content"><%= singer.description %></p>
+          </p>
   			  <div class="singer_att">
   			    <span class="attention js_att">关注</span>
             <span class="cancel js_cancle">取消关注</span>
-            粉丝数：
+            <span class="fans_txt">粉丝数：</span>
   			    <span class="fans"><%= singer.attention %></span>
   			  </div>
   		  </div>
@@ -44,9 +47,9 @@
               <span class="song_songName">
                 <a href="javascript:;" class="music_name"><%= song[i].musicName %></a>
                 <span class="song_icon">
-                  <a href="javascript:;" class="play" title="播放"></a>
-                  <a href="javascript:;" class="attent" title="添加"></a>
-                  <a href="" download="<%= song[i].musicName %> - <%= song[i].singerName %>.mp3" class="download" title="下载"></a>
+                  <a href="javascript:;" class="play js_play" title="播放"></a>
+                  <a href="javascript:;" class="append js_append" title="添加至我喜欢"></a>
+                  <a href="" download="<%= song[i].musicName %> - <%= song[i].singerName %>.mp3" class="download js_download" title="下载"></a>
                 </span>
               </span>
               <span class="song_singerName">
@@ -59,6 +62,7 @@
             </li>
           <% } %>
         </ul>
+        <div class="success"></div>
       </div>
 	  </div>
 	</div>

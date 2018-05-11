@@ -23,8 +23,9 @@
           </div>
           <div class="box_right">
             <div class="musicName"><%= music.musicName %></div>
-            <div id="lyric" class="lyric">
-              <%= music.lyric %>
+            <div class="lyric_box">
+              <span class="lyrci_txt"><%= music.lyric %></span>
+              <ul class="lyric"></ul>
             </div>
           </div>
         </div>
@@ -32,7 +33,7 @@
           <audio class="audioDom" id="audioDom" src="<%= music.musicUrl %>" autoPlay></audio>
           <div class="bottom_left">
             <span class="prev js_prev"></span>
-            <span class="play_btn js_play"></span>
+            <span class="play_btn js_player"></span>
             <span class="next js_next"></span>
           </div>
           <div class="bottom_middle">
@@ -48,8 +49,8 @@
             </div>
           </div>
           <div class="bottom_right">
-            <li><a href="" class="bottom_right_volice">音量</a></li>
-            <li><a href="" class="bottom_right_download" download="/src/<%= music.musicName%> - <%= music.singerName%>.mp3" title="下载"></a></li>
+            <li><span class="bottom_right_volice"></span></li>
+            <li><a href="" class="bottom_right_download" download="<%= music.musicName%> - <%= music.singerName%>.mp3" title="下载"></a></li>
             <li><span class="bottom_right_attention" title="添加"></span></li>
             <li><span class="bottom_right_comment" title="评论"></span></li>
           </div>
@@ -63,6 +64,17 @@
     $(document).ready(function() {
       var isFirst = false;
       var audioDom = document.getElementById('audioDom');
+      var lyricArr = parseLyric($('.lyrci_txt').html());
+
+      for (var i = 0; i < lyricArr.length; i++) {
+        $item = $('<li></li>');
+        $item.attr('class', 'lyric_item_'+i + ' lyric_item');
+        $item.text(lyricArr[i][1]);
+        $('.lyric').append($item);
+
+        // console.log(lyricArr[i][0]);
+      }
+      var i = 0;
 
       audioDom.ontimeupdate = function () {
         var width = audioDom.currentTime/audioDom.duration*$('.process').width();
@@ -76,6 +88,22 @@
         $('.duration_process').css('width', width);
         $('.duration_time').html(second+':'+minute);
 
+        // for (var i = 1; i < lyricArr.length; i++) {
+        //   if (audioDom.currentTime.toFixed() <= lyricArr[i-1][0].toFixed() && audioDom.currentTime.toFixed() >= lyricArr[i][0].toFixed()) {
+        //     $('.lyric_item').removeClass('lyric_item_select');
+        //     $('.lyric_item_' + i).addClass('lyric_item_select');
+        //   }
+        //   console.log(audioDom.currentTime.toFixed(),lyricArr[i-1][0].toFixed(),lyricArr[i][0].toFixed());
+        // }
+        // while (i < (lyricArr.length-1)) {
+        //   if (audioDom.currentTime.toFixed() == lyricArr[i][0].toFixed()) {
+        //     $('.lyric_item').removeClass('lyric_item_select');
+        //     $('.lyric_item_' + i).addClass('lyric_item_select');
+        //     i++;
+        //     console.log(audioDom.currentTime.toFixed(),lyricArr[i][0].toFixed(),lyricArr[i+1][0].toFixed());
+        //   }
+        // }
+        // console.log(audioDom.currentTime.toFixed(),lyricArr[6][0].toFixed(),lyricArr[5][0].toFixed());
       };
 
       localStorage.setItem('src', audioDom.src);
@@ -84,6 +112,39 @@
         MusicPlayer.init($('.player'));
       });
     });
+    function parseLyric(text) {
+        //将文本分隔成一行一行，存入数组
+        var lines = text.split('\n'),
+            //用于匹配时间的正则表达式，匹配的结果类似[xx:xx.xx]
+            pattern = /\[\d{2}:\d{2}.\d{2}\]/g,
+            //保存最终结果的数组
+            result = [];
+        //去掉不含时间的行
+        while (!pattern.test(lines[0])) {
+            lines = lines.slice(1);
+        }
+        //上面用'\n'生成生成数组时，结果中最后一个为空元素，这里将去掉
+        lines[lines.length - 1].length === 0 && lines.pop();
+
+        lines.forEach(function(v /*数组元素值*/ , i /*元素索引*/ , a /*数组本身*/ ) {
+            //提取出时间[xx:xx.xx]
+            var time = v.match(pattern),
+                //提取歌词
+                value = v.replace(pattern, '');
+            //因为一行里面可能有多个时间，所以time有可能是[xx:xx.xx][xx:xx.xx][xx:xx.xx]的形式，需要进一步分隔
+            time.forEach(function(v1, i1, a1) {
+                //去掉时间里的中括号得到xx:xx.xx
+                var t = v1.slice(1, -1).split(':');
+                //将结果压入最终数组
+                result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
+            });
+        });
+        //最后将结果数组中的元素按时间大小排序，以便保存之后正常显示歌词
+        result.sort(function(a, b) {
+            return a[0] - b[0];
+        });
+        return result;
+    }
     </script>
   </body>
 </html>

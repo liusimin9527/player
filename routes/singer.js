@@ -15,10 +15,8 @@ router.get('/', function (req, res) {
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, function (err, doc) {
-      SQL = 'select * from singer order by attention desc limit ?,75';
+      SQL = SQL + ' order by attention desc limit ?,75';
       len = Math.ceil(doc.length/75);
-
-      console.log(doc.length%75);
 
       connection.query(SQL, [parseInt(req.query.index)*75], function (err, doc) {
         res.render('singerList', { title: '音乐台-歌手', singer: doc, length: len, index: index });
@@ -68,7 +66,7 @@ router.get('/singers?', function (req, res) {
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [param.countryType, param.singerGender], function (err, doc) {
-      SQL = 'select * from singer where countryType = ? and singerGender = ? order by attention desc limit ?,75';
+      SQL = SQL + ' order by attention desc limit ?,75';
       len = Math.ceil(doc.length/75);
 
       connection.query(SQL, [param.countryType, param.singerGender, index*75], function (err, doc) {

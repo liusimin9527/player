@@ -99,7 +99,63 @@ router.post('/addComment', function (req, res) {
       res.send(msg);
     });
   });
-})
+});
+// 添加至我喜欢
+router.post('/append', function (req, res) {
+  var SQL = 'insert into liked SELECT * from music where musicName = ? and singerName = ?'
+  var msg = '';
+
+  sql.getConnection(function (err, connection) {
+    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
+      if (err) {
+        msg = 'default';
+      } else {
+        msg = 'success';
+      }
+      res.send(msg);
+    });
+  });
+});
+// 添加至下载列表
+router.post('/download', function (req, res) {
+  var SQL = 'insert into download SELECT * from music where musicName = ? and singerName = ?';
+  var msg = '';
+
+  sql.getConnection(function (err, connection) {
+    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
+      if (err) {
+        msg = 'default';
+      } else {
+        msg = 'success';
+      }
+
+      res.send(msg);
+    });
+  })
+});
+router.post('/delete', function (req, res) {
+  var SQL = '';
+  var msg = '';
+  console.log(req.body);
+
+  if (req.body.alt == '1') {
+    var SQL = 'delete from liked where musicName = ? and singerName = ?';
+  } else if (req.body.alt == '3') {
+    var SQL = 'delete from download where musicName = ? and singerName = ?';
+  }
+
+  sql.getConnection(function (err, connection) {
+    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
+      if (err) {
+        msg = 'default';
+      } else {
+        msg = 'success';
+      }
+
+      res.send(msg);
+    });
+  })
+});
 /* 搜索歌曲结果 */
 router.get('/result?', function (req, res) {
   var param = req.query,

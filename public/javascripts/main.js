@@ -4,14 +4,15 @@ $(document).ready(function () {
   var musics = [];
   var objWin;
   var index = parseInt(location.href.split('index=')[1]);
-  var len = $('.page_item li').length - 1;
   var user = JSON.parse(localStorage.getItem('user'));
-  var attens
+  var isClick = false;
+
+  /* 设置样式 */
   // 显示用户信息
   if (user) {
-    attens = user.attention.split(',');
+    var attens = user.attention.split(',');
 
-    for (var i = 0; i < attens.length; i++) {
+    for (var i = 0; i < attens.length; i++) {   // 关注
       if (attens.indexOf($('.singer_name').html()) != -1) {
         $('.attention').hide();
         $('.cancel').show();
@@ -26,9 +27,9 @@ $(document).ready(function () {
     $('.header_right_name').html(user.uName);  // 用户名
     $('.userImg').attr('src', '../' + user.uImg);  // 显示用户头像
   }
-  /* 设置样式 */
+  // 歌曲列表的样式
   $('.song_item:even').css("background", "#fbfbfb");
-  // 底部时间
+  // 显示底部时间
   $('.footer_time').html(year);
   // 分页页码样式
   $('.page_item li').each(function () {
@@ -57,6 +58,49 @@ $(document).ready(function () {
     var index = parseInt(location.href.split('index=')[1]);
 
     $(this).find('a').attr('href', location.href.split('index')[0]+'index=' + (index+1));
+  });
+  // 排行榜
+  $('.chart_list').each(function () {
+    var keyword = location.href;
+    var _href = $(this).attr('href');
+
+    if (keyword == _href) {
+      $('.chart_list').removeClass('chart_list--current');
+      $(this).addClass('chart_list--current');
+    }
+  });
+  // 显示上一页
+  if (parseInt(location.href.split('index=')[1]) == 0) {
+    $('.js_first').hide();
+  } else {
+    $('.js_first').show();
+  }
+  // 显示下一页
+  if (parseInt(location.href.split('index=')[1]) == ($('.page_item li').length - 1)) {
+    $('.js_end').hide();
+  } else {
+    $('.js_end').show();
+  }
+  $('.js_spread').click(function () {
+    if (!isClick) {
+      $('.spread_content').show();
+      $('.spread').html("收起");
+      isClick = true;
+    } else {
+      $('.spread_content').hide();
+      $('.spread').html("展开");
+      isClick = false;
+    }
+  });
+  // 歌手引导
+  $('.singer_tag__item').each(function () {
+    var keyword = location.href.split('index')[0];
+    var _href = $(this).attr('href').split('index')[0];
+
+    if (keyword == _href) {
+      $('.singer_tag__item').removeClass('singer_tag__item--select');
+      $(this).addClass('singer_tag__item--select');
+    }
   });
   // 用户名检测 字母开头，允许 5-16 字节，允许字母数字下划线
   $('.register_name').blur(function () {
@@ -105,6 +149,7 @@ $(document).ready(function () {
       }
     }, 1000);
   });
+  /* 与后台交互 */
   // 注册
   $('.js_register').click(function () {
     var name = $('.register_name').val(),
@@ -200,28 +245,6 @@ $(document).ready(function () {
   $('.page_item li').click(function () {
     $(this).find('a').attr('href', location.href.split('index')[0]+'index='+($(this).index()));
   });
-
-  if (index == 0) {
-    $('.js_first').hide();
-  } else {
-    $('.js_first').show();
-  }
-
-  if (index == len) {
-    $('.js_end').hide();
-  } else {
-    $('.js_end').show();
-  }
-  // 歌手引导
-  $('.singer_tag__item').each(function () {
-    var keyword = location.href.split('index')[0];
-    var _href = $(this).attr('href').split('index')[0];
-
-    if (keyword == _href) {
-      $('.singer_tag__item').removeClass('singer_tag__item--select');
-      $(this).addClass('singer_tag__item--select');
-    }
-  });
   // 查找
   $('.js_search').click(function () {
     var keyword = $('.search_input').val();
@@ -237,16 +260,6 @@ $(document).ready(function () {
         }
       }
     });
-  });
-  // 排行榜
-  $('.chart_list').each(function () {
-    var keyword = location.href;
-    var _href = $(this).attr('href');
-
-    if (keyword == _href) {
-      $('.chart_list').removeClass('chart_list--current');
-      $(this).addClass('chart_list--current');
-    }
   });
   // 关注歌手
   $('.js_att').click(function () {
@@ -328,6 +341,84 @@ $(document).ready(function () {
       objWin.location.replace(target);
     }
   });
+  // 添加至我喜欢
+  $('.js_append').click(function () {
+    var musicName = $(this).parent().siblings('.music_name').html();
+    var singerName = $(this).parent().parent().siblings('.song_singerName').children('a').html();
+
+    $.ajax({
+      url: 'http://localhost:3000/append',
+      type: 'POST',
+      data: {
+        musicName: musicName,
+        singerName: singerName
+      },
+      success: function (data) {
+        $('.success').html('已添加至我喜欢').show();
+        var timer = setTimeout(function () {
+          $('.success').hide();
+        }, 2000);
+      }
+    });
+  });
+  // 添加至下载列表
+  $('.js_download').click(function () {
+    var musicName = $(this).parent().siblings('.music_name').html();
+    var singerName = $(this).parent().parent().siblings('.song_singerName').children('a').html();
+
+    $.ajax({
+      url: 'http://localhost:3000/download',
+      type: 'POST',
+      data: {
+        musicName: musicName,
+        singerName: singerName
+      },
+      success: function (data) {
+        if (data == 'success') {
+          $('.success').html('已添加至下载列表').show();
+          var timer = setTimeout(function () {
+            $('.success').hide();
+          }, 2000);
+        } else if (data == 'default') {
+          $('.success').html('已下载').show();
+          var timer = setTimeout(function () {
+            $('.success').hide();
+          }, 2000);
+        }
+      }
+    });
+  });
+  // 删除歌曲
+  $('.js_delete').click(function (){
+    var musicName = $(this).parent().siblings('.music_name').html();
+    var singerName = $(this).parent().parent().siblings('.song_singerName').children('a').html();
+    var alt = location.href.split('=')[1];
+
+    $.ajax({
+      url: 'http://localhost:3000/delete',
+      type: 'POST',
+      data: {
+        musicName: musicName,
+        singerName: singerName,
+        alt: alt
+      },
+      success: function (data) {
+        if (data == 'success') {
+          // location.reload();
+          $('.success').html('删除成功').show();
+          var timer = setTimeout(function () {
+            $('.success').hide();
+            location.reload();
+          }, 1000);
+        } else if (data == 'default') {
+          $('.success').html('删除失败').show();
+          var timer = setTimeout(function () {
+            $('.success').hide();
+          }, 2000);
+        }
+      }
+    });
+  });
   // 歌曲详细信息 包括评论
   $('.music_name').click(function () {
     var musicName = $(this).html();
@@ -344,7 +435,7 @@ $(document).ready(function () {
     window.open('http://localhost:3000/comment?musicName=' + musicName + '&singerName='+singerName);
   });
   // 小图标-播放
-  $('.play').click(function () {
+  $('.js_play').click(function () {
     var musicName = $(this).parent().siblings('.music_name').html();
     var singerName = $(this).parent().parent().siblings('.song_singerName').children('a').html();
     var target = 'http://localhost:3000/player?musicName=' + musicName + '&singerName=' + singerName;
