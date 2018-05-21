@@ -65,6 +65,7 @@ router.get('/comment?', function (req, res) {
   var SQL = 'select users.*, comment.* from comment left join users on users.uid = comment.uid where musicName = ? and singerName = ? order by time desc';
   // var SQL = 'select * from comment where musicName = ? and singerName = ?';
 
+  console.log(req.query);
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [req.query.musicName, req.query.singerName], function (err, doc) {
       SQL = 'select * from music where musicName = ? and singerName = ?';
@@ -72,9 +73,11 @@ router.get('/comment?', function (req, res) {
         time = doc[i].time;
         doc[i].time = time.format("yyyy-MM-dd hh:mm:ss");
       }
-      comment = doc;
+
+      obj['comment'] = doc;
       connection.query(SQL, [req.query.musicName, req.query.singerName], function (err, doc) {
-        res.render('comment', { title: '音乐台-评论', comment: comment, song: doc[0] });
+        console.log(obj.comment);
+        res.render('comment', { title: '音乐台-评论', comment: obj.comment, song: doc[0] });
       });
     });
   });
@@ -85,8 +88,6 @@ router.post('/addComment', function (req, res) {
       SQL = 'insert into comment(uid, musicName, singerName, comment, time) values(?, ?, ?, ?, ?)',
       msg = '';
   var date = new Date();
-
-  console.log(param);
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [param.uid, param.musicName, param.singerName, param.comment, date], function (err, doc) {
@@ -102,11 +103,13 @@ router.post('/addComment', function (req, res) {
 });
 // 添加至我喜欢
 router.post('/append', function (req, res) {
-  var SQL = 'insert into liked SELECT * from music where musicName = ? and singerName = ?'
+  var SQL = "insert into liked select music.*, ? as 'uid' from music where musicName = ? and singerName = ?"
   var msg = '';
+  var uId = parseInt(req.body.uId);
 
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
+    connection.query(SQL, [uId, req.body.musicName, req.body.singerName], function (err, doc) {
+      console.log(err);
       if (err) {
         msg = 'default';
       } else {
@@ -118,11 +121,11 @@ router.post('/append', function (req, res) {
 });
 // 添加至下载列表
 router.post('/download', function (req, res) {
-  var SQL = 'insert into download SELECT * from music where musicName = ? and singerName = ?';
+  var SQL = "insert into download select music.*, ? as 'uid' from music where musicName = ? and singerName = ?"
   var msg = '';
 
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
+    connection.query(SQL, [parseInt(req.body.uId), req.body.musicName, req.body.singerName], function (err, doc) {
       if (err) {
         msg = 'default';
       } else {
@@ -133,6 +136,7 @@ router.post('/download', function (req, res) {
     });
   })
 });
+// 删除
 router.post('/delete', function (req, res) {
   var SQL = '';
   var msg = '';
@@ -151,6 +155,8 @@ router.post('/delete', function (req, res) {
       } else {
         msg = 'success';
       }
+
+      console.log(doc, err);
 
       res.send(msg);
     });

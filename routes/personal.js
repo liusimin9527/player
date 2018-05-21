@@ -21,14 +21,12 @@ router.get('/?', function (req, res) {
   var SQL = "";
   var index = parseInt(req.query.index);
 
-  if (req.query.alt == '0') {
+  if (req.query.alt == '0') {   // 播放列表
     SQL = 'select * from musiclist';
   } else if (req.query.alt == '1') {   // 我喜欢
     SQL = 'select * from liked';
-  // } else if (param.alt == '2') {  // 播放列表
-
-  } else if (req.query.alt == '3') {
-    SQL = 'select * from download';   // 下载列表
+  } else if (req.query.alt == '2') {   // 下载列表
+    SQL = 'select * from download';
   }
 
   sql.getConnection(function (err, connection) {

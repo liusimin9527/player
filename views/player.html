@@ -18,14 +18,13 @@
               <li class="singer_info_item">歌 手：<a href="/singer?singerName=<%= music.singerName %>" class="singer_info_link"><%= music.singerName %></a></li>
               <li class="singer_info_item">专 辑：<a href="" class="singer_info_link"><%= music.cdName %></a></li>
               <li class="singer_info_item">发行时间：<%= music.publicDate %></li>
-              <li class="singer_info_item">点击量：<%= music.clicks %></li>
             </div>
           </div>
           <div class="box_right">
-            <div class="musicName"><%= music.musicName %></div>
+            <!-- <div class="musicName"><%= music.musicName %></div> -->
             <div class="lyric_box">
               <span class="lyrci_txt"><%= music.lyric %></span>
-              <ul class="lyric"></ul>
+              <ul id="lrc" class="lyric"></ul>
             </div>
           </div>
         </div>
@@ -64,17 +63,14 @@
     $(document).ready(function() {
       var isFirst = false;
       var audioDom = document.getElementById('audioDom');
-      var lyricArr = parseLyric($('.lyrci_txt').html());
+      var medisArray = new Array();
+      var fraction = 0.5;
+      var lineNo = 0;
+      var topNum = 0;
 
-      for (var i = 0; i < lyricArr.length; i++) {
-        $item = $('<li></li>');
-        $item.attr('class', 'lyric_item_'+i + ' lyric_item');
-        $item.text(lyricArr[i][1]);
-        $('.lyric').append($item);
+      medisArray = createLrc();
 
-        // console.log(lyricArr[i][0]);
-      }
-      var i = 0;
+      localStorage.setItem('src', audioDom.src);
 
       audioDom.ontimeupdate = function () {
         var width = audioDom.currentTime/audioDom.duration*$('.process').width();
@@ -88,63 +84,78 @@
         $('.duration_process').css('width', width);
         $('.duration_time').html(second+':'+minute);
 
-        // for (var i = 1; i < lyricArr.length; i++) {
-        //   if (audioDom.currentTime.toFixed() <= lyricArr[i-1][0].toFixed() && audioDom.currentTime.toFixed() >= lyricArr[i][0].toFixed()) {
-        //     $('.lyric_item').removeClass('lyric_item_select');
-        //     $('.lyric_item_' + i).addClass('lyric_item_select');
-        //   }
-        //   console.log(audioDom.currentTime.toFixed(),lyricArr[i-1][0].toFixed(),lyricArr[i][0].toFixed());
-        // }
-        // while (i < (lyricArr.length-1)) {
-        //   if (audioDom.currentTime.toFixed() == lyricArr[i][0].toFixed()) {
-        //     $('.lyric_item').removeClass('lyric_item_select');
-        //     $('.lyric_item_' + i).addClass('lyric_item_select');
-        //     i++;
-        //     console.log(audioDom.currentTime.toFixed(),lyricArr[i][0].toFixed(),lyricArr[i+1][0].toFixed());
-        //   }
-        // }
-        // console.log(audioDom.currentTime.toFixed(),lyricArr[6][0].toFixed(),lyricArr[5][0].toFixed());
+        if (lineNo == medisArray.length - 1 && audioDom.currentTime.toFixed(3) >= parseFloat(medisArray[lineNo].t)) {
+          linehight(lineNo);
+        }
+        // 高亮显示
+        if (parseFloat(medisArray[lineNo].t) <= audioDom.currentTime.toFixed(3) && audioDom.currentTime.toFixed(3) <= parseFloat(medisArray[lineNo + 1].t)) {
+          linehight(lineNo);
+          lineNo++;
+        }
       };
-
-      localStorage.setItem('src', audioDom.src);
 
       $(function () {
         MusicPlayer.init($('.player'));
       });
-    });
-    function parseLyric(text) {
-        //将文本分隔成一行一行，存入数组
-        var lines = text.split('\n'),
-            //用于匹配时间的正则表达式，匹配的结果类似[xx:xx.xx]
-            pattern = /\[\d{2}:\d{2}.\d{2}\]/g,
-            //保存最终结果的数组
-            result = [];
-        //去掉不含时间的行
-        while (!pattern.test(lines[0])) {
-            lines = lines.slice(1);
-        }
-        //上面用'\n'生成生成数组时，结果中最后一个为空元素，这里将去掉
-        lines[lines.length - 1].length === 0 && lines.pop();
 
-        lines.forEach(function(v /*数组元素值*/ , i /*元素索引*/ , a /*数组本身*/ ) {
-            //提取出时间[xx:xx.xx]
-            var time = v.match(pattern),
-                //提取歌词
-                value = v.replace(pattern, '');
-            //因为一行里面可能有多个时间，所以time有可能是[xx:xx.xx][xx:xx.xx][xx:xx.xx]的形式，需要进一步分隔
-            time.forEach(function(v1, i1, a1) {
-                //去掉时间里的中括号得到xx:xx.xx
-                var t = v1.slice(1, -1).split(':');
-                //将结果压入最终数组
-                result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
-            });
+      function createLrc() {
+        var medis = $('.lyrci_txt').html();
+        var medises = medis.split("\n");
+        $.each(medises, function (i, item) {
+          var t = item.substring(item.indexOf("[") + 1, item.indexOf("]"));
+          medisArray.push({
+            t: (t.split(":")[0] * 60 + parseFloat(t.split(":")[1])).toFixed(3),
+            c: item.substring(item.indexOf("]") + 1, item.length)
+          });
         });
-        //最后将结果数组中的元素按时间大小排序，以便保存之后正常显示歌词
-        result.sort(function(a, b) {
-            return a[0] - b[0];
+        var ul = $("#lrc");
+        $.each(medisArray, function (i, item) {
+          var li = $("<li>");
+          li.html(item.c);
+          ul.append(li);
         });
-        return result;
-    }
+
+        return medisArray;
+      }
+      // 高亮显示
+      function linehight(lineno) {
+        var ul = $("#lrc");
+        var $ul = document.getElementById('lrc');
+
+        if (lineno > 0) {
+          $(ul.find("li").get(topNum + lineno - 1)).removeClass("lineheight");
+        }
+        var nowline = ul.find("li").get(topNum + lineno);
+        $(nowline).addClass("lineheight");
+
+        $('.lyric').scrollTop();
+
+        // var _scrollTop;
+        // $ul.scrollTop = 0;
+        // if ($ul.clientHeight * fraction > nowline.offsetTop) {
+        //   _scrollTop = 0;
+        // } else if (nowline.offsetTop > ($ul.scrollHeight - $ul.clientHeight * (1 - fraction))) {
+        //   _scrollTop = $ul.scrollHeight - $ul.clientHeight;
+        // } else {
+        //   _scrollTop = nowline.offsetTop - $ul.clientHeight * fraction;
+        // }
+        // // console.log(_scrollTop);
+        // //以下声明歌词高亮行固定的基准线位置成为 “A”
+        // if ((nowline.offsetTop - $ul.scrollTop) >= $ul.clientHeight * fraction) {
+        //   //如果高亮显示的歌词在A下面，那就将滚动条向下滚动，滚动距离为 当前高亮行距离顶部的距离-滚动条已经卷起的高度-A到可视窗口的距离
+        //   $ul.scrollTop += Math.ceil(nowline.offsetTop - $ul.scrollTop - $ul.clientHeight * fraction);
+        // } else if ((nowline.offsetTop - $ul.scrollTop) < $ul.clientHeight * fraction && _scrollTop != 0) {
+        //   //如果高亮显示的歌词在A上面，那就将滚动条向上滚动，滚动距离为 A到可视窗口的距离-当前高亮行距离顶部的距离-滚动条已经卷起的高度
+        //   $ul.scrollTop -= Math.ceil($ul.clientHeight * fraction - (nowline.offsetTop - $ul.scrollTop));
+        // } else if (_scrollTop == 0) {
+        //   $ul.scrollTop = 0;
+        // } else {
+        //   $ul.scrollTop += $(ul.find('li').get(0)).height();
+        // }
+        //
+        // console.log(_scrollTop, $ul.scrollTop);
+      }
+    });
     </script>
   </body>
 </html>

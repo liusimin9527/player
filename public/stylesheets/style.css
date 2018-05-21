@@ -658,6 +658,7 @@
 }
 .box_left .singer_info {
   height: 200px;
+
 }
 .box_left_img {
   width: 200px;
@@ -673,39 +674,33 @@
   margin: 0 auto;
   margin-left: 100px;
   overflow: hidden;
-  color: #f2f2f2;
+  color: #b9b3b3;
 }
 .singer_info_link {
-  color: #f2f2f2;
+  color: #b9b3b3;
 }
 .box_right {
   float: right;
   width: 60%;
   height: 500px;
 }
-.box_right .musicName {
-  height: 80px;
-  line-height: 80px;
-  text-align: center;
-  font-size: 16px;
-}
 .lyric_box {
-  height: 420px;
   text-align: center;
   overflow: hidden;
   color: #f2f2f2;
   padding: 0 40px;
-  overflow-y: scroll;
 }
 .lyrci_txt {
   display: none;
 }
-.lyric_item {
-  margin: 5px 0;
+.lyric {
+  height: 460px;
+  margin-top: 28px;
   font-size: 14px;
+  overflow-y: scroll;
 }
-.lyric_item_select {
-  color: red;
+.lyric li {
+  color: #b9b3b3;
 }
 .box_bottom {
   height: 82px;
@@ -713,14 +708,15 @@
 }
 .bottom_left {
   float: left;
-  width: 24%;
+  width: 25%;
   height: 80px;
   line-height: 80px;
+  text-align: center;
   margin-left: 40px;
 }
 .bottom_left span {
   display: inline-block;
-  margin-left: 5px;
+  margin-left: 10px;
   margin-top: 14px;
   cursor: pointer;
   border-radius: 100%;
@@ -811,7 +807,8 @@
   height: 80px;
   margin-left: 10px;
 }
-.bottom_right span {
+.bottom_right span,
+.bottom_right a {
   display: block;
   margin-top: 24px;
   width: 40px;
@@ -820,7 +817,7 @@
   cursor: pointer;
 }
 .bottom_right_volice {
-  background: url(/images/icon_list_menu.png) no-repeat 0px -78px;
+  background: url(/images/volume.png) no-repeat 0px 0px;
 }
 .bottom_right_attention {
   background: url(/images/icon_list_menu.png) no-repeat 0px -78px;
@@ -895,56 +892,74 @@
   display: none;
 }
 /* comment */
-.comment_area {
-  height: 800px;
-  margin-top: 40px;
-  overflow: hidden;
+.comment {
+  height: 1400px;
 }
-.comment_item {
-  height: 100px;
-  margin-top: 10px;
-  border-bottom: 1px solid #f2f2f2;
+.comment .singer_info {
+  height: 360px;
+  background: #fbfbfb;
 }
-.comment_item_left {
+.ablum_img {
   float: left;
   width: 240px;
-  height: 100px;
-  font-size: 0;
-  text-align: center;
+  height: 240px;
+  margin-top: 50px;
+  margin-left: 30px;
 }
-.comment_list {
-  padding: 6px 0;
-  font-size: 16px;
-}
-.userName {
-  font-size: 16px;
-}
-.userImg img {
-  width: 55px;
-  height: 55px;
-}
-.comment_item_right {
+.ablum_info {
   float: left;
-  height: 100px;
+  margin-top: 50px;
+  margin-left: 60px;
 }
-.comment_list {
-  font-size: 14px;
+.ablum_info p {
+  height: 30px;
+  line-height: 30px;
 }
-.comment_area .content {
-  width: 900px;
+.ablum_info .comment_musicName {
+  font-size: 26px;
+  height: 60px;
+  line-height: 60px;
+}
+.ablum_info .comment_singerName {
+  font-size: 15px;
+  height: 50px;
+  line-height: 50px;
+}
+.comment_btn_play {
+  /* height: 60px;
+  line-height: 60px; */
+  margin-top: 30px;
+  overflow: hidden;
+}
+.comment_btn_play span {
+  float: left;
+  margin-right: 20px;
+  padding: 8px 40px;
+  border-radius: 3px;
+  color: #333;
+  border: 1px solid #999;
+  cursor: pointer;
+}
+.comment_btn_play .comment_play {
+  color: #fff;
+  background: #31c27c;
+  border: 1px solid #31c27c;
+}
+.comment_area {
+  min-height: 1000px;
+  margin-top: 40px;
   overflow: hidden;
 }
 .add_comment {
-  width: 800px;
+  width: 921px;
   height: 260px;
-  margin-left: 80px;
-  margin-top: 40px;
 }
 .comment_title {
   display: block;
-  width: 200px;
   height: 40px;
   line-height: 40px;
+  font-size: 15px;
+  font-weight: bold;
 }
 .comment_content {
   padding: 8px;
@@ -961,6 +976,56 @@
 .comment_btn:hover {
   color: #fff;
   background: #31c27c;
+}
+.comment_new {
+  font-size: 14px;
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.comment_user {
+  /* background: red; */
+  height: 660px;
+  overflow: hidden;
+}
+.comment_item {
+  overflow: hidden;
+  border-bottom: 1px solid #f2f2f2;
+}
+.comment_item_left {
+  float: left;
+  width: 80px;
+  height: 100px;
+  font-size: 0;
+  text-align: center;
+}
+.userImg_comment img {
+  width: 46px;
+  height: 46px;
+  margin-top: 20px;
+  border-radius: 100%;
+}
+.comment_item_right {
+  float: left;
+}
+.comment_list {
+  font-size: 14px;
+}
+.userName {
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  font-size: 13px;
+}
+.list_content {
+  width: 1000px;
+  font-size: 14px;
+}
+.time {
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
 }
 /* personal */
 .user_info {
@@ -1046,4 +1111,8 @@
   background: #2f2727e3;
   color: #f2f2f2;
   border-radius: 8px;
+}
+.lyric .lineheight {
+  color: #31c27c;
+  font-size: 16px;
 }
