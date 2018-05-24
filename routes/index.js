@@ -191,6 +191,22 @@ router.get('/searching?', function (req, res) {
     });
   });
 });
+router.post('/dabang', function (req, res) {
+  var SQL = 'update music set clicks = clicks+1 where musicName = ? and singerName = ?';
+  var param = req.body;
+
+  sql.getConnection(function (err, connection) {
+    connection.query(SQL, [param.musicName, param.singerName], function (err, doc) {
+      if (err) {
+        msg = 'default';
+      } else {
+        msg = 'success';
+      }
+
+      res.send(msg);
+    });
+  });
+});
 
 Date.prototype.format = function(fmt) {
    var o = {

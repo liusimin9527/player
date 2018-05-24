@@ -537,6 +537,7 @@ $(document).ready(function () {
       });
     }
   });
+  // 评论
   $('.js_comment').click(function () {
     var data = {
       uid: user.uId,
@@ -561,5 +562,30 @@ $(document).ready(function () {
         }
       });
     }
+  });
+  // 打榜
+  $('.js_dabang').click(function () {
+    var musicName = $(this).siblings('.song_songName').children('a').html();
+    var singerName = $(this).siblings('.song_singerName').children('a').html();
+    var timer = setTimeout(function () {
+      $('.success').hide();
+      location.reload();
+    }, 2000);
+
+    $.ajax({
+      url: 'http://localhost:3000/dabang',
+      type: 'POST',
+      data: {
+        musicName: musicName,
+        singerName: singerName
+      },
+      success: function (data) {
+        if (data == 'success') {
+          $('.success').html("打榜成功").show();
+        } else if (data == 'defalt') {
+          $('.success').html("打榜失败").show();
+        }
+      }
+    });
   });
 });

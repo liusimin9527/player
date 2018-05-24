@@ -607,6 +607,9 @@
 .song_time {
   width: 10%;
 }
+.dabang {
+  cursor: pointer;
+}
 .list_sort {
   width: 40px;
   text-align: right;
