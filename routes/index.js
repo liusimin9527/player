@@ -63,9 +63,7 @@ router.post('/cancel', function (req, res) {
 /* 查看评论 */
 router.get('/comment?', function (req, res) {
   var SQL = 'select users.*, comment.* from comment left join users on users.uid = comment.uid where musicName = ? and singerName = ? order by time desc';
-  // var SQL = 'select * from comment where musicName = ? and singerName = ?';
 
-  console.log(req.query);
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [req.query.musicName, req.query.singerName], function (err, doc) {
       SQL = 'select * from music where musicName = ? and singerName = ?';
@@ -81,13 +79,13 @@ router.get('/comment?', function (req, res) {
       });
     });
   });
-})
+});
 /* 增加评论 */
 router.post('/addComment', function (req, res) {
-  var param = req.body,
-      SQL = 'insert into comment(uid, musicName, singerName, comment, time) values(?, ?, ?, ?, ?)',
-      msg = '';
+  var param = req.body;
+  var SQL = 'insert into comment(uid, musicName, singerName, comment, time) values(?, ?, ?, ?, ?)';
   var date = new Date();
+  var msg = '';
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [param.uid, param.musicName, param.singerName, param.comment, date], function (err, doc) {
@@ -103,36 +101,39 @@ router.post('/addComment', function (req, res) {
 });
 // 添加至我喜欢
 router.post('/append', function (req, res) {
-  var SQL = "insert into liked select music.*, ? as 'uid' from music where musicName = ? and singerName = ?"
-  var msg = '';
-  var uId = parseInt(req.body.uId);
+  var SQL = "delete from liked where (musicName,singerName) in ( select a.musicName, a.singerName from ( select distinct a.musicName, a.singerName from musiclist a where a.musicName = ? and a.singerName = ?) a HAVING count(*) >= 1)";
 
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, [uId, req.body.musicName, req.body.singerName], function (err, doc) {
-      console.log(err);
-      if (err) {
-        msg = 'default';
-      } else {
-        msg = 'success';
-      }
-      res.send(msg);
+    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
+      SQL = "insert into liked select music.*, ? as 'uid' from music where musicName = ? and singerName = ?";
+      connection.query(SQL, [parseInt(req.body.uId), req.body.musicName, req.body.singerName], function (err, doc) {
+        if (err) {
+          msg = 'default';
+        } else {
+          msg = 'success';
+        }
+        res.send(msg);
+      });
     });
   });
 });
 // 添加至下载列表
 router.post('/download', function (req, res) {
-  var SQL = "insert into download select music.*, ? as 'uid' from music where musicName = ? and singerName = ?"
-  var msg = '';
+  var SQL = "delete from download where (musicName,singerName) in ( select a.musicName, a.singerName from ( select distinct a.musicName, a.singerName from musiclist a where a.musicName = ? and a.singerName = ?) a HAVING count(*) >= 1)";
 
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, [parseInt(req.body.uId), req.body.musicName, req.body.singerName], function (err, doc) {
-      if (err) {
-        msg = 'default';
-      } else {
-        msg = 'success';
-      }
+    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
+      SQL = "insert into download select music.*, ? as 'uid' from music where musicName = ? and singerName = ?";
 
-      res.send(msg);
+      connection.query(SQL, [parseInt(req.body.uId), req.body.musicName, req.body.singerName], function (err, doc) {
+        if (err) {
+          msg = 'default';
+        } else {
+          msg = 'success';
+        }
+
+        res.send(msg);
+      });
     });
   })
 });
@@ -140,23 +141,23 @@ router.post('/download', function (req, res) {
 router.post('/delete', function (req, res) {
   var SQL = '';
   var msg = '';
-  console.log(req.body);
+  console.log(req.body);  
 
-  if (req.body.alt == '1') {
-    var SQL = 'delete from liked where musicName = ? and singerName = ?';
-  } else if (req.body.alt == '3') {
-    var SQL = 'delete from download where musicName = ? and singerName = ?';
+  if (req.body.alt == '0') {
+    SQL = 'delete from musiclist where musicName = ? and singerName = ? and uid = ?';
+  } else if (req.body.alt == '1') {
+    SQL = 'delete from liked where musicName = ? and singerName = ? and uid = ?';
+  } else if (req.body.alt == '2') {
+    SQL = 'delete from download where musicName = ? and singerName = ? and uid = ?';
   }
 
   sql.getConnection(function (err, connection) {
-    connection.query(SQL, [req.body.musicName, req.body.singerName], function (err, doc) {
+    connection.query(SQL, [req.body.musicName, req.body.singerName, parseInt(req.body.uid)], function (err, doc) {
       if (err) {
         msg = 'default';
       } else {
         msg = 'success';
       }
-
-      console.log(doc, err);
 
       res.send(msg);
     });
@@ -181,10 +182,14 @@ router.get('/searching?', function (req, res) {
 
   sql.getConnection(function (err, connection) {
     connection.query(SQL, [param.keyword, param.keyword], function (err, doc) {
-      if (doc.length) {
-        msg = '歌手';
+      if (err) {
+        msg = 'default';
       } else {
-        msg = '歌曲';
+        if (doc.length) {
+          msg = '歌手';
+        } else {
+          msg = '歌曲';
+        }
       }
 
       res.send(msg);

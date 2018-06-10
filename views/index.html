@@ -51,8 +51,8 @@
                 <% if (music[i].songType == '内地' && k < 10) { %>
                   <% k++ %>
                   <li class="hot_song__item">
-                    <span class="musicName"><%= music[i].musicName %></span>
-                    <span class="singerName"><%= music[i].singerName %></span>
+                    <span class="musicName"><a href="javascript:;"><%= music[i].musicName %></a></span>
+                    <span class="singerName"><a href="http://localhost:3000/singerList/singer?singerName=<%= music[i].singerName %>"><%= music[i].singerName %></a></span>
                   </li>
                 <% } %>
               <% } %>
@@ -66,8 +66,8 @@
                 <% if (music[i].songType == '港台' && k < 10) { %>
                   <% k++ %>
                   <li class="hot_song__item">
-                    <span class="musicName"><%= music[i].musicName %></span>
-                    <span class="singerName"><%= music[i].singerName %></span>
+                    <span class="musicName"><a href="javascript:;"><%= music[i].musicName %></a></span>
+                    <span class="singerName"><a href="http://localhost:3000/singerList/singer?singerName=<%= music[i].singerName %>"><%= music[i].singerName %></a></span>
                   </li>
                 <% } %>
               <% } %>
@@ -81,8 +81,8 @@
                 <% if (music[i].songType == '日韩' && k < 10) { %>
                   <% k++ %>
                   <li class="hot_song__item">
-                    <span class="musicName"><%= music[i].musicName %></span>
-                    <span class="singerName"><%= music[i].singerName %></span>
+                    <span class="musicName"><a href="javascript:;"><%= music[i].musicName %></a></span>
+                    <span class="singerName"><a href="http://localhost:3000/singerList/singer?singerName=<%= music[i].singerName %>"><%= music[i].singerName %></a></span>
                   </li>
                 <% } %>
               <% } %>
@@ -96,8 +96,8 @@
                 <% if (music[i].songType == '欧美' && k < 10) { %>
                   <% k++ %>
                   <li class="hot_song__item">
-                    <span class="musicName"><%= music[i].musicName %></span>
-                    <span class="singerName"><%= music[i].singerName %></span>
+                    <span class="musicName"><a href="javascript:;"><%= music[i].musicName %></a></span>
+                    <span class="singerName"><a href="http://localhost:3000/singerList/singer?singerName=<%= music[i].singerName %>"><%= music[i].singerName %></a></span>
                   </li>
                 <% } %>
               <% } %>

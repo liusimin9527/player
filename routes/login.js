@@ -30,7 +30,6 @@ router.post('/', function (req, res) {
           msg: 'error'
         };
       }
-
       res.send(data);
     });
   });

@@ -6,11 +6,14 @@ $(document).ready(function () {
   var index = parseInt(location.href.split('index=')[1]);
   var user = JSON.parse(localStorage.getItem('user'));
   var isClick = false;
+  var attens = [];
 
   /* 设置样式 */
   // 显示用户信息
-  if (user) {
-    var attens = user.attention.split(',');
+  if (user != null) {
+    if (user.attens != null) {
+      attens = user.attention.split(',');
+    }
 
     for (var i = 0; i < attens.length; i++) {   // 关注
       if (attens.indexOf($('.singer_name').html()) != -1) {
@@ -67,6 +70,13 @@ $(document).ready(function () {
     if (keyword == _href) {
       $('.chart_list').removeClass('chart_list--current');
       $(this).addClass('chart_list--current');
+    }
+  });
+  // 个人中心
+  $('.user_list li').each(function() {
+    if ($(this).index() == location.href.split('&')[1].split('=')[1]) {
+      $('.user_list a').removeClass('user_link--current');
+      $(this).children('a').addClass('user_link--current');
     }
   });
   // 显示上一页
@@ -154,20 +164,19 @@ $(document).ready(function () {
   $('.js_register').click(function () {
     var name = $('.register_name').val(),
         password = $('.register_pass').val(),
-        telephone = $('.telephone').val(),
-        data = {
-          name: name,
-          password: password,
-          telephone: telephone
-        };
+        telephone = $('.telephone').val();
 
     if (!telephone.length) {
       $('.register_tip').html('手机号不能为空');
     } else {
       $.ajax({
-        url: '/register',
+        url: 'http://localhost:3000/register',
         type: 'POST',
-        data: data,
+        data: {
+          name: name,
+          password: password,
+          telephone: telephone
+        },
         success: function (msg) {
           if (msg == '该手机号码已被注册') {
             $('.register_tip').html('该手机号码已被注册，请登录');
@@ -186,7 +195,7 @@ $(document).ready(function () {
   // 登录
   $('.js_login').click(function () {
     $.ajax({
-      url: '/login',
+      url: 'http://localhost:3000/login',
       type: 'POST',
       data: {
         name: $('.login_name').val(),
@@ -201,7 +210,9 @@ $(document).ready(function () {
             attention: data.attention
           };
           localStorage.setItem('user', JSON.stringify(user));
-          window.location.href = document.referrer;  // 返回上一页并刷新
+          alert("登录成功");
+          window.location.href = '/';
+          // window.location.href = document.referrer;  // 返回上一页并刷新
         } else if (data.msg == 'error') {
           $('.login_tip').html("用户名或密码不正确");
           $('.login_name').val('');  // 清空表单
@@ -218,7 +229,7 @@ $(document).ready(function () {
   // 忘记密码
   $('.js_forget').click(function () {
     $.ajax({
-      url: '/forget',
+      url: 'http://localhost:3000/forget',
       type: 'POST',
       data: {
         telephone: $('.forget_tel').val(),
@@ -234,9 +245,10 @@ $(document).ready(function () {
 
         if (data.msg == 'success') {
           localStorage.setItem('user', JSON.stringify(user));
-          location.href = '/';
-        } else {
-          $('.forget_tip').html("手机号码或验证码错误");
+          alert("登录成功");
+          // location.href = '/';
+        } else if (data.msg == 'default') {
+          $('.forget_tip').html("手机号码未注册");
         }
       }
     });
@@ -257,6 +269,8 @@ $(document).ready(function () {
           location.href="/result?musicName=" + keyword;
         } else if (data == '歌手') {
           location.href="/singerList/singer?singerName=" + keyword;
+        } else if (data == 'default') {
+          alert("搜索失败");
         }
       }
     });
@@ -322,24 +336,35 @@ $(document).ready(function () {
     });
   });
   // 热门歌曲播放
-  $('.hot_song__list li').click(function () {
-    var musicName = $(this).find('.musicName').html();
-    var singerName = $(this).find('.singerName').html();
+  $('.musicName').click(function () {
+    var musicName = $(this).children('a').html();
+    var singerName = $(this).siblings('.singerName').children('a').html();
     var target = 'http://localhost:3000/player?musicName=' + musicName + '&singerName=' + singerName;
     var data = {
       musicName: musicName,
       singerName: singerName
     };
 
-    musics.push(data);
-    localStorage.setItem("index", musics.length-1);
-    localStorage.setItem("musics", JSON.stringify(musics));
+    $.ajax({
+      url: 'http://localhost:3000/player',
+      type: 'POST',
+      data: {
+        uid: user.uId,
+        musicName: musicName,
+        singerName: singerName
+      },
+      success: function (data) {
+        musics.push(data);
+        localStorage.setItem("index", musics.length-1);
+        localStorage.setItem("musics", JSON.stringify(musics));
 
-    if (objWin == null || objWin.closed) {  // 打开页面
-      objWin = window.open(target);
-    } else {
-      objWin.location.replace(target);
-    }
+        if (objWin == null || objWin.closed) {  // 打开页面
+          objWin = window.open(target);
+        } else {
+          objWin.location.replace(target);
+        }
+      }
+    });
   });
   // 添加至我喜欢
   $('.js_append').click(function () {
@@ -361,11 +386,20 @@ $(document).ready(function () {
           musicName: musicName,
           singerName: singerName
         },
-        success: function (data) {
+        success: function () {
           $('.success').html('已添加至我喜欢').show();
+        },
+        error: function () {
+          $('.success').html('添加失败').show();
         }
       });
     }
+  });
+  $('.header_right_name').click(function() {
+    window.location.href = 'http://localhost:3000/personal?uid='+ user.uId +'&alt=0&index=0';
+  });
+  $('.user_list li').click(function () {
+    window.location.href = 'http://localhost:3000/personal?uid='+ user.uId +'&alt='+ $(this).index()+'&index=0';
   });
   // 添加至下载列表
   $('.js_download').click(function () {
@@ -400,32 +434,28 @@ $(document).ready(function () {
   });
   // 删除歌曲
   $('.js_delete').click(function (){
-    var user = JSON.parse(localStorage.getItem('user'));
     var musicName = $(this).parent().siblings('.music_name').html();
     var singerName = $(this).parent().parent().siblings('.song_singerName').children('a').html();
-    var alt = location.href.split('=')[1].split('&')[0];
+    var alt = location.href.split('&')[1].split('=')[1];
+    var timer = setTimeout(function () {
+      $('.success').hide();
+      location.reload();
+    }, 1000);
 
     $.ajax({
       url: 'http://localhost:3000/delete',
       type: 'POST',
       data: {
+        uid: user.uId,
         musicName: musicName,
         singerName: singerName,
         alt: alt
       },
       success: function (data) {
         if (data == 'success') {
-          // location.reload();
           $('.success').html('删除成功').show();
-          var timer = setTimeout(function () {
-            $('.success').hide();
-            location.reload();
-          }, 1000);
         } else if (data == 'default') {
           $('.success').html('删除失败').show();
-          var timer = setTimeout(function () {
-            $('.success').hide();
-          }, 2000);
         }
       }
     });
@@ -444,24 +474,71 @@ $(document).ready(function () {
 
     window.open('http://localhost:3000/comment?musicName=' + musicName + '&singerName='+singerName);
   });
+  $('.bottom_right_attention').click(function () {
+    var musicName = $('.songName').html().split('-')[0];
+    var singerName = $('.songName').html().split('-')[1];
+    var timer = setTimeout(function () {
+      $('.success').hide();
+    }, 2000);
+
+    // 判断用户是否已经登录
+    if (user == null) {
+      $('.success').html('请先登录').show();
+    } else {
+      $.ajax({
+        url: 'http://localhost:3000/append',
+        type: 'POST',
+        data: {
+          musicName: musicName,
+          singerName: singerName
+        },
+        success: function (data) {
+          $('.success').html('已添加至我喜欢').show();
+        }
+      });
+    }
+  });
+  // 评论页面中的播放
   $('.js_play_comment').click(function () {
     var musicName = $(this).parent().siblings('.comment_musicName').html();
     var singerName = $(this).parent().siblings('.comment_singerName').html();
-
     var target = 'http://localhost:3000/player?musicName=' + musicName + '&singerName=' + singerName;
     var data = {
       musicName: musicName,
       singerName: singerName
     };
 
-    musics.push(data);
-    localStorage.setItem("index", musics.length-1);
-    localStorage.setItem("musics", JSON.stringify(musics));
+    if (user == null) {
+      musics.push(datas);
+      localStorage.setItem("index", musics.length-1);
+      localStorage.setItem("musics", JSON.stringify(musics));
 
-    if (objWin == null || objWin.closed) {  // 打开页面
-      objWin = window.open(target);
+      if (objWin == null || objWin.closed) {  // 打开页面
+        objWin = window.open(target);
+      } else {
+        objWin.location.replace(target);
+      }
     } else {
-      objWin.location.replace(target);
+      $.ajax({
+        url: 'http://localhost:3000/player',
+        type: 'POST',
+        data: {
+          uid: user.uId,
+          musicName: musicName,
+          singerName: singerName
+        },
+        success: function (data) {
+          musics.push(datas);
+          localStorage.setItem("index", musics.length-1);
+          localStorage.setItem("musics", JSON.stringify(musics));
+
+          if (objWin == null || objWin.closed) {  // 打开页面
+            objWin = window.open(target);
+          } else {
+            objWin.location.replace(target);
+          }
+        }
+      });
     }
   });
   // 小图标-播放
@@ -469,19 +546,42 @@ $(document).ready(function () {
     var musicName = $(this).parent().siblings('.music_name').html();
     var singerName = $(this).parent().parent().siblings('.song_singerName').children('a').html();
     var target = 'http://localhost:3000/player?musicName=' + musicName + '&singerName=' + singerName;
-    var data = {
+    var datas = {
       musicName: musicName,
       singerName: singerName
     };
 
-    musics.push(data);
-    localStorage.setItem("index", musics.length-1);
-    localStorage.setItem("musics", JSON.stringify(musics));
+    if (user == null) {
+      musics.push(datas);
+      localStorage.setItem("index", musics.length-1);
+      localStorage.setItem("musics", JSON.stringify(musics));
 
-    if (objWin == null || objWin.closed) {  // 打开页面
-      objWin = window.open(target);
+      if (objWin == null || objWin.closed) {  // 打开页面
+        objWin = window.open(target);
+      } else {
+        objWin.location.replace(target);
+      }
     } else {
-      objWin.location.replace(target);
+      $.ajax({
+        url: 'http://localhost:3000/player',
+        type: 'POST',
+        data: {
+          uid: user.uId,
+          musicName: musicName,
+          singerName: singerName
+        },
+        success: function (data) {
+          musics.push(datas);
+          localStorage.setItem("index", musics.length-1);
+          localStorage.setItem("musics", JSON.stringify(musics));
+
+          if (objWin == null || objWin.closed) {  // 打开页面
+            objWin = window.open(target);
+          } else {
+            objWin.location.replace(target);
+          }
+        }
+      });
     }
   });
   $('.js_append_comment').click(function () {
@@ -539,16 +639,16 @@ $(document).ready(function () {
   });
   // 评论
   $('.js_comment').click(function () {
-    var data = {
-      uid: user.uId,
-      musicName: $('.comment_musicName').html(),
-      singerName: $('.comment_singerName').html(),
-      comment: $('.comment_content').val()
-    };
-
     if (user == null) {
       alert("请先登录");
     } else {
+      var data = {
+        uid: user.uId,
+        musicName: $('.comment_musicName').html(),
+        singerName: $('.comment_singerName').html(),
+        comment: $('.comment_content').val()
+      };
+
       $.ajax({
         url: 'http://localhost:3000/addComment?',
         type: 'POST',
@@ -565,27 +665,32 @@ $(document).ready(function () {
   });
   // 打榜
   $('.js_dabang').click(function () {
-    var musicName = $(this).siblings('.song_songName').children('a').html();
-    var singerName = $(this).siblings('.song_singerName').children('a').html();
     var timer = setTimeout(function () {
       $('.success').hide();
       location.reload();
     }, 2000);
 
-    $.ajax({
-      url: 'http://localhost:3000/dabang',
-      type: 'POST',
-      data: {
-        musicName: musicName,
-        singerName: singerName
-      },
-      success: function (data) {
-        if (data == 'success') {
-          $('.success').html("打榜成功").show();
-        } else if (data == 'defalt') {
-          $('.success').html("打榜失败").show();
+    if (user == null) {
+      $('.success').html("请先登录").show();
+    } else {
+      var musicName = $(this).siblings('.song_songName').children('a').html();
+      var singerName = $(this).siblings('.song_singerName').children('a').html();
+
+      $.ajax({
+        url: 'http://localhost:3000/dabang',
+        type: 'POST',
+        data: {
+          musicName: musicName,
+          singerName: singerName
+        },
+        success: function (data) {
+          if (data == 'success') {
+            $('.success').html("打榜成功").show();
+          } else if (data == 'defalt') {
+            $('.success').html("打榜失败").show();
+          }
         }
-      }
-    });
+      });
+    }
   });
 });

@@ -137,7 +137,6 @@
 }
 .hot_song__item {
   padding: 7px 26px;
-  cursor: pointer;
   font-size: 14px;
   color: #e8e8e8;
   overflow: hidden;
@@ -166,9 +165,17 @@
   width: 180px;
   overflow: hidden;
 }
+.hot_song__item a {
+  display: block;
+  color: #e8e8e8;
+}
+.hot_song__item a:hover {
+  color: #666;
+}
 .hot_song__item .singerName {
   float: right;
   width: 60px;
+  height: 30px;
   overflow: hidden;
 }
 .poster-main {
